@@ -202,11 +202,13 @@ public class Main {
 				/* colisões player - projeteis (inimigo) */
 				
 				for(int i = 0; i < e_projectile_states.length; i++){
-					
+					//dx, dy e dist são as distâncias entre os projéteis inimigos e
+					//o personagem
 					double dx = e_projectile_X[i] - player_X;
 					double dy = e_projectile_Y[i] - player_Y;
 					double dist = Math.sqrt(dx * dx + dy * dy);
-					
+					//aqui se a distancia for menor que a soma do raio do projétil
+					//do inimigo e do jogador, ocorre uma explosão
 					if(dist < (player_radius + e_projectile_radius) * 0.8){
 						
 						player_state = EXPLODING;
@@ -218,11 +220,13 @@ public class Main {
 				/* colisões player - inimigos */
 							
 				for(int i = 0; i < enemy1_states.length; i++){
-					
+					//dx, dy e dist são a distância entre o personagem
+					//e o inimigo 1
 					double dx = enemy1_X[i] - player_X;
 					double dy = enemy1_Y[i] - player_Y;
 					double dist = Math.sqrt(dx * dx + dy * dy);
-					
+					//aqui é testado se o inimigo1 entrou em colisão com o jogador
+					//caso tenha, ocorre uma explosão
 					if(dist < (player_radius + enemy1_radius) * 0.8){
 						
 						player_state = EXPLODING;
@@ -232,11 +236,13 @@ public class Main {
 				}
 				
 				for(int i = 0; i < enemy2_states.length; i++){
-					
+					//dx, dy e dist são a distância entre o personagem
+					//e o inimigo 2
 					double dx = enemy2_X[i] - player_X;
 					double dy = enemy2_Y[i] - player_Y;
 					double dist = Math.sqrt(dx * dx + dy * dy);
-					
+					//aqui é testado se o inimigo2 entrou em colisão com o jogador
+					//caso tenha, ocorre uma explosão					
 					if(dist < (player_radius + enemy2_radius) * 0.8){
 						
 						player_state = EXPLODING;
@@ -251,13 +257,14 @@ public class Main {
 			for(int k = 0; k < projectile_states.length; k++){
 				
 				for(int i = 0; i < enemy1_states.length; i++){
-										
+					//se os inimigos1 na tela estiverem ACTIVE será feito o cálculo
+					//da distância entre os projéteis do jogador e o inimigo1 ativo
 					if(enemy1_states[i] == ACTIVE){
 					
 						double dx = enemy1_X[i] - projectile_X[k];
 						double dy = enemy1_Y[i] - projectile_Y[k];
 						double dist = Math.sqrt(dx * dx + dy * dy);
-						
+						//caso a condição seja satisfeita o inimigo1 será explodido
 						if(dist < enemy1_radius){
 							
 							enemy1_states[i] = EXPLODING;
@@ -268,13 +275,14 @@ public class Main {
 				}
 				
 				for(int i = 0; i < enemy2_states.length; i++){
-					
+					//se os inimigos2 na tela estiverem ACTIVE será feito o cálculo
+					//da distância entre os projéteis do jogador e o inimigo2 ativo					
 					if(enemy2_states[i] == ACTIVE){
 						
 						double dx = enemy2_X[i] - projectile_X[k];
 						double dy = enemy2_Y[i] - projectile_Y[k];
 						double dist = Math.sqrt(dx * dx + dy * dy);
-						
+						//caso a condição seja satisfeita o inimigo1 será explodido
 						if(dist < enemy2_radius){
 							
 							enemy2_states[i] = EXPLODING;
@@ -319,6 +327,7 @@ public class Main {
 						
 						e_projectile_states[i] = INACTIVE;
 					}
+					//se o projétil inimigo não sair da tela ele se movimenta
 					else {
 					
 						e_projectile_X[i] += e_projectile_VX[i] * delta;
@@ -343,27 +352,31 @@ public class Main {
 					
 					/* verificando se inimigo saiu da tela */
 					if(enemy1_Y[i] > GameLib.HEIGHT + 10) {
-						
+						//se ele sair da tela a instância fica como inativa
+						//para poder liberar espaço para os novos inimigos1
 						enemy1_states[i] = INACTIVE;
 					}
 					else {
-					
+						//se ele não sair da tela, sua posição e ângulo é alterada por meio de um
+						//cálculo de velocidade
 						enemy1_X[i] += enemy1_V[i] * Math.cos(enemy1_angle[i]) * delta;
 						enemy1_Y[i] += enemy1_V[i] * Math.sin(enemy1_angle[i]) * delta * (-1.0);
 						enemy1_angle[i] += enemy1_RV[i] * delta;
-						
+						//se o inimigo1 estiver acima do personagem e o tempo atual for maior
+						//que o tempo do próximo tiro acontece um disparo
 						if(currentTime > enemy1_nextShoot[i] && enemy1_Y[i] < player_Y){
-																							
+							//caso a condição seja satisfeita será procurado um índice de instância 
+							//INACTIVE de projétil
 							int free = findFreeIndex(e_projectile_states);
-							
+							//Aqui o projétil será instanciado com o índice encontrado
 							if(free < e_projectile_states.length){
-								
+				
 								e_projectile_X[free] = enemy1_X[i];
 								e_projectile_Y[free] = enemy1_Y[i];
 								e_projectile_VX[free] = Math.cos(enemy1_angle[i]) * 0.45;
 								e_projectile_VY[free] = Math.sin(enemy1_angle[i]) * 0.45 * (-1.0);
 								e_projectile_states[free] = 1;
-								
+								//o tempo do próximo disparo é atualizado
 								enemy1_nextShoot[i] = (long) (currentTime + 200 + Math.random() * 500);
 							}
 						}
