@@ -339,7 +339,7 @@ public class Main {
 			/* inimigos tipo 1 */
 			
 			for(int i = 0; i < enemy1_states.length; i++){
-				
+				//se o inimigo for explodido aquela posição do vetor passa a ser inativa
 				if(enemy1_states[i] == EXPLODING){
 					
 					if(currentTime > enemy1_explosion_end[i]){
@@ -387,7 +387,7 @@ public class Main {
 			/* inimigos tipo 2 */
 			
 			for(int i = 0; i < enemy2_states.length; i++){
-				
+				//se o inimigo for explodido aquela posição do vetor passa a ser inativa
 				if(enemy2_states[i] == EXPLODING){
 					
 					if(currentTime > enemy2_explosion_end[i]){
@@ -405,21 +405,24 @@ public class Main {
 					}
 					else {
 						
-						boolean shootNow = false;
+						boolean shootNow = false;//variável que autoriza o uso de projetéis
 						double previousY = enemy2_Y[i];
-												
+						//caso o inimigo2 esteja ativo são feitos os calculos e atribuições
+						//para determinar sua movimentação
 						enemy2_X[i] += enemy2_V[i] * Math.cos(enemy2_angle[i]) * delta;
 						enemy2_Y[i] += enemy2_V[i] * Math.sin(enemy2_angle[i]) * delta * (-1.0);
 						enemy2_angle[i] += enemy2_RV[i] * delta;
 						
 						double threshold = GameLib.HEIGHT * 0.30;
-						
+						//dependendo de onde o inimigo 2 estiver na tela a sua rotação
+						//é modificada
 						if(previousY < threshold && enemy2_Y[i] >= threshold) {
 							
 							if(enemy2_X[i] < GameLib.WIDTH / 2) enemy2_RV[i] = 0.003;
 							else enemy2_RV[i] = -0.003;
 						}
-						
+						//aqui dependendo de algumas condições é ativada a variavél
+						//shootNow que permite o disparo de projéteis pelo inimigo2
 						if(enemy2_RV[i] > 0 && Math.abs(enemy2_angle[i] - 3 * Math.PI) < 0.05){
 							
 							enemy2_RV[i] = 0.0;
@@ -433,10 +436,11 @@ public class Main {
 							enemy2_angle[i] = 0.0;
 							shootNow = true;
 						}
-																		
+						//aqui é determinado como os disparos de inimigo2 serão feitos						
 						if(shootNow){
 
 							double [] angles = { Math.PI/2 + Math.PI/8, Math.PI/2, Math.PI/2 - Math.PI/8 };
+							// aqui são procuradas instâncias livres de projéteis para serem usadas
 							int [] freeArray = findFreeIndex(e_projectile_states, angles.length);
 
 							for(int k = 0; k < freeArray.length; k++){
@@ -466,7 +470,7 @@ public class Main {
 			if(currentTime > nextEnemy1){
 				
 				int free = findFreeIndex(enemy1_states);
-								
+				//instancia novos inimigos 1				
 				if(free < enemy1_states.length){
 					
 					enemy1_X[free] = Math.random() * (GameLib.WIDTH - 20.0) + 10.0;
@@ -485,7 +489,7 @@ public class Main {
 			if(currentTime > nextEnemy2){
 				
 				int free = findFreeIndex(enemy2_states);
-								
+				//instancia inimigos2				
 				if(free < enemy2_states.length){
 					
 					enemy2_X[free] = enemy2_spawnX;
@@ -535,7 +539,7 @@ public class Main {
 					if(currentTime > player_nextShot){
 						
 						int free = findFreeIndex(projectile_states);
-												
+						//aqui são instanciados os projéteis do personagem						
 						if(free < projectile_states.length){
 							
 							projectile_X[free] = player_X;
