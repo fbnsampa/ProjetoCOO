@@ -2,8 +2,6 @@ package refatorado;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Toolkit;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 import javax.swing.JFrame;
 
@@ -27,7 +25,7 @@ import javax.swing.JFrame;
 /***********************************************************************/
 
 public class GameLib {
-	
+	//alteração inútil
 	public static final int WIDTH = 480; //Largura da Tela 
 	public static final int HEIGHT = 720; //Altura da Tela
 	

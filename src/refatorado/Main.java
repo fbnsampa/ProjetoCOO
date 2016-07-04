@@ -1,8 +1,7 @@
 package refatorado;
-import java.awt.Color;
 import refatorado.Player;
 
-public class Main {
+public class Main extends Subject{
 	
 	/* Constantes relacionadas aos estados que os elementos   */
 	/* do jogo (player, projeteis ou inimigos) podem assumir. */
@@ -75,19 +74,11 @@ public class Main {
 		currentTime = System.currentTimeMillis();
 		
 		Player player = new Player();
-		Projectile pprojectile = new Projectile();
-		Enemy1 enemy1 = new Enemy1();
-		Enemy2 enemy2 = new Enemy2();
+		Pprojectile pprojectile = new Pprojectile();
+		Ship ship = new Ship();
+		Worm worm = new Worm();
 		Eprojectile eprojectile = new Eprojectile();
 		Background background = new Background();
-		
-		/* inicializações */
-		
-		pprojectile.inicializaProjectile();
-		eprojectile.inicializaEprojectile();
-		enemy1.inicializaEnemy1();
-		enemy2.inicializaEnemy2();
-		background.inicializaBackground();
 						
 		/* iniciado interface gráfica */
 		
@@ -128,29 +119,29 @@ public class Main {
 			/* Verificação de colisões */
 			/***************************/
 						
-			player.verificaColisaoPlayer(pprojectile, eprojectile, enemy1, enemy2);
+			player.verificaColisaoPlayer(pprojectile, eprojectile, ship, worm);
 				
 			/***************************/
 			/* Atualizações de estados */
 			/***************************/
 			
 			/* projeteis (player) */
-			pprojectile.atualizaProjectile();
+			pprojectile.atualiza();
 			
 			/* projeteis (inimigos) */
-			eprojectile.atualizaEprojectile();
+			eprojectile.atualiza();
 			
 			/* inimigos tipo 1 */
-			enemy1.atualizaEnemy1(eprojectile, player);
+			ship.atualiza(eprojectile, player);
 			
 			/* inimigos tipo 2 */
-			enemy2.atualizaEnemy2(eprojectile);
+			worm.atualiza(eprojectile);
 			
 			/* verificando se novos inimigos (tipo 1) devem ser "lançados" */
-			enemy1.verificaEnemy1();
+			ship.verifica();
 			
 			/* verificando se novos inimigos (tipo 2) devem ser "lançados" */
-			enemy2.verificaEnemy2();
+			worm.verifica();
 			
 			/* Verificando se a explosão do player já acabou.         */
 			/* Ao final da explosão, o player volta a ser controlável */
@@ -166,22 +157,22 @@ public class Main {
 			/*******************/
 			
 			/* desenhando plano fundo*/
-			background.desenhaBackground();
+			background.desenha();
 						
 			/* desenhando player */
-			player.desenhaPlayer();
+			player.desenha();
 				
 			/* desenhando projeteis (player) */
-			pprojectile.desenhaProjectile();
+			pprojectile.desenha();
 			
 			/* desenhando projeteis (inimigos) */
-			eprojectile.desenhaEprojectile();
+			eprojectile.desenha();
 			
 			/* desenhando inimigos (tipo 1) */
-			enemy1.desenhaEnemy1();
+			ship.desenha();
 			
 			/* desenhando inimigos (tipo 2) */
-			enemy2.desenhaEnemy2();
+			worm.desenha();
 			
 			/* chama a display() da classe GameLib atualiza o desenho exibido pela interface do jogo. */
 			
