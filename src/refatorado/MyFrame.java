@@ -1,6 +1,5 @@
 package refatorado;
 import java.awt.Graphics;
-import java.awt.event.KeyAdapter;
 import javax.swing.JFrame;
 
 @SuppressWarnings("serial")
