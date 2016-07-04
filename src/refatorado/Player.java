@@ -10,7 +10,7 @@ class Player implements Observer{
 	double explosion_start;					// instante do início da explosão
 	double explosion_end;					// instante do final da explosão
 	long nextShot;							// instante a partir do qual pode haver um próximo tiro
-
+	boolean exploding;
 
 	Player(){
 		state = Main.ACTIVE;
@@ -20,6 +20,7 @@ class Player implements Observer{
 		explosion_start = 0;
 		explosion_end = 0;
 		nextShot = Main.currentTime;
+		exploding = false;
 	}
 	
 	void verificaColisaoPlayer(Pprojectile pprojectile, Eprojectile eprojectile, Ship ship, Worm worm){
@@ -37,7 +38,8 @@ class Player implements Observer{
 				//do inimigo e do jogador, ocorre uma explosão
 				if(dist < (radius + eprojectile.radius) * 0.8){
 					
-					state = Main.EXPLODING;
+					state = Main.EXPLODING;//a ser removido
+					exploding = true;
 					explosion_start = Main.currentTime;
 					explosion_end = Main.currentTime + 2000;
 				}
@@ -54,7 +56,8 @@ class Player implements Observer{
 				//aqui é testado se o inimigo1 entrou em colisão com o jogador
 				//caso tenha, ocorre uma explosão
 				if(dist < (radius + ship.radius) * 0.8){
-					state = Main.EXPLODING;
+					state = Main.EXPLODING;//a ser removido
+					exploding = true;
 					explosion_start = Main.currentTime;
 					explosion_end = Main.currentTime + 2000;
 				}
@@ -69,7 +72,8 @@ class Player implements Observer{
 				//aqui é testado se o inimigo2 entrou em colisão com o jogador
 				//caso tenha, ocorre uma explosão					
 				if(dist < (radius + worm.radius) * 0.8){
-					state = Main.EXPLODING;
+					state = Main.EXPLODING;// a ser removido
+					exploding = true;
 					explosion_start = Main.currentTime;
 					explosion_end = Main.currentTime + 2000;
 				}
@@ -91,7 +95,8 @@ class Player implements Observer{
 					//caso a condição seja satisfeita o inimigo1 será explodido
 					if(dist < ship.radius){
 						
-						ship.states[i] = Main.EXPLODING;
+						ship.states[i] = Main.EXPLODING;// a ser excluido
+						ship.exploding = true;
 						ship.explosion_start[i] = Main.currentTime;
 						ship.explosion_end[i] = Main.currentTime + 500;
 					}
@@ -109,7 +114,8 @@ class Player implements Observer{
 					
 					//caso a condição seja satisfeita o inimigo1 será explodido
 					if(dist < worm.radius){
-						worm.states[i] = Main.EXPLODING;
+						worm.states[i] = Main.EXPLODING;// a ser excluido
+						worm.exploding = true;
 						worm.explosion_start[i] = Main.currentTime;
 						worm.explosion_end[i] = Main.currentTime + 500;
 					}
