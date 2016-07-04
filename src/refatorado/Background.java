@@ -25,10 +25,7 @@ class Background {
 		background2_Y = new double[50];
 		background2_speed = 0.045;
 		background2_count = 0.0;
-
-	}
-	
-	void inicializaBackground(){
+		
 		for(int i = 0; i < background1_X.length; i++){
 			background1_X[i] = Math.random() * GameLib.WIDTH;
 			background1_Y[i] = Math.random() * GameLib.HEIGHT;
@@ -38,7 +35,9 @@ class Background {
 			background2_X[i] = Math.random() * GameLib.WIDTH;
 			background2_Y[i] = Math.random() * GameLib.HEIGHT;
 		}
+
 	}
+	
 	void desenhaBackground(){
 		/* desenhando plano fundo distante */
 		

@@ -9,6 +9,7 @@ public class Worm extends Enemy implements EnemyInterface {
 	int count;					// contagem de inimigos tipo 2 (usada na "formação de voo")
 
 	public Worm(){
+		super(10);
 		int size = 10;
 		states = new int[size];
 		V = new double[size];
@@ -21,10 +22,6 @@ public class Worm extends Enemy implements EnemyInterface {
 		next = Main.currentTime + 7000;
 		position = new Cordinate [size];
 		for (int i = 0; i < size; i++) position[i] = new Cordinate();
-	}
-	
-	public void inicializa(){
-		for(int i = 0; i < states.length; i++) states[i] = Main.INACTIVE;
 	}
 	
 	public void atualiza(Eprojectile eprojectile){

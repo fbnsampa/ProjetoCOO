@@ -7,7 +7,7 @@ class Eprojectile extends Projectile {
 	double radius;				// raio (tamanho dos projéteis inimigos)
 	
 	Eprojectile(){
-		super();
+		super(200);
 		int size = 200; 
 		states = new int[size];
 		position = new Cordinate [size];

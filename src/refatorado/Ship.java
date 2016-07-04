@@ -6,7 +6,7 @@ public class Ship extends Enemy implements EnemyInterface  {
 	long [] nextShoot;			// instantes do próximo tiro
 	
 	public Ship (){
-		super();
+		super(10);
 		int size = 10; 
 		states = new int[size];
 		V = new double[size];
@@ -18,10 +18,6 @@ public class Ship extends Enemy implements EnemyInterface  {
 		next = Main.currentTime + 2000;
 		position = new Cordinate [size];
 		for (int i = 0; i < size; i++) position[i] = new Cordinate();
-	}
-	
-	public void inicializa(){
-		for(int i = 0; i < states.length; i++) states[i] = Main.INACTIVE;
 	}
 	
 	public void atualiza(Eprojectile eprojectile, Player player){

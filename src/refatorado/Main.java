@@ -79,14 +79,6 @@ public class Main {
 		Worm worm = new Worm();
 		Eprojectile eprojectile = new Eprojectile();
 		Background background = new Background();
-		
-		/* inicializações */
-		
-		pprojectile.inicializa();
-		eprojectile.inicializa();
-		ship.inicializa();
-		worm.inicializa();
-		background.inicializaBackground();
 						
 		/* iniciado interface gráfica */
 		

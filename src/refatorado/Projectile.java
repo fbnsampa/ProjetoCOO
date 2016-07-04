@@ -6,7 +6,8 @@ abstract class Projectile {
 	Cordinate [] position;
 	Cordinate [] speedy;
 
-	void inicializa(){
+	Projectile(int size){
+		states = new int[size];
 		for(int i = 0; i < states.length; i++) states[i] = Main.INACTIVE;
 	}
 	

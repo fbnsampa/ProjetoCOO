@@ -6,7 +6,7 @@ class Pprojectile extends Projectile{
 	/* variáveis dos projéteis disparados pelo player */
 
 	Pprojectile(){
-		super();
+		super(10);
 		int size = 10; 
 		states = new int[size];
 		position = new Cordinate [size];

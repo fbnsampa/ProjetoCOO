@@ -13,4 +13,9 @@ abstract class Enemy {
 	double radius;				// raio (tamanho do inimigo 1)
 	long next;					// instante em que um novo inimigo 1 deve aparecer
 	
+	Enemy(int size){
+		states = new int[size];
+		for(int i = 0; i < states.length; i++) states[i] = Main.INACTIVE;
+	}
+	
 }
