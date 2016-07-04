@@ -1,6 +1,6 @@
 package refatorado;
 
-abstract class Projectile {
+abstract class Projectile implements Observer {
 	
 	int [] states;				// estados
 	Cordinate [] position;
@@ -11,7 +11,7 @@ abstract class Projectile {
 		for(int i = 0; i < states.length; i++) states[i] = Main.INACTIVE;
 	}
 	
-	void atualiza(){
+	public void atualiza(){
 		/* projeteis (player) */
 		
 		for(int i = 0; i < states.length; i++){

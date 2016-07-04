@@ -1,7 +1,7 @@
 package refatorado;
 import refatorado.Player;
 
-public class Main {
+public class Main extends Subject{
 	
 	/* Constantes relacionadas aos estados que os elementos   */
 	/* do jogo (player, projeteis ou inimigos) podem assumir. */
@@ -157,7 +157,7 @@ public class Main {
 			/*******************/
 			
 			/* desenhando plano fundo*/
-			background.desenhaBackground();
+			background.desenha();
 						
 			/* desenhando player */
 			player.desenha();

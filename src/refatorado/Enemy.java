@@ -1,6 +1,6 @@
 package refatorado;
 
-abstract class Enemy {
+abstract class Enemy implements Observer{
 	/* variáveis dos inimigos tipo 1 */
 	
 	int [] states;				// estados
@@ -16,6 +16,10 @@ abstract class Enemy {
 	Enemy(int size){
 		states = new int[size];
 		for(int i = 0; i < states.length; i++) states[i] = Main.INACTIVE;
+	}
+	
+	public void atualiza(){
+	
 	}
 	
 }

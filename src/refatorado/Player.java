@@ -1,7 +1,7 @@
 package refatorado;
 import java.awt.Color;
 
-class Player {
+class Player implements Observer{
 	
 	int state;								// estado
 	Cordinate position;
@@ -179,6 +179,10 @@ class Player {
 			GameLib.setColor(Color.BLUE);
 			GameLib.drawPlayer(position.x, position.y, radius);
 		}
+	}
+	
+	public void atualiza(){
+		
 	}
 
 }

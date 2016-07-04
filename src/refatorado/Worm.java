@@ -157,9 +157,4 @@ public class Worm extends Enemy implements EnemyInterface {
 		}
 	}
 
-	@Override
-	public void atualiza() {
-		// TODO Auto-generated method stub
-		
-	}
 }
