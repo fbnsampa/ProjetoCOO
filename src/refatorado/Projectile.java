@@ -2,13 +2,15 @@ package refatorado;
 
 abstract class Projectile implements Observer {
 	
-	int [] states;				// estados
-	Cordinate [] position;
-	Cordinate [] speedy;
+	//int [] states;				// estados
+	Cordinate /*[]*/ position;
+	Cordinate /*[]*/ speedy;
 
-	Projectile(int size){
-		states = new int[size];
-		for(int i = 0; i < states.length; i++) states[i] = Main.INACTIVE;
+	Projectile(/*int size*/){
+		//states = new int[size];
+		//for(int i = 0; i < states.length; i++) states[i] = Main.INACTIVE;
+		position = new Cordinate();
+		speedy = new Cordinate();
 	}
 	
 	public void atualiza(){

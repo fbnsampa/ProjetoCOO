@@ -3,7 +3,7 @@ import java.awt.Color;
 
 class Player implements Observer{
 	
-	int state;								// estado
+	//int state;								// estado
 	Cordinate position;
 	Cordinate speedy;
 	double radius;							// raio (tamanho aproximado do player)
@@ -13,7 +13,7 @@ class Player implements Observer{
 	boolean exploding;
 
 	Player(){
-		state = Main.ACTIVE;
+		//state = Main.ACTIVE;
 		position = new Cordinate(GameLib.WIDTH / 2, GameLib.HEIGHT * 0.90);
 		speedy = new Cordinate (0.25, 0.25);
 		radius = 12.0;

@@ -9,19 +9,19 @@ public class Worm extends Enemy implements EnemyInterface {
 	int count;					// contagem de inimigos tipo 2 (usada na "formação de voo")
 
 	public Worm(){
-		super(10);
-		int size = 10;
-		states = new int[size];
-		V = new double[size];
-		RV = new double[size];
-		explosion_start = new double[size];
-		explosion_end = new double[size];
+		super(/*10*/);
+//		int size = 10;
+//		states = new int[size];
+//		V = new double[size];
+//		RV = new double[size];
+//		explosion_start = new double[size];
+//		explosion_end = new double[size];
 		spawnX = GameLib.WIDTH * 0.20;
 		count = 0;
 		radius = 12.0;
 		next = Main.currentTime + 7000;
-		position = new Cordinate [size];
-		for (int i = 0; i < size; i++) position[i] = new Cordinate();
+		//position = new Cordinate [size];
+		//for (int i = 0; i < size; i++) position[i] = new Cordinate();
 	}
 	
 	public void atualiza(Eprojectile eprojectile){

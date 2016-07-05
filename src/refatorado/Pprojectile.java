@@ -6,15 +6,15 @@ class Pprojectile extends Projectile{
 	/* variáveis dos projéteis disparados pelo player */
 
 	Pprojectile(){
-		super(10);
-		int size = 10; 
-		states = new int[size];
-		position = new Cordinate [size];
-		speedy = new Cordinate [size];
-		for (int i = 0; i < size; i++){
+		super(/*10*/);
+		//int size = 10; 
+		//states = new int[size];
+		//position = new Cordinate [size];
+		//speedy = new Cordinate [size];
+		/*for (int i = 0; i < size; i++){
 			position[i] = new Cordinate();
 			speedy[i] = new Cordinate();
-		}
+		}*/
 	}
 	
 	void desenha(){

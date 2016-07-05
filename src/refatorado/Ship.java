@@ -3,21 +3,21 @@ import java.awt.Color;
 
 public class Ship extends Enemy implements EnemyInterface  {
 	
-	long [] nextShoot;			// instantes do próximo tiro
+	long /*[]*/ nextShoot;			// instantes do próximo tiro
 	
 	public Ship (){
-		super(10);
-		int size = 10; 
-		states = new int[size];
-		V = new double[size];
-		RV = new double[size];
-		explosion_start = new double[size];
-		explosion_end = new double[size];
-		nextShoot = new long[size];
+		super(/*10*/);
+		//int size = 10; 
+		//states = new int[size];
+//		V = new double[size];
+//		RV = new double[size];
+//		explosion_start = new double[size];
+//		explosion_end = new double[size];
+//		nextShoot = new long[size];
 		radius = 9.0;
 		next = Main.currentTime + 2000;
-		position = new Cordinate [size];
-		for (int i = 0; i < size; i++) position[i] = new Cordinate();
+		//position = new Cordinate [size];
+		//for (int i = 0; i < size; i++) position[i] = new Cordinate();
 	}
 	
 	public void atualiza(Eprojectile eprojectile, Player player){
