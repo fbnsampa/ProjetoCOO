@@ -22,47 +22,6 @@ public class Main{
 		while(System.currentTimeMillis() < time) Thread.yield();
 	}
 	
-	/* Encontra e devolve o primeiro índice do  */
-	/* array referente a uma posição "inativa". */
-	
-	public static int findFreeIndex(int [] stateArray){
-		
-		int i;
-		
-		for(i = 0; i < stateArray.length; i++){
-			
-			if(stateArray[i] == INACTIVE) break;
-		}
-		
-		return i;
-	}
-	
-	
-	/* Encontra e devolve o conjunto de índices (a quantidade */
-	/* de índices é defnida através do parâmetro "amount") do */
-	/* array, referentes a posições "inativas".               */ 
-
-	public static int [] findFreeIndex(int [] stateArray, int amount){
-
-		int i, k;
-		int [] freeArray = { stateArray.length, stateArray.length, stateArray.length };
-		
-		for(i = 0, k = 0; i < stateArray.length && k < amount; i++){
-				
-			if(stateArray[i] == INACTIVE) { 
-				
-				freeArray[k] = i; 
-				k++;
-			}
-		}
-		
-		return freeArray;
-	}
-	
-	
-	
-	
-	
 	/* Método principal */
 	
 	public static void main(String [] args){
@@ -74,15 +33,6 @@ public class Main{
 		Level level = new Level();
 		Background background = new Background();
 
-		
-		
-		
-		
-//		for (Pprojectile aux : pprojectiles){
-//			if (aux.isOutOfScreen()) pprojectiles.remove(aux);
-//			else aux.atualiza();
-//		}
-						
 		/* iniciado interface gráfica */
 		
 		GameLib.initGraphics();

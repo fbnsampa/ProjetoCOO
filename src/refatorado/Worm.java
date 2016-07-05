@@ -109,8 +109,9 @@ public class Worm extends Enemy implements EnemyInterface {
 	}
 	
 	public void desenha(){
-		for (Eprojectile projectile : projectiles)
+		for (Eprojectile projectile : projectiles){
 			projectile.desenha();
+		}
 		
 		if(exploding){
 			double alpha = (Level.currentTime - explosion_start) / (explosion_end - explosion_start);

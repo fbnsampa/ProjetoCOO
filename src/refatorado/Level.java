@@ -6,12 +6,17 @@ public class Level extends Subject<Enemy>{
 	static long currentTime;
 	static long delta;
 	Player player;
+	LinkedList <Enemy> explodingEnemys;
+
 	
 	public Level (){
 		super();
+		explodingEnemys = new LinkedList<Enemy>();
 		player = Main.player;
 		currentTime = 0;
 		delta = 0;
+		Ship.next = System.currentTimeMillis() + 2000; //bizarro porem provisorio
+		Worm.next = System.currentTimeMillis() + 7000; //bizarro porem provisorio
 	}
 	
 	public void load (String name){
@@ -52,8 +57,7 @@ public class Level extends Subject<Enemy>{
 
 	//Verifica se os projéteis atirados pelo player destruiu algum inimigo
 	//Retorna uma lista ligada com todos os inimigos destruidos
-	public LinkedList<Enemy> verifyEnemyColision (){
-		LinkedList <Enemy> resp = new LinkedList <Enemy>();
+	public void verifyEnemyColision (){
 		for (Pprojectile projectile : player.projectiles){
 			for (Enemy enemy : observers){
 				if (!enemy.exploding){
@@ -64,17 +68,17 @@ public class Level extends Subject<Enemy>{
 						enemy.exploding = true;
 						enemy.explosion_start = currentTime;
 						enemy.explosion_end = currentTime + 500;
-						resp.add(enemy);
+						explodingEnemys.add(enemy);
 					}
 				}
 			}
 		}
-		return resp;
 	}
 	
 	public void launchEnemy (){
 		/* verificando se novos inimigos (tipo 1) devem ser "lançados" */
 		//lançando um ship
+		
 		if(currentTime > Ship.next){
 			observers.add(new Ship());
 			Ship.next = Level.currentTime + 500;
@@ -86,7 +90,6 @@ public class Level extends Subject<Enemy>{
 	}
 	
 	public void run(){
-		
 		/* Usada para atualizar o estado dos elementos do jogo    */
 		/* (player, projéteis e inimigos) "delta" indica quantos  */
 		/* ms se passaram desde a última atualização.             */
@@ -97,44 +100,50 @@ public class Level extends Subject<Enemy>{
 		
 		currentTime = System.currentTimeMillis();
 		
+		//System.out.println(currentTime + " : " + observers.size());
+		
+		
 		/***************************/
 		/* Verificação de colisões */
 		/***************************/
 					
 		if (!player.exploding) verifyPlayerColision();
-		LinkedList <Enemy> inactiveEnemys = verifyEnemyColision();
+		verifyEnemyColision();
 		
 		
 		/***************************/
 		/* Atualizações de estados */
 		/***************************/
 		
+		LinkedList <Enemy> inactiveEnemys = new LinkedList <Enemy>();
+		
 		for (Enemy enemy : observers){
-			if (enemy.isOutOfScreen()){
+			if (enemy.isOutOfScreen() && enemy.projectiles.size() == 0){
 				inactiveEnemys.add(enemy);
 			} else {
 				enemy.atualiza();
-				launchEnemy();
 			}
 		}
 		
+		launchEnemy();
 		player.atualiza();
 		
-
+		//if (!observers.isEmpty()) System.out.println(observers.get(0).projectiles.size());
+		
 		/*******************/
 		/* Desenho da cena */
 		/*******************/
 		
 		player.desenha();
-		
 		for (Enemy enemy : observers) enemy.desenha();
 		
 		//Elimina os inimigos destruidos da lista de observadores
-		if (!inactiveEnemys.isEmpty())
-			for (Enemy enemy : inactiveEnemys)
-				observers.remove(enemy);
-		
-		
+		for (Enemy enemy : explodingEnemys){
+			if (!enemy.exploding){
+				inactiveEnemys.add(enemy);
+			}
+		}
+		for (Enemy enemy : inactiveEnemys) observers.remove(enemy);
 		
 	}
 	

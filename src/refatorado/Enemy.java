@@ -23,7 +23,7 @@ abstract class Enemy implements Observer{
 	}
 	
 	public void desenha(){
-		
+		System.out.println("Teste");
 	}
 	
 	public boolean isOutOfScreen(){

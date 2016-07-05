@@ -1,5 +1,6 @@
 package refatorado;
 import java.awt.Color;
+import java.util.LinkedList;
 
 public class Ship extends Enemy implements EnemyInterface  {
 	static long next;
@@ -14,7 +15,7 @@ public class Ship extends Enemy implements EnemyInterface  {
 		RV = 0.0;
 		nextShoot = Level.currentTime + 500;
 		radius = 9.0;
-		next = Level.currentTime + 2000;
+		next = Level.currentTime + 500;
 	}
 	
 	public boolean isOutOfScreen(){
@@ -42,14 +43,20 @@ public class Ship extends Enemy implements EnemyInterface  {
 	}
 	
 	public void atualiza(){
+		
+		LinkedList <Eprojectile> inactiveProjectiles = new LinkedList <Eprojectile>();
+		
 		//atualizando os projeteis
 		for (Eprojectile projectile : projectiles){
 			if (projectile.position.y < 0){
-				projectiles.remove(projectile);
+				inactiveProjectiles.add(projectile);
 			} else {
 				projectile.atualiza();
 			}
 		}
+		
+		for (Eprojectile projectile : inactiveProjectiles)
+			projectiles.remove(projectile);
 		
 		//se o inimigo for explodido aquela posição do vetor passa a ser inativa
 		if(exploding){
@@ -57,8 +64,11 @@ public class Ship extends Enemy implements EnemyInterface  {
 				exploding = false;
 			}
 		} else {
-			move();
-			shoot();
+			if (!isOutOfScreen()){
+				move();
+				shoot();
+			}
+			
 		}
 	}
 	

@@ -80,13 +80,20 @@ class Player implements Observer{
 	}
 	
 	public void atualiza(){
+
+		LinkedList <Pprojectile> inactiveProjectiles = new LinkedList <Pprojectile>();
+		
 		for (Pprojectile projectile : projectiles){
 			if (projectile.position.y < 0){
-				projectiles.remove(projectile);
+				inactiveProjectiles.add(projectile);
 			} else {
 				projectile.atualiza();
 			}
 		}
+		
+		for (Pprojectile projectile : inactiveProjectiles)
+			projectiles.remove(projectile);
+		
 		verificaExplosionPlayer();
 		verificaEntradaPlayer();
 	}
