@@ -40,7 +40,7 @@ class Background {
 		/* desenhando plano fundo distante */
 		
 		GameLib.setColor(Color.DARK_GRAY);
-		background2_count += background2_speed * Main.delta;
+		background2_count += background2_speed * Level.delta;
 		
 		for(Cordinate aux : background2){
 			GameLib.fillRect(aux.x, (aux.y + background2_count) % GameLib.HEIGHT, 2, 2);
@@ -50,7 +50,7 @@ class Background {
 		/* desenhando plano de fundo próximo */
 		
 		GameLib.setColor(Color.GRAY);
-		background1_count += background1_speed * Main.delta;
+		background1_count += background1_speed * Level.delta;
 		
 		for(Cordinate aux : background1){
 			GameLib.fillRect(aux.x, (aux.y + background1_count) % GameLib.HEIGHT, 3, 3);
