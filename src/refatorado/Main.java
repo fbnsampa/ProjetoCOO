@@ -1,7 +1,6 @@
 package refatorado;
-import refatorado.Player;
 
-public class Main extends Subject{
+public class Main{
 	
 	/* Constantes relacionadas aos estados que os elementos   */
 	/* do jogo (player, projeteis ou inimigos) podem assumir. */
@@ -62,6 +61,10 @@ public class Main extends Subject{
 		return freeArray;
 	}
 	
+	
+	
+	
+	
 	/* Método principal */
 	
 	public static void main(String [] args){
@@ -74,11 +77,17 @@ public class Main extends Subject{
 		currentTime = System.currentTimeMillis();
 		
 		Player player = new Player();
-		Pprojectile pprojectile = new Pprojectile();
-		Ship ship = new Ship();
-		Worm worm = new Worm();
-		Eprojectile eprojectile = new Eprojectile();
+		Level level = new Level(player);
 		Background background = new Background();
+
+		
+		
+		
+		
+//		for (Pprojectile aux : pprojectiles){
+//			if (aux.isOutOfScreen()) pprojectiles.remove(aux);
+//			else aux.atualiza();
+//		}
 						
 		/* iniciado interface gráfica */
 		
@@ -105,76 +114,10 @@ public class Main extends Subject{
 		
 		while(running){
 		
-			/* Usada para atualizar o estado dos elementos do jogo    */
-			/* (player, projéteis e inimigos) "delta" indica quantos  */
-			/* ms se passaram desde a última atualização.             */
-			
-			delta = System.currentTimeMillis() - currentTime;
-			
-			/* Já a variável "currentTime" nos dá o timestamp atual.  */
-			
-			currentTime = System.currentTimeMillis();
-			
-			/***************************/
-			/* Verificação de colisões */
-			/***************************/
-						
-			player.verificaColisaoPlayer(pprojectile, eprojectile, ship, worm);
-				
-			/***************************/
-			/* Atualizações de estados */
-			/***************************/
-			
-			/* projeteis (player) */
-			pprojectile.atualiza();
-			
-			/* projeteis (inimigos) */
-			eprojectile.atualiza();
-			
-			/* inimigos tipo 1 */
-			ship.atualiza(eprojectile, player);
-			
-			/* inimigos tipo 2 */
-			worm.atualiza(eprojectile);
-			
-			/* verificando se novos inimigos (tipo 1) devem ser "lançados" */
-			ship.verifica();
-			
-			/* verificando se novos inimigos (tipo 2) devem ser "lançados" */
-			worm.verifica();
-			
-			/* Verificando se a explosão do player já acabou.         */
-			/* Ao final da explosão, o player volta a ser controlável */
-			player.verificaExplosionPlayer();
-			
-			/********************************************/
-			/* Verificando entrada do usuário (teclado) */
-			/********************************************/
-			player.verificaEntradaPlayer(pprojectile);
-			
-			/*******************/
-			/* Desenho da cena */
-			/*******************/
+			level.run();
 			
 			/* desenhando plano fundo*/
 			background.desenha();
-						
-			/* desenhando player */
-			player.desenha();
-				
-			/* desenhando projeteis (player) */
-			pprojectile.desenha();
-			
-			/* desenhando projeteis (inimigos) */
-			eprojectile.desenha();
-			
-			/* desenhando inimigos (tipo 1) */
-			ship.desenha();
-			
-			/* desenhando inimigos (tipo 2) */
-			worm.desenha();
-			
-			/* chama a display() da classe GameLib atualiza o desenho exibido pela interface do jogo. */
 			
 			GameLib.display();
 			

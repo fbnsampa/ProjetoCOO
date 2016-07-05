@@ -1,25 +1,27 @@
 package refatorado;
 import java.util.*;
 
-abstract class Subject {
-	List <Observer> observers;
+abstract class Subject <T extends Observer> {
+	List <T> observers;
 	
 	
 	public Subject (){
-		this.observers = new ArrayList <Observer>();
+		
+		observers = new ArrayList<T>(); 
+		
 	}
 	
-	void addObserver(Observer observer){
+	void addObserver(T observer){
 		this.observers.add(observer);
 	}
 	
-	void removeObserver(Observer observer){
+	void removeObserver(T observer){
 		this.observers.remove(observer);
 	}
 
 	void notifyObservers(){
-		for (Observer obs : observers){
-			obs.atualiza();
+		for (T observer : observers){
+			observer.atualiza();
 		}
 	}
 	

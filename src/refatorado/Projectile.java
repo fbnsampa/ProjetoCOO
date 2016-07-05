@@ -3,8 +3,8 @@ package refatorado;
 abstract class Projectile implements Observer {
 	
 	int [] states;				// estados
-	Cordinate [] position;
-	Cordinate [] speedy;
+	Cordinate position;
+	Cordinate speedy;
 
 	Projectile(int size){
 		states = new int[size];

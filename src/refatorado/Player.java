@@ -1,7 +1,9 @@
 package refatorado;
 import java.awt.Color;
+import java.util.*;
 
 class Player implements Observer{
+	List <Pprojectile> projectiles;
 	
 	int state;								// estado
 	Cordinate position;
@@ -13,6 +15,9 @@ class Player implements Observer{
 	boolean exploding;
 
 	Player(){
+		
+		projectiles = new ArrayList<Pprojectile>();
+		
 		state = Main.ACTIVE;
 		position = new Cordinate(GameLib.WIDTH / 2, GameLib.HEIGHT * 0.90);
 		speedy = new Cordinate (0.25, 0.25);
