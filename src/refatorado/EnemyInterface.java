@@ -1,6 +1,7 @@
 package refatorado;
 
 public interface EnemyInterface {
-	public void verifica();
 	public void desenha();
+	public boolean isOutOfScreen();
+	public void shoot();
 }
