@@ -24,109 +24,110 @@ class Player implements Observer{
 	}
 	
 	void verificaColisaoPlayer(Pprojectile pprojectile, Eprojectile eprojectile, Ship ship, Worm worm){
-		if(state == Main.ACTIVE){
+		//if(state == Main.ACTIVE){
 			
 			/* colisões player - projeteis (inimigo) */
 			
-			for(int i = 0; i < eprojectile.states.length; i++){
+			//for(int i = 0; i < eprojectile.states.length; i++){
 				//dx, dy e dist são as distâncias entre os projéteis inimigos e
 				//o personagem
-				double dx = eprojectile.position[i].x - position.x;
-				double dy = eprojectile.position[i].y - position.y;
+				double dx = eprojectile.position.x - position.x;
+				double dy = eprojectile.position.y - position.y;
 				double dist = Math.sqrt(dx * dx + dy * dy);
 				//aqui se a distancia for menor que a soma do raio do projétil
 				//do inimigo e do jogador, ocorre uma explosão
 				if(dist < (radius + eprojectile.radius) * 0.8){
 					
-					state = Main.EXPLODING;//a ser removido
+					//state = Main.EXPLODING;//a ser removido
 					exploding = true;
 					explosion_start = Main.currentTime;
 					explosion_end = Main.currentTime + 2000;
 				}
-			}
+			//}
 		
 			/* colisões player - inimigos */
 						
-			for(int i = 0; i < ship.states.length; i++){
+			//for(int i = 0; i < ship.states.length; i++){
 				//dx, dy e dist são a distância entre o personagem
 				//e o inimigo 1
-				double dx = ship.position[i].x - position.x;
-				double dy = ship.position[i].y - position.y;
+				double dx = ship.position.x - position.x;
+				double dy = ship.position.y - position.y;
 				double dist = Math.sqrt(dx * dx + dy * dy);
 				//aqui é testado se o inimigo1 entrou em colisão com o jogador
 				//caso tenha, ocorre uma explosão
 				if(dist < (radius + ship.radius) * 0.8){
-					state = Main.EXPLODING;//a ser removido
+					//state = Main.EXPLODING;//a ser removido
 					exploding = true;
 					explosion_start = Main.currentTime;
 					explosion_end = Main.currentTime + 2000;
 				}
-			}
+			//}
 			
-			for(int i = 0; i < worm.states.length; i++){
+			//for(int i = 0; i < worm.states.length; i++){
 				//dx, dy e dist são a distância entre o personagem
 				//e o inimigo 2
-				double dx = worm.position[i].x - position.x;
-				double dy = worm.position[i].y - position.y;
+				double dx = worm.position.x - position.x;
+				double dy = worm.position.y - position.y;
 				double dist = Math.sqrt(dx * dx + dy * dy);
 				//aqui é testado se o inimigo2 entrou em colisão com o jogador
 				//caso tenha, ocorre uma explosão					
 				if(dist < (radius + worm.radius) * 0.8){
-					state = Main.EXPLODING;// a ser removido
+					//state = Main.EXPLODING;// a ser removido
 					exploding = true;
 					explosion_start = Main.currentTime;
 					explosion_end = Main.currentTime + 2000;
 				}
-			}
-		}
+			//}
+		//}
 		/* colisões projeteis (player) - inimigos */
 		
-		for(int k = 0; k < pprojectile.states.length; k++){
+		//for(int k = 0; k < pprojectile.states.length; k++){
 			
-			for(int i = 0; i < ship.states.length; i++){
+			//for(int i = 0; i < ship.states.length; i++){
 				//se os inimigos1 na tela estiverem ACTIVE será feito o cálculo
 				//da distância entre os projéteis do jogador e o inimigo1 ativo
 				if(ship.states[i] == Main.ACTIVE){
 				
-					double dx = ship.position[i].x - pprojectile.position[k].x;
-					double dy = ship.position[i].y - pprojectile.position[k].y;
+					double dx = ship.position.x - pprojectile.position.x;
+					double dy = ship.position.y - pprojectile.position.y;
 					double dist = Math.sqrt(dx * dx + dy * dy);
 					
 					//caso a condição seja satisfeita o inimigo1 será explodido
 					if(dist < ship.radius){
 						
-						ship.states[i] = Main.EXPLODING;// a ser excluido
+						//ship.states[i] = Main.EXPLODING;// a ser excluido
 						ship.exploding = true;
-						ship.explosion_start[i] = Main.currentTime;
-						ship.explosion_end[i] = Main.currentTime + 500;
+						ship.explosion_start = Main.currentTime;
+						ship.explosion_end = Main.currentTime + 500;
 					}
 				}
-			}
+			//}
 			
-			for(int i = 0; i < worm.states.length; i++){
+			//for(int i = 0; i < worm.states.length; i++){
 				//se os inimigos2 na tela estiverem ACTIVE será feito o cálculo
 				//da distância entre os projéteis do jogador e o inimigo2 ativo					
 				if(worm.states[i] == Main.ACTIVE){
 					
-					double dx = worm.position[i].x - pprojectile.position[k].x;
-					double dy = worm.position[i].y - pprojectile.position[k].y;
+					double dx = worm.position.x - pprojectile.position.x;
+					double dy = worm.position.y - pprojectile.position.y;
 					double dist = Math.sqrt(dx * dx + dy * dy);
 					
 					//caso a condição seja satisfeita o inimigo1 será explodido
 					if(dist < worm.radius){
-						worm.states[i] = Main.EXPLODING;// a ser excluido
+						//worm.states[i] = Main.EXPLODING;// a ser excluido
 						worm.exploding = true;
-						worm.explosion_start[i] = Main.currentTime;
-						worm.explosion_end[i] = Main.currentTime + 500;
+						worm.explosion_start = Main.currentTime;
+						worm.explosion_end = Main.currentTime + 500;
 					}
 				}
-			}
-		}
+			//}
+		//}
 	}
 	void verificaExplosionPlayer(){
-		if(state == Main.EXPLODING){
+		if(exploding){
 			if(Main.currentTime > explosion_end){
-				state = Main.ACTIVE;
+				//state = Main.ACTIVE;
+				exploding = false;
 			}
 		}
 	}
@@ -136,7 +137,7 @@ class Player implements Observer{
 		/* Verificando entrada do usuário (teclado) */
 		/********************************************/
 		
-		if(state == Main.ACTIVE){
+		if(!exploding){
 			
 			if(GameLib.iskeyPressed(GameLib.KEY_UP)) position.y -= Main.delta * speedy.y;
 			if(GameLib.iskeyPressed(GameLib.KEY_DOWN)) position.y += Main.delta * speedy.y;
@@ -146,17 +147,17 @@ class Player implements Observer{
 				
 				if(Main.currentTime > nextShot){
 					
-					int free = Main.findFreeIndex(pprojectile.states);
+					//int free = Main.findFreeIndex(pprojectile.states);
 					//aqui são instanciados os projéteis do personagem						
-					if(free < pprojectile.states.length){
+					//if(free < pprojectile.states.length){
 						
-						pprojectile.position[free].x = position.x;
-						pprojectile.position[free].y = position.y - 2 * radius;
-						pprojectile.speedy[free].x = 0.0;
-						pprojectile.speedy[free].y = -1.0;
-						pprojectile.states[free] = 1;
+						pprojectile.position.x = position.x;
+						pprojectile.position.y = position.y - 2 * radius;
+						pprojectile.speedy.x = 0.0;
+						pprojectile.speedy.y = -1.0;
+						//pprojectile.states[free] = 1;
 						nextShot = Main.currentTime + 100;
-					}
+					//}
 				}	
 			}
 		}
@@ -175,7 +176,7 @@ class Player implements Observer{
 	void desenha(){
 		/* desenhando player */
 		
-		if(state == Main.EXPLODING){
+		if(exploding){
 			
 			double alpha = (Main.currentTime - explosion_start) / (explosion_end - explosion_start);
 			GameLib.drawExplosion(position.x, position.y, alpha);

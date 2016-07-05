@@ -7,7 +7,7 @@ class Eprojectile extends Projectile {
 	double radius;				// raio (tamanho dos projéteis inimigos)
 	
 	Eprojectile(){
-		super(/*200*/);
+		super();
 		//int size = 200; 
 		//states = new int[size];
 		//position = new Cordinate [size];
@@ -22,13 +22,13 @@ class Eprojectile extends Projectile {
 	void desenha(){
 		/* desenhando projeteis (inimigos) */
 		
-		for(int i = 0; i < states.length; i++){
+		//for(int i = 0; i < states.length; i++){
 			
 			if(states[i] == Main.ACTIVE){
 
 				GameLib.setColor(Color.RED);
-				GameLib.drawCircle(position[i].x, position[i].y, radius);
+				GameLib.drawCircle(position.x, position.y, radius);
 			}
-		}
+		//}
 	}
 }

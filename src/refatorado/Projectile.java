@@ -6,7 +6,7 @@ abstract class Projectile implements Observer {
 	Cordinate /*[]*/ position;
 	Cordinate /*[]*/ speedy;
 
-	Projectile(/*int size*/){
+	Projectile(){
 		//states = new int[size];
 		//for(int i = 0; i < states.length; i++) states[i] = Main.INACTIVE;
 		position = new Cordinate();
@@ -16,19 +16,19 @@ abstract class Projectile implements Observer {
 	public void atualiza(){
 		/* projeteis (player) */
 		
-		for(int i = 0; i < states.length; i++){
+		//for(int i = 0; i < states.length; i++){
 			
-			if(states[i] == Main.ACTIVE){
+			//if(states[i] == Main.ACTIVE){
 				/* verificando se projétil saiu da tela */
-				if(position[i].y < 0) {
-					states[i] = Main.INACTIVE;
-				}
-				else {
-					position[i].x += speedy[i].x * Main.delta;
-					position[i].y += speedy[i].y * Main.delta;
-				}
-			}
-		}
+				//if(position[i].y < 0) {
+					//states[i] = Main.INACTIVE;
+				//}
+				//else {
+					position.x += speedy.x * Main.delta;
+					position.y += speedy.y * Main.delta;
+				//}
+			//}
+		//}
 	}
 	
 	void desenha(){
