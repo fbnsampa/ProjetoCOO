@@ -1,18 +1,18 @@
 package refatorado;
 import java.awt.Color;
+import java.util.LinkedList;
 
 
 public class Worm extends Enemy implements EnemyInterface {
 	static long next;
 	static long spawnX;			// coordenada x do próximo inimigo tipo 2 a aparecer
-	static int count = -1;			// contagem de inimigos tipo 2 (usada na "formação de voo")
+	static int count = 0;		// contagem de inimigos tipo 2 (usada na "formação de voo")
 
 	public Worm(){
 		super();
-		if (count == -1){
-			next = Level.currentTime + 7000;
+		if (count == 0){
 			spawnX = (long) (GameLib.WIDTH * 0.20);
-			count = 0;
+			count = 1;
 			radius = 12.0;
 		} else {
 			position.x = spawnX;
@@ -83,14 +83,20 @@ public class Worm extends Enemy implements EnemyInterface {
 	}
 	
 	public void atualiza(){
+		
+		LinkedList <Eprojectile> inactiveProjectiles = new LinkedList <Eprojectile>();
+		
 		//atualizando os projeteis
 		for (Eprojectile projectile : projectiles){
-			if (projectile.position.y < 0){
-				projectiles.remove(projectile);
+			if (projectile.position.y < 0 || projectile.position.x < 0 || projectile.position.x > GameLib.WIDTH){
+				inactiveProjectiles.add(projectile);
 			} else {
 				projectile.atualiza();
 			}
 		}
+		
+		for (Eprojectile projectile : inactiveProjectiles)
+			projectiles.remove(projectile);
 		
 		if(exploding) {
 			if(Level.currentTime > explosion_end){
