@@ -1,8 +1,10 @@
-package refatorado;
+package refatorado.game;
 import java.awt.Color;
 import java.util.LinkedList;
 
-public class Worm extends Enemy implements EnemyInterface {
+import refatorado.gamelib.GameLib;
+
+class Worm extends Enemy implements EnemyInterface {
 	private static long next;
 	private static long spawnX;			// coordenada x do próximo inimigo tipo 2 a aparecer
 	private static int count = 0;		// contagem de inimigos tipo 2 (usada na "formação de voo")

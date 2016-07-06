@@ -1,4 +1,4 @@
-package refatorado;
+package refatorado.gamelib;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;

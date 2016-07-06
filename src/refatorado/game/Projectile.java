@@ -1,4 +1,4 @@
-package refatorado;
+package refatorado.game;
 
 abstract class Projectile implements Observer {
 	protected Cordinate position;

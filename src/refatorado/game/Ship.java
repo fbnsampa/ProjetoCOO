@@ -1,8 +1,10 @@
-package refatorado;
+package refatorado.game;
 import java.awt.Color;
 import java.util.LinkedList;
 
-public class Ship extends Enemy implements EnemyInterface  {
+import refatorado.gamelib.GameLib;
+
+class Ship extends Enemy implements EnemyInterface  {
 	private static long next;
 	private long nextShoot;			// instantes do próximo tiro
 	

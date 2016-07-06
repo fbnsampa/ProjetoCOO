@@ -1,6 +1,8 @@
-package refatorado;
+package refatorado.game;
 
-public class SpiralMove implements MoveBehavior{
+import refatorado.gamelib.GameLib;
+
+class SpiralMove implements MoveBehavior{
 
 	public void move(Enemy caller){
 		double previousY = caller.position.y;

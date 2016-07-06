@@ -1,4 +1,4 @@
-package refatorado;
+package refatorado.game;
 import java.util.*;
 
 abstract class Subject <T extends Observer> {

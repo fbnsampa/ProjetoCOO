@@ -1,5 +1,7 @@
-package refatorado;
+package refatorado.game;
 import java.awt.Color;
+
+import refatorado.gamelib.GameLib;
 
 class Eprojectile extends Projectile {
 	/* variáveis dos projéteis lançados pelos inimigos (tanto tipo 1, quanto tipo 2) */

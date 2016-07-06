@@ -1,7 +1,7 @@
-package refatorado;
+package refatorado.game;
 import java.util.*;
 
-public class Level extends Subject<Enemy>{
+class Level extends Subject<Enemy>{
 
 	private static long currentTime;
 	private static long delta;

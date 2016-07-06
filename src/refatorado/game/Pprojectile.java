@@ -1,5 +1,7 @@
-package refatorado;
+package refatorado.game;
 import java.awt.Color;
+
+import refatorado.gamelib.GameLib;
 
 class Pprojectile extends Projectile{
 	

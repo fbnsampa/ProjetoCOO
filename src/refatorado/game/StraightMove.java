@@ -1,4 +1,4 @@
-package refatorado;
+package refatorado.game;
 
 class StraightMove implements MoveBehavior{
 

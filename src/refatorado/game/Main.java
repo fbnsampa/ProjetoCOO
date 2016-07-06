@@ -1,6 +1,8 @@
-package refatorado;
+package refatorado.game;
 
-public class Main{
+import refatorado.gamelib.GameLib;
+
+class Main{
 	
 	/* Constantes relacionadas aos estados que os elementos   */
 	/* do jogo (player, projeteis ou inimigos) podem assumir. */

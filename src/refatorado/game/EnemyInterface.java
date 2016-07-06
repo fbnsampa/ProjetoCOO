@@ -1,6 +1,6 @@
-package refatorado;
+package refatorado.game;
 
-public interface EnemyInterface {
+interface EnemyInterface {
 	public void desenha();
 	public boolean isOutOfScreen();
 	public void shoot();
