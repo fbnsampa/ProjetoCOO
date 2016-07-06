@@ -1,5 +1,6 @@
-package refatorado.game;
+package refatorado.game.enemy;
 
+import refatorado.game.Level;
 import refatorado.gamelib.GameLib;
 
 class SpiralMove implements MoveBehavior{

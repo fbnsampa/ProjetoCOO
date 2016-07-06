@@ -1,6 +1,6 @@
 package refatorado.game;
 
-class Cordinate {
+public class Cordinate {
 	public double x;
 	public double y;
 	public double angle;

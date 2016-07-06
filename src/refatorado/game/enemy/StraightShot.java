@@ -1,4 +1,6 @@
-package refatorado.game;
+package refatorado.game.enemy;
+
+import refatorado.game.projectile.Eprojectile;
 
 class StraightShot implements ShotBehavior {
 	

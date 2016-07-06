@@ -2,12 +2,12 @@ package refatorado.game;
 
 import refatorado.gamelib.GameLib;
 
-class Main{
+public class Main{
 	
 	/* Constantes relacionadas aos estados que os elementos   */
 	/* do jogo (player, projeteis ou inimigos) podem assumir. */
 
-	static Player player;
+	public static Player player;
 	
 	/* Indica que o jogo está em execução */
 	private static boolean running;

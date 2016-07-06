@@ -1,10 +1,15 @@
-package refatorado.game;
+package refatorado.game.enemy;
 import java.awt.Color;
 import java.util.LinkedList;
 
+import refatorado.game.Level;
+import refatorado.game.Main;
+import refatorado.game.projectile.Eprojectile;
 import refatorado.gamelib.GameLib;
-
-class Ship extends Enemy implements EnemyInterface  {
+//essa classe talvez não precise ser public pois somente Level precisa dela
+//e ainda de maneira provisória uma vez que depois de implementados os arquivos
+//ele não precisará referenciar naves diretamente
+public class Ship extends Enemy implements EnemyInterface  {
 	private static long next;
 	private long nextShoot;			// instantes do próximo tiro
 	

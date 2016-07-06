@@ -1,10 +1,10 @@
 package refatorado.game;
 import java.awt.Color;
 import java.util.*;
-
+import refatorado.game.projectile.Pprojectile;
 import refatorado.gamelib.GameLib;
-
-class Player implements Observer{
+//talvez essa classe não precise ser public só ship precisa dela
+public class Player implements Observer{
 	List <Pprojectile> projectiles;//para mexer quando for usar pacotes
 	private Cordinate position;
 	private Cordinate speedy;

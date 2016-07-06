@@ -1,8 +1,12 @@
-package refatorado.game;
+package refatorado.game.enemy;
 import java.util.*;
+import refatorado.game.Cordinate;
+import refatorado.game.Level;
+import refatorado.game.Observer;
+import refatorado.game.projectile.Eprojectile;
 
-abstract class Enemy implements Observer{
-	List <Eprojectile> projectiles;//para mexer quando for usar pacotes 
+public abstract class Enemy implements Observer{
+	public List <Eprojectile> projectiles;//para mexer quando for usar pacotes 
 	protected Cordinate position;
 	protected double V;						// velocidades
 	protected double RV;					// velocidades de rotação

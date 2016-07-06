@@ -1,5 +1,5 @@
 package refatorado.game;
 
-interface Observer {
+public interface Observer {
 	void atualiza();
 }

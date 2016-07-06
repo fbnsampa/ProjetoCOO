@@ -1,4 +1,4 @@
-package refatorado.game;
+package refatorado.game.enemy;
 
 class ExplosionShot implements ShotBehavior{
 

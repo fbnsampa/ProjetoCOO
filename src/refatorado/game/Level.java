@@ -1,7 +1,12 @@
 package refatorado.game;
 import java.util.*;
+import refatorado.game.enemy.Enemy;
+import refatorado.game.enemy.Ship;// a ser removido pela leitura de arquivo
+import refatorado.game.enemy.Worm;// a ser removido pela leitura de arquivo
+import refatorado.game.projectile.Eprojectile;
+import refatorado.game.projectile.Pprojectile;
 
-class Level extends Subject<Enemy>{
+public class Level extends Subject<Enemy>{
 
 	private static long currentTime;
 	private static long delta;
