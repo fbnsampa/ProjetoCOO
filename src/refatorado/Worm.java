@@ -4,9 +4,9 @@ import java.util.LinkedList;
 
 
 public class Worm extends Enemy implements EnemyInterface {
-	static long next;
-	static long spawnX;			// coordenada x do próximo inimigo tipo 2 a aparecer
-	static int count = 0;		// contagem de inimigos tipo 2 (usada na "formação de voo")
+	private static long next;
+	private static long spawnX;			// coordenada x do próximo inimigo tipo 2 a aparecer
+	private static int count = 0;		// contagem de inimigos tipo 2 (usada na "formação de voo")
 
 	public Worm(){
 		super();
@@ -32,6 +32,14 @@ public class Worm extends Enemy implements EnemyInterface {
 		}
 	}
 	
+	public static long getNext() {
+		return next;
+	}
+
+	public static void setNext(long next) {
+		Worm.next = next;
+	}
+
 	public boolean isOutOfScreen(){
 		if(position.x < -10 || position.x > GameLib.WIDTH + 10 ) return true;
 		return false;

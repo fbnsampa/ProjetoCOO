@@ -3,8 +3,8 @@ import java.awt.Color;
 import java.util.LinkedList;
 
 public class Ship extends Enemy implements EnemyInterface  {
-	static long next;
-	long nextShoot;			// instantes do próximo tiro
+	private static long next;
+	private long nextShoot;			// instantes do próximo tiro
 	
 	public Ship (){
 		super();
@@ -18,6 +18,14 @@ public class Ship extends Enemy implements EnemyInterface  {
 		next = Level.currentTime + 500;
 	}
 	
+	public static long getNext() {
+		return next;
+	}
+
+	public static void setNext(long next) {
+		Ship.next = next;
+	}
+
 	public boolean isOutOfScreen(){
 		if(position.y > GameLib.HEIGHT + 10) return true;
 		return false;
@@ -32,7 +40,7 @@ public class Ship extends Enemy implements EnemyInterface  {
 	public void shoot (){
 		//se o inimigo estiver acima do personagem e o tempo atual for maior
 		//que o tempo do próximo tiro acontece um disparo
-		if(Level.currentTime > nextShoot && position.y < Main.player.position.y){
+		if(Level.currentTime > nextShoot && position.y < Main.player.getPositionY()){
 			double vx = Math.cos(position.angle) * 0.45;
 			double vy = Math.sin(position.angle) * 0.45 * (-1.0);
 			Eprojectile novo = new Eprojectile(position.x, position.y, vx, vy);

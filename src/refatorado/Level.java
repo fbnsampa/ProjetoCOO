@@ -15,8 +15,8 @@ public class Level extends Subject<Enemy>{
 		player = Main.player;
 		currentTime = 0;
 		delta = 0;
-		Ship.next = System.currentTimeMillis() + 2000; //bizarro porem provisorio
-		Worm.next = System.currentTimeMillis() + 7000; //bizarro porem provisorio
+		Ship.setNext(System.currentTimeMillis() + 2000); //bizarro porem provisorio
+		Worm.setNext(System.currentTimeMillis() + 7000); //bizarro porem provisorio
 	}
 	
 	public void load (String name){
@@ -29,26 +29,22 @@ public class Level extends Subject<Enemy>{
 	public void verifyPlayerColision (){
 		for (Enemy enemy : observers){
 			double dx, dy, dist;
-			dx = enemy.position.x - player.position.x;
-			dy = enemy.position.y - player.position.y;
+			dx = enemy.getPositionX() - player.getPositionX();
+			dy = enemy.getPositionY() - player.getPositionY();
 			dist = Math.sqrt(dx * dx + dy * dy);
 
-			if (dist < (player.radius + enemy.radius) * 0.8){
-				player.exploding = true;
-				player.explosion_start = currentTime;
-				player.explosion_end = currentTime + 2000;
+			if (dist < (player.getRadius() + enemy.getRadius()) * 0.8){
+				player.setExploding();
 				return;
 			}
 			
 			for (Eprojectile projectile : enemy.projectiles){
-				dx = projectile.position.x - player.position.x;
-				dy = projectile.position.y - player.position.y;
+				dx = projectile.position.x - player.getPositionX();
+				dy = projectile.position.y - player.getPositionY();
 				dist = Math.sqrt(dx * dx + dy * dy);
 				
-				if (dist < (player.radius + projectile.radius) * 0.8){
-					player.exploding = true;
-					player.explosion_start = currentTime;
-					player.explosion_end = currentTime + 2000;
+				if (dist < (player.getRadius() + projectile.radius) * 0.8){
+					player.setExploding();
 					return;
 				}
 			}
@@ -60,14 +56,12 @@ public class Level extends Subject<Enemy>{
 	public void verifyEnemyColision (){
 		for (Pprojectile projectile : player.projectiles){
 			for (Enemy enemy : observers){
-				if (!enemy.exploding){
-					double dx = enemy.position.x - projectile.position.x;
-					double dy = enemy.position.y - projectile.position.y;
+				if (!enemy.isExploding()){
+					double dx = enemy.getPositionX() - projectile.position.x;
+					double dy = enemy.getPositionY() - projectile.position.y;
 					double dist = Math.sqrt(dx * dx + dy * dy);
-					if (dist < enemy.radius){
-						enemy.exploding = true;
-						enemy.explosion_start = currentTime;
-						enemy.explosion_end = currentTime + 500;
+					if (dist < enemy.getRadius()){
+						enemy.setExploding();
 						explodingEnemys.add(enemy);
 					}
 				}
@@ -79,12 +73,12 @@ public class Level extends Subject<Enemy>{
 		/* verificando se novos inimigos (tipo 1) devem ser "lançados" */
 		//lançando um ship
 		
-		if(currentTime > Ship.next){
+		if(currentTime > Ship.getNext()){
 			observers.add(new Ship());
-			Ship.next = Level.currentTime + 500;
+			Ship.setNext(Level.currentTime + 500);
 		}
 		
-		if(currentTime > Worm.next){
+		if(currentTime > Worm.getNext()){
 			observers.add(new Worm());
 		}
 	}
@@ -105,7 +99,7 @@ public class Level extends Subject<Enemy>{
 		/* Verificação de colisões */
 		/***************************/
 					
-		if (!player.exploding) verifyPlayerColision();
+		if (!player.isExploding()) verifyPlayerColision();
 		verifyEnemyColision();
 		
 		
@@ -135,7 +129,7 @@ public class Level extends Subject<Enemy>{
 		
 		//Elimina os inimigos destruidos da lista de observadores
 		for (Enemy enemy : explodingEnemys){
-			if (currentTime > enemy.explosion_end && enemy.projectiles.size() == 0){
+			if (currentTime > enemy.getExplosion_end() && enemy.projectiles.size() == 0){
 				inactiveEnemys.add(enemy);
 			}
 		}

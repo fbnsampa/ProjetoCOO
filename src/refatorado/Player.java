@@ -3,14 +3,14 @@ import java.awt.Color;
 import java.util.*;
 
 class Player implements Observer{
-	List <Pprojectile> projectiles;
-	Cordinate position;
-	Cordinate speedy;
-	double radius;						// raio (tamanho aproximado do player)
-	double explosion_start;				// instante do início da explosão
-	double explosion_end;				// instante do final da explosão
-	long nextShot;						// instante a partir do qual pode haver um próximo tiro
-	boolean exploding;
+	List <Pprojectile> projectiles;//para mexer quando for usar pacotes
+	private Cordinate position;
+	private Cordinate speedy;
+	private double radius;						// raio (tamanho aproximado do player)
+	private double explosion_start;				// instante do início da explosão
+	private double explosion_end;				// instante do final da explosão
+	private long nextShot;						// instante a partir do qual pode haver um próximo tiro
+	private boolean exploding;
 
 	Player(){
 		//state = Main.ACTIVE;
@@ -24,6 +24,28 @@ class Player implements Observer{
 		exploding = false;
 	}
 	
+	public double getPositionX() {
+		return position.x;
+	}
+	
+	public double getPositionY() {
+		return position.y;
+	}
+	
+	public double getRadius() {
+		return radius;
+	}
+
+	public boolean isExploding() {
+		return exploding;
+	}
+
+	public void setExploding() {
+		exploding = true;
+		explosion_start = Level.currentTime;
+		explosion_end = Level.currentTime + 2000;
+	}
+
 	void verificaExplosionPlayer(){
 		if(exploding){
 			if(Level.currentTime > explosion_end){
