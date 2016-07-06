@@ -26,7 +26,8 @@ public class Worm extends Enemy implements EnemyInterface {
 			position.x = spawnX;
 			position.y = -10.0;
 			position.angle = (3 * Math.PI) / 2;
-			V = 0.42;
+			speed.x = 0.42;
+			speed.y = 0.42;
 			radius = 12.0;
 			RV = 0.0;
 			count++;
@@ -55,8 +56,8 @@ public class Worm extends Enemy implements EnemyInterface {
 	
 	//Verifica se é momento de atirar
 	private boolean shootNow(){
-		double x = position.x + V * Math.cos(position.angle) * Level.getDelta();
-		double y = position.y + V * Math.sin(position.angle) * Level.getDelta() * (-1.0);
+		double x = position.x + speed.x * Math.cos(position.angle) * Level.getDelta();
+		double y = position.y + speed.y * Math.sin(position.angle) * Level.getDelta() * (-1.0);
 		double angle = position.angle + RV * Level.getDelta();
 		double rv = RV;
 		double threshold = GameLib.HEIGHT * 0.30;

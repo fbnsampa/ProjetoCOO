@@ -1,8 +1,9 @@
 package refatorado.game;
 import java.util.*;
 import refatorado.game.enemy.Enemy;
-import refatorado.game.enemy.Ship;// a ser removido pela leitura de arquivo
-import refatorado.game.enemy.Worm;// a ser removido pela leitura de arquivo
+import refatorado.game.enemy.Ship;
+import refatorado.game.enemy.Worm;
+import refatorado.game.enemy.Boss;
 import refatorado.game.projectile.Eprojectile;
 import refatorado.game.projectile.Pprojectile;
 
@@ -108,6 +109,7 @@ public class Level extends Subject<Enemy>{
 		currentTime = System.currentTimeMillis();
 		
 		
+		
 		/***************************/
 		/* Verificação de colisões */
 		/***************************/
@@ -130,7 +132,9 @@ public class Level extends Subject<Enemy>{
 			}
 		}
 		
-		launchEnemy();
+		//launchEnemy();
+		if (observers.size() < 1) addObserver(new Ship());
+		//System.out.println(currentTime + "   Projectiles : " + observers.get(0).projectiles.size());
 		player.update();
 		notifyObservers();
 		

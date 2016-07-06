@@ -48,7 +48,7 @@ public class Player implements Observer, Character{
 		explosion_end = Level.getCurrentTime() + 2000;
 	}
 
-	private void verificaExplosionPlayer(){
+	private void verifyExplosion(){
 		if(exploding){
 			if(Level.getCurrentTime() > explosion_end){
 				//state = Main.ACTIVE;
@@ -57,7 +57,7 @@ public class Player implements Observer, Character{
 		}
 	}
 	
-	private void verificaEntradaPlayer(){
+	private void readIn(){
 		/********************************************/
 		/* Verificando entrada do usuário (teclado) */
 		/********************************************/
@@ -118,8 +118,8 @@ public class Player implements Observer, Character{
 		for (Pprojectile projectile : inactiveProjectiles)
 			projectiles.remove(projectile);
 		
-		verificaExplosionPlayer();
-		verificaEntradaPlayer();
+		verifyExplosion();
+		readIn();
 	}
 
 }

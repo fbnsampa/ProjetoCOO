@@ -6,16 +6,16 @@ import refatorado.game.Observer;
 
 abstract class Projectile {
 	protected Cordinate position;
-	private Cordinate speedy;
+	private Cordinate speed;
 
 	Projectile(){
 		position = new Cordinate();
-		speedy = new Cordinate();
+		speed = new Cordinate();
 	}
 	
 	Projectile(double x, double y, double vx, double vy){
 		position = new Cordinate(x, y);
-		speedy = new Cordinate(vx, vy);
+		speed = new Cordinate(vx, vy);
 	}
 	
 	public double getPositionX() {
@@ -27,7 +27,7 @@ abstract class Projectile {
 	}
 
 	public void update(){
-		position.x += speedy.x * Level.getDelta();
-		position.y += speedy.y * Level.getDelta();
+		position.x += speed.x * Level.getDelta();
+		position.y += speed.y * Level.getDelta();
 	}
 }

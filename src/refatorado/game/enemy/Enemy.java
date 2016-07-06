@@ -9,7 +9,7 @@ import refatorado.game.Character;
 public abstract class Enemy implements Observer, Character{
 	public List <Eprojectile> projectiles;//para mexer quando for usar pacotes 
 	protected Cordinate position;
-	protected double V;						// velocidades
+	protected Cordinate speed;
 	protected double RV;					// velocidades de rotação
 	protected double radius;				// raio (tamanho do inimigo 1)
 	protected double explosion_start;		// instantes dos inícios das explosões
@@ -22,6 +22,7 @@ public abstract class Enemy implements Observer, Character{
 	Enemy(){
 		projectiles = new ArrayList <Eprojectile>();
 		position = new Cordinate();
+		speed = new Cordinate();
 		exploding = false;
 		update = false;
 	}
@@ -32,6 +33,14 @@ public abstract class Enemy implements Observer, Character{
 	
 	public double getPositionY() {
 		return position.y;
+	}
+	
+	public double getSpeedX() {
+		return speed.x;
+	}
+	
+	public double getSpeedY() {
+		return speed.y;
 	}
 	
 	public double getRadius() {
