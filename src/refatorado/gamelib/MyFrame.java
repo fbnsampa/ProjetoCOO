@@ -1,4 +1,4 @@
-package refatorado;
+package refatorado.gamelib;
 import java.awt.Graphics;
 import javax.swing.JFrame;
 

@@ -1,23 +1,25 @@
-package refatorado;
+package refatorado.game;
+
+import refatorado.gamelib.GameLib;
 
 public class Main{
 	
 	/* Constantes relacionadas aos estados que os elementos   */
 	/* do jogo (player, projeteis ou inimigos) podem assumir. */
 
-	static Player player;
+	public static Player player;
 	
 	/* Indica que o jogo está em execução */
 	private static boolean running;
 
-	public static void setRunning(boolean running) {
+	protected static void setRunning(boolean running) {
 		Main.running = running;
 	}
 
 	/* Espera, sem fazer nada, até que o instante de tempo atual seja */
 	/* maior ou igual ao instante especificado no parâmetro "time.    */
 	//teste
-	public static void busyWait(long time){
+	private static void busyWait(long time){
 		
 		while(System.currentTimeMillis() < time) Thread.yield();
 	}

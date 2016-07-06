@@ -1,8 +1,10 @@
-package refatorado;
+package refatorado.game;
 import java.awt.Color;
 import java.util.*;
-
-class Player implements Observer{
+import refatorado.game.projectile.Pprojectile;
+import refatorado.gamelib.GameLib;
+//talvez essa classe não precise ser public só ship precisa dela
+public class Player implements Observer, Character{
 	List <Pprojectile> projectiles;//para mexer quando for usar pacotes
 	private Cordinate position;
 	private Cordinate speedy;
@@ -46,7 +48,7 @@ class Player implements Observer{
 		explosion_end = Level.getCurrentTime() + 2000;
 	}
 
-	void verificaExplosionPlayer(){
+	private void verificaExplosionPlayer(){
 		if(exploding){
 			if(Level.getCurrentTime() > explosion_end){
 				//state = Main.ACTIVE;
@@ -55,7 +57,7 @@ class Player implements Observer{
 		}
 	}
 	
-	void verificaEntradaPlayer(){
+	private void verificaEntradaPlayer(){
 		/********************************************/
 		/* Verificando entrada do usuário (teclado) */
 		/********************************************/
@@ -84,9 +86,9 @@ class Player implements Observer{
 		if(position.y >= GameLib.HEIGHT) position.y = GameLib.HEIGHT - 1;
 	}
 	
-	void desenha(){
+	 public void draw(){
 		for (Pprojectile projectile : projectiles)
-			projectile.desenha();
+			projectile.draw();
 		
 		/* desenhando player */
 		if(exploding){
@@ -101,7 +103,7 @@ class Player implements Observer{
 		}
 	}
 	
-	public void atualiza(){
+	public void update(){
 
 		LinkedList <Pprojectile> inactiveProjectiles = new LinkedList <Pprojectile>();
 		
@@ -109,7 +111,7 @@ class Player implements Observer{
 			if (projectile.getPositionY() < 0){
 				inactiveProjectiles.add(projectile);
 			} else {
-				projectile.atualiza();
+				projectile.update();
 			}
 		}
 		

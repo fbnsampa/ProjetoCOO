@@ -1,17 +1,19 @@
-package refatorado;
+package refatorado.game.projectile;
 import java.awt.Color;
 
-class Eprojectile extends Projectile {
+import refatorado.gamelib.GameLib;
+
+public class Eprojectile extends Projectile {
 	/* variáveis dos projéteis lançados pelos inimigos (tanto tipo 1, quanto tipo 2) */
 	
 	private double radius;		// raio (tamanho dos projéteis inimigos)
 	
-	Eprojectile(){
+	public Eprojectile(){
 		super();
 		radius = 2.0;
 	}
 	
-	Eprojectile(double x, double y, double vx, double vy){
+	public Eprojectile(double x, double y, double vx, double vy){
 		super(x, y, vx, vy);
 		radius = 2.0;
 	}
@@ -20,7 +22,7 @@ class Eprojectile extends Projectile {
 		return radius;
 	}
 
-	void desenha(){
+	public void draw(){
 		/* desenhando projeteis (inimigos) */
 		GameLib.setColor(Color.RED);
 		GameLib.drawCircle(position.x, position.y, radius);

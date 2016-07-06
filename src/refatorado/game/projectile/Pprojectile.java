@@ -1,15 +1,17 @@
-package refatorado;
+package refatorado.game.projectile;
 import java.awt.Color;
 
-class Pprojectile extends Projectile{
+import refatorado.gamelib.GameLib;
+
+public class Pprojectile extends Projectile{
 	
 	/* variáveis dos projéteis disparados pelo player */
 
-	Pprojectile(double x, double y, double vx, double vy){
+	public Pprojectile(double x, double y, double vx, double vy){
 		super(x, y, vx, vy);
 	}
 	
-	void desenha(){
+	public void draw(){
 		/* desenhando projeteis (player) */
 		double X = position.x;
 		double Y = position.y;

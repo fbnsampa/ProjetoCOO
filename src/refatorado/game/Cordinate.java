@@ -1,4 +1,4 @@
-package refatorado;
+package refatorado.game;
 
 public class Cordinate {
 	public double x;

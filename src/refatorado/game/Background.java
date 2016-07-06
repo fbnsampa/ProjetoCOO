@@ -1,6 +1,8 @@
-package refatorado;
+package refatorado.game;
 import java.awt.Color;
 import java.util.*;
+
+import refatorado.gamelib.GameLib;
 
 class Background {
 	
