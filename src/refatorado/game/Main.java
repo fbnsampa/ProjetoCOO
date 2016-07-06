@@ -12,14 +12,14 @@ public class Main{
 	/* Indica que o jogo está em execução */
 	private static boolean running;
 
-	public static void setRunning(boolean running) {
+	protected static void setRunning(boolean running) {
 		Main.running = running;
 	}
 
 	/* Espera, sem fazer nada, até que o instante de tempo atual seja */
 	/* maior ou igual ao instante especificado no parâmetro "time.    */
 	//teste
-	public static void busyWait(long time){
+	private static void busyWait(long time){
 		
 		while(System.currentTimeMillis() < time) Thread.yield();
 	}

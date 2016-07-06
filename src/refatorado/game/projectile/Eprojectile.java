@@ -8,7 +8,7 @@ public class Eprojectile extends Projectile {
 	
 	private double radius;		// raio (tamanho dos projéteis inimigos)
 	
-	Eprojectile(){
+	public Eprojectile(){
 		super();
 		radius = 2.0;
 	}

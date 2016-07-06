@@ -54,7 +54,7 @@ public class Worm extends Enemy implements EnemyInterface {
 	}
 	
 	//Verifica se é momento de atirar
-	public boolean shootNow(){
+	private boolean shootNow(){
 		double x = position.x + V * Math.cos(position.angle) * Level.getDelta();
 		double y = position.y + V * Math.sin(position.angle) * Level.getDelta() * (-1.0);
 		double angle = position.angle + RV * Level.getDelta();

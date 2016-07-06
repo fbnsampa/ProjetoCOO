@@ -1,7 +1,7 @@
 package refatorado.game.enemy;
 
 interface EnemyInterface {
-	public void desenha();
-	public boolean isOutOfScreen();
-	public void shoot();
+	void desenha();
+	boolean isOutOfScreen();
+	void shoot();
 }

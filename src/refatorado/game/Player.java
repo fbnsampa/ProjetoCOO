@@ -48,7 +48,7 @@ public class Player implements Observer{
 		explosion_end = Level.getCurrentTime() + 2000;
 	}
 
-	void verificaExplosionPlayer(){
+	private void verificaExplosionPlayer(){
 		if(exploding){
 			if(Level.getCurrentTime() > explosion_end){
 				//state = Main.ACTIVE;
@@ -57,7 +57,7 @@ public class Player implements Observer{
 		}
 	}
 	
-	void verificaEntradaPlayer(){
+	private void verificaEntradaPlayer(){
 		/********************************************/
 		/* Verificando entrada do usuário (teclado) */
 		/********************************************/
@@ -86,7 +86,7 @@ public class Player implements Observer{
 		if(position.y >= GameLib.HEIGHT) position.y = GameLib.HEIGHT - 1;
 	}
 	
-	void desenha(){
+	 void desenha(){
 		for (Pprojectile projectile : projectiles)
 			projectile.desenha();
 		
