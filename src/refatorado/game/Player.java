@@ -4,7 +4,7 @@ import java.util.*;
 import refatorado.game.projectile.Pprojectile;
 import refatorado.gamelib.GameLib;
 //talvez essa classe não precise ser public só ship precisa dela
-public class Player implements Observer{
+public class Player implements Observer, Character{
 	List <Pprojectile> projectiles;//para mexer quando for usar pacotes
 	private Cordinate position;
 	private Cordinate speedy;
@@ -86,9 +86,9 @@ public class Player implements Observer{
 		if(position.y >= GameLib.HEIGHT) position.y = GameLib.HEIGHT - 1;
 	}
 	
-	 void desenha(){
+	 public void draw(){
 		for (Pprojectile projectile : projectiles)
-			projectile.desenha();
+			projectile.draw();
 		
 		/* desenhando player */
 		if(exploding){
@@ -103,7 +103,7 @@ public class Player implements Observer{
 		}
 	}
 	
-	public void atualiza(){
+	public void update(){
 
 		LinkedList <Pprojectile> inactiveProjectiles = new LinkedList <Pprojectile>();
 		
@@ -111,7 +111,7 @@ public class Player implements Observer{
 			if (projectile.getPositionY() < 0){
 				inactiveProjectiles.add(projectile);
 			} else {
-				projectile.atualiza();
+				projectile.update();
 			}
 		}
 		

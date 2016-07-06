@@ -4,13 +4,18 @@ import refatorado.game.Cordinate;
 import refatorado.game.Level;
 import refatorado.game.Observer;
 
-abstract class Projectile implements Observer {
+abstract class Projectile {
 	protected Cordinate position;
 	private Cordinate speedy;
 
 	Projectile(){
 		position = new Cordinate();
 		speedy = new Cordinate();
+	}
+	
+	Projectile(double x, double y, double vx, double vy){
+		position = new Cordinate(x, y);
+		speedy = new Cordinate(vx, vy);
 	}
 	
 	public double getPositionX() {
@@ -21,12 +26,7 @@ abstract class Projectile implements Observer {
 		return position.y;
 	}
 
-	Projectile(double x, double y, double vx, double vy){
-		position = new Cordinate(x, y);
-		speedy = new Cordinate(vx, vy);
-	}
-	
-	public void atualiza(){
+	public void update(){
 		position.x += speedy.x * Level.getDelta();
 		position.y += speedy.y * Level.getDelta();
 	}

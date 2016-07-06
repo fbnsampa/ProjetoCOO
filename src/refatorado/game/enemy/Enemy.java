@@ -4,8 +4,9 @@ import refatorado.game.Cordinate;
 import refatorado.game.Level;
 import refatorado.game.Observer;
 import refatorado.game.projectile.Eprojectile;
+import refatorado.game.Character;
 
-public abstract class Enemy implements Observer{
+public abstract class Enemy implements Observer, Character{
 	public List <Eprojectile> projectiles;//para mexer quando for usar pacotes 
 	protected Cordinate position;
 	protected double V;						// velocidades
@@ -14,6 +15,7 @@ public abstract class Enemy implements Observer{
 	protected double explosion_start;		// instantes dos inícios das explosões
 	protected double explosion_end;			// instantes dos finais da explosões
 	protected boolean exploding;
+	protected boolean update;
 	protected ShotBehavior sb;
 	protected MoveBehavior mb;
 	
@@ -21,6 +23,7 @@ public abstract class Enemy implements Observer{
 		projectiles = new ArrayList <Eprojectile>();
 		position = new Cordinate();
 		exploding = false;
+		update = false;
 	}
 	
 	public double getPositionX() {
@@ -40,15 +43,19 @@ public abstract class Enemy implements Observer{
 	}
 	
 	public void setExploding() {
-		exploding = true;
-		explosion_start = Level.getCurrentTime();
-		explosion_end = Level.getCurrentTime() + 500;
+		this.exploding = true;
+		this.explosion_start = Level.getCurrentTime();
+		this.explosion_end = Level.getCurrentTime() + 500;
 	}
 
 	public double getExplosion_end() {
 		return explosion_end;
 	}
 
+	public void setUpdateON(){
+		this.update = true;
+	}
+	
 	public void shoot (){
 		this.sb.shoot(this);
 	}
@@ -57,11 +64,11 @@ public abstract class Enemy implements Observer{
 		this.mb.move(this);
 	}
 	
-	public void atualiza(){
+	public void update(){
 	
 	}
 	
-	public void desenha(){
+	public void draw(){
 
 	}
 	

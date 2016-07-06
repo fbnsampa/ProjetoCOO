@@ -11,7 +11,7 @@ public class Pprojectile extends Projectile{
 		super(x, y, vx, vy);
 	}
 	
-	public void desenha(){
+	public void draw(){
 		/* desenhando projeteis (player) */
 		double X = position.x;
 		double Y = position.y;

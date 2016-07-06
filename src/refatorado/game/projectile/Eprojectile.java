@@ -22,7 +22,7 @@ public class Eprojectile extends Projectile {
 		return radius;
 	}
 
-	public void desenha(){
+	public void draw(){
 		/* desenhando projeteis (inimigos) */
 		GameLib.setColor(Color.RED);
 		GameLib.drawCircle(position.x, position.y, radius);

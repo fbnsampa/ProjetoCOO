@@ -87,12 +87,12 @@ public class Level extends Subject<Enemy>{
 		//lançando um ship
 		
 		if(currentTime > Ship.getNext()){
-			observers.add(new Ship());
+			addObserver(new Ship());
 			Ship.setNext(Level.currentTime + 500);
 		}
 		
 		if(currentTime > Worm.getNext()){
-			observers.add(new Worm());
+			addObserver(new Worm());
 		}
 	}
 	
@@ -126,19 +126,20 @@ public class Level extends Subject<Enemy>{
 			if (enemy.isOutOfScreen() && enemy.projectiles.size() == 0){
 				inactiveEnemys.add(enemy);
 			} else {
-				enemy.atualiza();
+				enemy.setUpdateON();
 			}
 		}
 		
 		launchEnemy();
-		player.atualiza();
+		player.update();
+		notifyObservers();
 		
 		/*******************/
 		/* Desenho da cena */
 		/*******************/
 		
-		player.desenha();
-		for (Enemy enemy : observers) enemy.desenha();
+		player.draw();
+		for (Enemy enemy : observers) enemy.draw();
 		
 		//Elimina os inimigos destruidos da lista de observadores
 		for (Enemy enemy : explodingEnemys){
@@ -146,7 +147,7 @@ public class Level extends Subject<Enemy>{
 				inactiveEnemys.add(enemy);
 			}
 		}
-		for (Enemy enemy : inactiveEnemys) observers.remove(enemy);
+		for (Enemy enemy : inactiveEnemys) removeObserver(enemy);
 		
 	}
 	

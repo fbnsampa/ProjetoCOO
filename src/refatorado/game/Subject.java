@@ -18,7 +18,7 @@ abstract class Subject <T extends Observer> {
 
 	protected void notifyObservers(){
 		for (T observer : observers){
-			observer.atualiza();
+			observer.update();
 		}
 	}
 	

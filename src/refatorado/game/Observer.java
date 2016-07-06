@@ -1,5 +1,6 @@
 package refatorado.game;
 
 public interface Observer {
-	void atualiza();
+	void update();
+	void draw();
 }

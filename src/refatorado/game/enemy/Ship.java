@@ -40,40 +40,42 @@ public class Ship extends Enemy implements EnemyInterface  {
 		return false;
 	}
 	
-	public void atualiza(){
-		
-		LinkedList <Eprojectile> inactiveProjectiles = new LinkedList <Eprojectile>();
-		
-		//atualizando os projeteis
-		for (Eprojectile projectile : projectiles){
-			if (projectile.getPositionY() < 0){
-				inactiveProjectiles.add(projectile);
-			} else {
-				projectile.atualiza();
+	public void update(){
+		if (update){
+			LinkedList <Eprojectile> inactiveProjectiles = new LinkedList <Eprojectile>();
+			
+			//atualizando os projeteis
+			for (Eprojectile projectile : projectiles){
+				if (projectile.getPositionY() < 0){
+					inactiveProjectiles.add(projectile);
+				} else {
+					projectile.update();
+				}
 			}
-		}
-		
-		for (Eprojectile projectile : inactiveProjectiles)
-			projectiles.remove(projectile);
-		
-		//se o inimigo for explodido aquela posição do vetor passa a ser inativa
-		if(!exploding && !isOutOfScreen()){
-			//se o inimigo estiver acima do personagem e o tempo atual for maior
-			//que o tempo do próximo tiro acontece um disparo
-			if(Level.getCurrentTime() > nextShoot && position.y < Main.player.getPositionY()){
-				shoot();
-				//o tempo do próximo disparo é atualizado
-				nextShoot = (long) (Level.getCurrentTime() + 200 + Math.random() * 500);
+			
+			for (Eprojectile projectile : inactiveProjectiles)
+				projectiles.remove(projectile);
+			
+			//se o inimigo for explodido aquela posição do vetor passa a ser inativa
+			if(!exploding && !isOutOfScreen()){
+				//se o inimigo estiver acima do personagem e o tempo atual for maior
+				//que o tempo do próximo tiro acontece um disparo
+				if(Level.getCurrentTime() > nextShoot && position.y < Main.player.getPositionY()){
+					shoot();
+					//o tempo do próximo disparo é atualizado
+					nextShoot = (long) (Level.getCurrentTime() + 200 + Math.random() * 500);
+				}
+				move();
 			}
-			move();
+			this.update = false;
 		}
 	}
 	
 
 	
-	public void desenha(){
+	public void draw(){
 		for (Eprojectile projectile : projectiles)
-			projectile.desenha();
+			projectile.draw();
 		
 		if(!exploding){
 			GameLib.setColor(Color.CYAN);

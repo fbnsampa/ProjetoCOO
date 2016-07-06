@@ -72,32 +72,34 @@ public class Worm extends Enemy implements EnemyInterface {
 		return false;
 	}
 	
-	public void atualiza(){
-		
-		LinkedList <Eprojectile> inactiveProjectiles = new LinkedList <Eprojectile>();
-		
-		//atualizando os projeteis
-		for (Eprojectile projectile : projectiles){
-			if (projectile.getPositionY() < 0 || projectile.getPositionX() < 0 || projectile.getPositionX() > GameLib.WIDTH){
-				inactiveProjectiles.add(projectile);
-			} else {
-				projectile.atualiza();
+	public void update(){
+		if (update){
+			LinkedList <Eprojectile> inactiveProjectiles = new LinkedList <Eprojectile>();
+			
+			//atualizando os projeteis
+			for (Eprojectile projectile : projectiles){
+				if (projectile.getPositionY() < 0 || projectile.getPositionX() < 0 || projectile.getPositionX() > GameLib.WIDTH){
+					inactiveProjectiles.add(projectile);
+				} else {
+					projectile.update();
+				}
 			}
-		}
-		
-		for (Eprojectile projectile : inactiveProjectiles)
-			projectiles.remove(projectile);
-		
-		if(!exploding && !isOutOfScreen()) {
-			//Dependendo das condições durante o movimento o shoot é lançado ou não
-			if (shootNow()) shoot();
-			move();
+			
+			for (Eprojectile projectile : inactiveProjectiles)
+				projectiles.remove(projectile);
+			
+			if(!exploding && !isOutOfScreen()) {
+				//Dependendo das condições durante o movimento o shoot é lançado ou não
+				if (shootNow()) shoot();
+				move();
+			}
+			this.update = false;
 		}
 	}
 	
-	public void desenha(){
+	public void draw(){
 		for (Eprojectile projectile : projectiles){
-			projectile.desenha();
+			projectile.draw();
 		}
 		if(!exploding){
 			GameLib.setColor(Color.MAGENTA);
