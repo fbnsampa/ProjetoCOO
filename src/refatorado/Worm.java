@@ -2,7 +2,6 @@ package refatorado;
 import java.awt.Color;
 import java.util.LinkedList;
 
-
 public class Worm extends Enemy implements EnemyInterface {
 	private static long next;
 	private static long spawnX;			// coordenada x do próximo inimigo tipo 2 a aparecer
@@ -10,6 +9,9 @@ public class Worm extends Enemy implements EnemyInterface {
 
 	public Worm(){
 		super();
+		sb = new SplitShot();
+		mb = new SpiralMove();
+		
 		if (count == 0){
 			spawnX = (long) (GameLib.WIDTH * 0.20);
 			count = 1;
@@ -45,49 +47,23 @@ public class Worm extends Enemy implements EnemyInterface {
 		return false;
 	}
 	
-	public boolean move(){
-		boolean shootNow = false;	//variável que autoriza o uso de projetéis
-		double previousY = position.y;
-		//caso o inimigo esteja ativo são feitos os calculos e atribuições
-		//para determinar sua movimentação
-		position.x += V * Math.cos(position.angle) * Level.getDelta();
-		position.y += V * Math.sin(position.angle) * Level.getDelta() * (-1.0);
-		position.angle += RV * Level.getDelta();
-		
+	//Verifica se é momento de atirar
+	public boolean shootNow(){
+		double x = position.x + V * Math.cos(position.angle) * Level.getDelta();
+		double y = position.y + V * Math.sin(position.angle) * Level.getDelta() * (-1.0);
+		double angle = position.angle + RV * Level.getDelta();
+		double rv = RV;
 		double threshold = GameLib.HEIGHT * 0.30;
-		//dependendo de onde o inimigo 2 estiver na tela a sua rotação
-		//é modificada
-		if(previousY < threshold && position.y >= threshold) {
-			if(position.x < GameLib.WIDTH / 2) RV = 0.003;
-			else RV = -0.003;
+		
+		if (position.y < threshold && y >= threshold){
+			if (x < GameLib.WIDTH / 2) rv = 0.003;
+			else rv = -0.003;
 		}
 		
-		//aqui dependendo de algumas condições é ativada a variavél
-		//shootNow que permite o disparo de projéteis pelo inimigo2
-		if(RV > 0 && Math.abs(position.angle - 3 * Math.PI) < 0.05){
-			RV = 0.0;
-			position.angle = 3 * Math.PI;
-			shootNow = true;
-		}
+		if (rv > 0 && Math.abs(angle - 3 * Math.PI) < 0.05) return true;
+		if (rv < 0 && Math.abs(angle) < 0.05) return true;
 		
-		if(RV < 0 && Math.abs(position.angle) < 0.05){
-			RV = 0.0;
-			position.angle = 0.0;
-			shootNow = true;
-		}
-		
-		return shootNow;
-	}
-	
-	public void shoot (){
-		double [] angles = { Math.PI/2 + Math.PI/8, Math.PI/2, Math.PI/2 - Math.PI/8 };
-		for(int k = 0; k < 3; k++){
-			double a = angles[k] + Math.random() * Math.PI/6 - Math.PI/12;
-			double vx = Math.cos(a) * 0.30;
-			double vy = Math.sin(a) * 0.30;
-			Eprojectile novo  = new Eprojectile(position.x, position.y, vx, vy);
-			projectiles.add(novo);
-		}
+		return false;
 	}
 	
 	public void atualiza(){
@@ -108,7 +84,8 @@ public class Worm extends Enemy implements EnemyInterface {
 		
 		if(!exploding && !isOutOfScreen()) {
 			//Dependendo das condições durante o movimento o shoot é lançado ou não
-			if (move())	shoot();
+			if (shootNow()) shoot();
+			move();
 		}
 	}
 	

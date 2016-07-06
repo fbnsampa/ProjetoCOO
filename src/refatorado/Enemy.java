@@ -3,13 +3,15 @@ import java.util.*;
 
 abstract class Enemy implements Observer{
 	List <Eprojectile> projectiles;//para mexer quando for usar pacotes 
-	protected Cordinate  position;
-	protected double V;					// velocidades
+	protected Cordinate position;
+	protected double V;						// velocidades
 	protected double RV;					// velocidades de rotação
 	protected double radius;				// raio (tamanho do inimigo 1)
 	protected double explosion_start;		// instantes dos inícios das explosões
 	protected double explosion_end;			// instantes dos finais da explosões
 	protected boolean exploding;
+	protected ShotBehavior sb;
+	protected MoveBehavior mb;
 	
 	Enemy(){
 		projectiles = new ArrayList <Eprojectile>();
@@ -24,15 +26,15 @@ abstract class Enemy implements Observer{
 	public double getPositionY() {
 		return position.y;
 	}
-
+	
 	public double getRadius() {
 		return radius;
 	}
-
+	
 	public boolean isExploding() {
 		return exploding;
 	}
-
+	
 	public void setExploding() {
 		exploding = true;
 		explosion_start = Level.getCurrentTime();
@@ -43,6 +45,14 @@ abstract class Enemy implements Observer{
 		return explosion_end;
 	}
 
+	public void shoot (){
+		this.sb.shoot(this);
+	}
+	
+	public void move (){
+		this.mb.move(this);
+	}
+	
 	public void atualiza(){
 	
 	}
