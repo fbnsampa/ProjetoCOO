@@ -1,35 +1,29 @@
 package refatorado;
 
 abstract class Projectile implements Observer {
-	
-	int [] states;				// estados
-	Cordinate [] position;
-	Cordinate [] speedy;
+	protected Cordinate position;
+	private Cordinate speedy;
 
-	Projectile(int size){
-		states = new int[size];
-		for(int i = 0; i < states.length; i++) states[i] = Main.INACTIVE;
+	Projectile(){
+		position = new Cordinate();
+		speedy = new Cordinate();
+	}
+	
+	public double getPositionX() {
+		return position.x;
+	}
+
+	public double getPositionY() {
+		return position.y;
+	}
+
+	Projectile(double x, double y, double vx, double vy){
+		position = new Cordinate(x, y);
+		speedy = new Cordinate(vx, vy);
 	}
 	
 	public void atualiza(){
-		/* projeteis (player) */
-		
-		for(int i = 0; i < states.length; i++){
-			
-			if(states[i] == Main.ACTIVE){
-				/* verificando se projétil saiu da tela */
-				if(position[i].y < 0) {
-					states[i] = Main.INACTIVE;
-				}
-				else {
-					position[i].x += speedy[i].x * Main.delta;
-					position[i].y += speedy[i].y * Main.delta;
-				}
-			}
-		}
-	}
-	
-	void desenha(){
-
+		position.x += speedy.x * Level.getDelta();
+		position.y += speedy.y * Level.getDelta();
 	}
 }

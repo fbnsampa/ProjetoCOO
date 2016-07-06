@@ -5,14 +5,14 @@ import java.util.*;
 class Background {
 	
 	/* estrelas que formam o fundo de primeiro plano */
-	List <Cordinate> background1;
-	double background1_speed;
-	double background1_count;
+	private List <Cordinate> background1;
+	private double background1_speed;
+	private double background1_count;
 	
 	/* estrelas que formam o fundo de segundo plano */
-	List <Cordinate> background2;
-	double background2_speed;
-	double background2_count;
+	private List <Cordinate> background2;
+	private double background2_speed;
+	private double background2_count;
 	
 	Background(){
 		this.background1 = new ArrayList <Cordinate>();
@@ -40,7 +40,7 @@ class Background {
 		/* desenhando plano fundo distante */
 		
 		GameLib.setColor(Color.DARK_GRAY);
-		background2_count += background2_speed * Main.delta;
+		background2_count += background2_speed * Level.getDelta();
 		
 		for(Cordinate aux : background2){
 			GameLib.fillRect(aux.x, (aux.y + background2_count) % GameLib.HEIGHT, 2, 2);
@@ -50,7 +50,7 @@ class Background {
 		/* desenhando plano de fundo próximo */
 		
 		GameLib.setColor(Color.GRAY);
-		background1_count += background1_speed * Main.delta;
+		background1_count += background1_speed * Level.getDelta();
 		
 		for(Cordinate aux : background1){
 			GameLib.fillRect(aux.x, (aux.y + background1_count) % GameLib.HEIGHT, 3, 3);
