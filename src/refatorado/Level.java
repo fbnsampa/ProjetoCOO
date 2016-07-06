@@ -3,10 +3,10 @@ import java.util.*;
 
 public class Level extends Subject<Enemy>{
 
-	static long currentTime;
-	static long delta;
-	Player player;
-	LinkedList <Enemy> explodingEnemys;
+	private static long currentTime;
+	private static long delta;
+	private Player player;
+	private LinkedList <Enemy> explodingEnemys;
 
 	
 	public Level (){
@@ -19,6 +19,14 @@ public class Level extends Subject<Enemy>{
 		Worm.setNext(System.currentTimeMillis() + 7000); //bizarro porem provisorio
 	}
 	
+	public static long getCurrentTime() {
+		return currentTime;
+	}
+
+	public static long getDelta() {
+		return delta;
+	}
+
 	public void load (String name){
 		//Carrega as configurações no documento de texto
 		
@@ -39,11 +47,11 @@ public class Level extends Subject<Enemy>{
 			}
 			
 			for (Eprojectile projectile : enemy.projectiles){
-				dx = projectile.position.x - player.getPositionX();
-				dy = projectile.position.y - player.getPositionY();
+				dx = projectile.getPositionX() - player.getPositionX();
+				dy = projectile.getPositionY() - player.getPositionY();
 				dist = Math.sqrt(dx * dx + dy * dy);
 				
-				if (dist < (player.getRadius() + projectile.radius) * 0.8){
+				if (dist < (player.getRadius() + projectile.getRadius()) * 0.8){
 					player.setExploding();
 					return;
 				}
@@ -57,8 +65,8 @@ public class Level extends Subject<Enemy>{
 		for (Pprojectile projectile : player.projectiles){
 			for (Enemy enemy : observers){
 				if (!enemy.isExploding()){
-					double dx = enemy.getPositionX() - projectile.position.x;
-					double dy = enemy.getPositionY() - projectile.position.y;
+					double dx = enemy.getPositionX() - projectile.getPositionX();
+					double dy = enemy.getPositionY() - projectile.getPositionY();
 					double dist = Math.sqrt(dx * dx + dy * dy);
 					if (dist < enemy.getRadius()){
 						enemy.setExploding();

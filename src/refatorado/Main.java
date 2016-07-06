@@ -8,7 +8,11 @@ public class Main{
 	static Player player;
 	
 	/* Indica que o jogo está em execução */
-	static boolean running;
+	private static boolean running;
+
+	public static void setRunning(boolean running) {
+		Main.running = running;
+	}
 
 	/* Espera, sem fazer nada, até que o instante de tempo atual seja */
 	/* maior ou igual ao instante especificado no parâmetro "time.    */
@@ -63,7 +67,7 @@ public class Main{
 			
 			/* faz uma pausa de modo que cada execução do laço do main loop demore aproximadamente 5 ms. */
 			
-			busyWait(Level.currentTime + 5);
+			busyWait(Level.getCurrentTime() + 5);
 		}
 		
 		System.exit(0);

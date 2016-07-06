@@ -23,11 +23,11 @@ public class Worm extends Enemy implements EnemyInterface {
 			RV = 0.0;
 			count++;
 			if(count < 10){
-				Worm.next = Level.currentTime + 120;
+				Worm.next = Level.getCurrentTime() + 120;
 			} else { //count == 10
 				Worm.count = 0; //verificar se nao deve ser -1
 				Worm.spawnX = (long) (Math.random() > 0.5 ? GameLib.WIDTH * 0.2 : GameLib.WIDTH * 0.8);
-				Worm.next = (long) (Level.currentTime + 3000 + Math.random() * 3000);
+				Worm.next = (long) (Level.getCurrentTime() + 3000 + Math.random() * 3000);
 			}
 		}
 	}
@@ -50,9 +50,9 @@ public class Worm extends Enemy implements EnemyInterface {
 		double previousY = position.y;
 		//caso o inimigo esteja ativo são feitos os calculos e atribuições
 		//para determinar sua movimentação
-		position.x += V * Math.cos(position.angle) * Level.delta;
-		position.y += V * Math.sin(position.angle) * Level.delta * (-1.0);
-		position.angle += RV * Level.delta;
+		position.x += V * Math.cos(position.angle) * Level.getDelta();
+		position.y += V * Math.sin(position.angle) * Level.getDelta() * (-1.0);
+		position.angle += RV * Level.getDelta();
 		
 		double threshold = GameLib.HEIGHT * 0.30;
 		//dependendo de onde o inimigo 2 estiver na tela a sua rotação
@@ -96,7 +96,7 @@ public class Worm extends Enemy implements EnemyInterface {
 		
 		//atualizando os projeteis
 		for (Eprojectile projectile : projectiles){
-			if (projectile.position.y < 0 || projectile.position.x < 0 || projectile.position.x > GameLib.WIDTH){
+			if (projectile.getPositionY() < 0 || projectile.getPositionX() < 0 || projectile.getPositionX() > GameLib.WIDTH){
 				inactiveProjectiles.add(projectile);
 			} else {
 				projectile.atualiza();
@@ -119,8 +119,8 @@ public class Worm extends Enemy implements EnemyInterface {
 		if(!exploding){
 			GameLib.setColor(Color.MAGENTA);
 			GameLib.drawDiamond(position.x, position.y, radius);
-		} else if (Level.currentTime <= explosion_end){
-			double alpha = (Level.currentTime - explosion_start) / (explosion_end - explosion_start);
+		} else if (Level.getCurrentTime() <= explosion_end){
+			double alpha = (Level.getCurrentTime() - explosion_start) / (explosion_end - explosion_start);
 			GameLib.drawExplosion(position.x, position.y, alpha);
 		}
 	}

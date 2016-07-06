@@ -4,7 +4,7 @@ import java.awt.Color;
 class Eprojectile extends Projectile {
 	/* variáveis dos projéteis lançados pelos inimigos (tanto tipo 1, quanto tipo 2) */
 	
-	double radius;		// raio (tamanho dos projéteis inimigos)
+	private double radius;		// raio (tamanho dos projéteis inimigos)
 	
 	Eprojectile(){
 		super();
@@ -16,6 +16,10 @@ class Eprojectile extends Projectile {
 		radius = 2.0;
 	}
 	
+	public double getRadius() {
+		return radius;
+	}
+
 	void desenha(){
 		/* desenhando projeteis (inimigos) */
 		GameLib.setColor(Color.RED);

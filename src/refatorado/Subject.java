@@ -2,7 +2,7 @@ package refatorado;
 import java.util.*;
 
 abstract class Subject <T extends Observer> {
-	List <T> observers;
+	List <T> observers;//para mexer depois
 	
 	public Subject (){
 		observers = new ArrayList<T>(); 

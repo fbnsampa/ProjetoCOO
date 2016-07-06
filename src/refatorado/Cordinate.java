@@ -1,9 +1,9 @@
 package refatorado;
 
 public class Cordinate {
-	double x;
-	double y;
-	double angle;
+	public double x;
+	public double y;
+	public double angle;
 	
 	public Cordinate (){
 		this.x = 0.0;

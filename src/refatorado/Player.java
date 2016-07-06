@@ -20,7 +20,7 @@ class Player implements Observer{
 		radius = 12.0;
 		explosion_start = 0;
 		explosion_end = 0;
-		nextShot = Level.currentTime;
+		nextShot = Level.getCurrentTime();
 		exploding = false;
 	}
 	
@@ -42,13 +42,13 @@ class Player implements Observer{
 
 	public void setExploding() {
 		exploding = true;
-		explosion_start = Level.currentTime;
-		explosion_end = Level.currentTime + 2000;
+		explosion_start = Level.getCurrentTime();
+		explosion_end = Level.getCurrentTime() + 2000;
 	}
 
 	void verificaExplosionPlayer(){
 		if(exploding){
-			if(Level.currentTime > explosion_end){
+			if(Level.getCurrentTime() > explosion_end){
 				//state = Main.ACTIVE;
 				exploding = false;
 			}
@@ -61,19 +61,19 @@ class Player implements Observer{
 		/********************************************/
 		
 		if(!exploding){
-			if(GameLib.iskeyPressed(GameLib.KEY_UP)) position.y -= Level.delta * speedy.y;
-			if(GameLib.iskeyPressed(GameLib.KEY_DOWN)) position.y += Level.delta * speedy.y;
-			if(GameLib.iskeyPressed(GameLib.KEY_LEFT)) position.x -= Level.delta * speedy.x;
-			if(GameLib.iskeyPressed(GameLib.KEY_RIGHT)) position.x += Level.delta * speedy.x;
+			if(GameLib.iskeyPressed(GameLib.KEY_UP)) position.y -= Level.getDelta() * speedy.y;
+			if(GameLib.iskeyPressed(GameLib.KEY_DOWN)) position.y += Level.getDelta() * speedy.y;
+			if(GameLib.iskeyPressed(GameLib.KEY_LEFT)) position.x -= Level.getDelta() * speedy.x;
+			if(GameLib.iskeyPressed(GameLib.KEY_RIGHT)) position.x += Level.getDelta() * speedy.x;
 			if(GameLib.iskeyPressed(GameLib.KEY_CONTROL)) {
-				if(Level.currentTime > nextShot){
+				if(Level.getCurrentTime() > nextShot){
 						projectiles.add(new Pprojectile(position.x, position.y - 2 * radius, 0.0, -1.0));
-						nextShot = Level.currentTime + 100;
+						nextShot = Level.getCurrentTime() + 100;
 				}	
 			}
 		}
 		
-		if(GameLib.iskeyPressed(GameLib.KEY_ESCAPE)) Main.running = false;
+		if(GameLib.iskeyPressed(GameLib.KEY_ESCAPE)) Main.setRunning(false);
 		
 		/* Verificando se coordenadas do player ainda estão dentro	*/
 		/* da tela de jogo após processar entrada do usuário.       */
@@ -91,7 +91,7 @@ class Player implements Observer{
 		/* desenhando player */
 		if(exploding){
 			
-			double alpha = (Level.currentTime - explosion_start) / (explosion_end - explosion_start);
+			double alpha = (Level.getCurrentTime() - explosion_start) / (explosion_end - explosion_start);
 			GameLib.drawExplosion(position.x, position.y, alpha);
 		}
 		else{
@@ -106,7 +106,7 @@ class Player implements Observer{
 		LinkedList <Pprojectile> inactiveProjectiles = new LinkedList <Pprojectile>();
 		
 		for (Pprojectile projectile : projectiles){
-			if (projectile.position.y < 0){
+			if (projectile.getPositionY() < 0){
 				inactiveProjectiles.add(projectile);
 			} else {
 				projectile.atualiza();

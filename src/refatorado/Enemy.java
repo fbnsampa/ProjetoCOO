@@ -35,8 +35,8 @@ abstract class Enemy implements Observer{
 
 	public void setExploding() {
 		exploding = true;
-		explosion_start = Level.currentTime;
-		explosion_end = Level.currentTime + 500;
+		explosion_start = Level.getCurrentTime();
+		explosion_end = Level.getCurrentTime() + 500;
 	}
 
 	public double getExplosion_end() {
@@ -48,7 +48,7 @@ abstract class Enemy implements Observer{
 	}
 	
 	public void desenha(){
-		System.out.println("Teste");
+
 	}
 	
 	public boolean isOutOfScreen(){

@@ -13,9 +13,9 @@ public class Ship extends Enemy implements EnemyInterface  {
 		position.angle = 3 * Math.PI / 2;
 		V = 0.20 + Math.random() * 0.15;
 		RV = 0.0;
-		nextShoot = Level.currentTime + 500;
+		nextShoot = Level.getCurrentTime() + 500;
 		radius = 9.0;
-		next = Level.currentTime + 500;
+		next = Level.getCurrentTime() + 500;
 	}
 	
 	public static long getNext() {
@@ -32,21 +32,21 @@ public class Ship extends Enemy implements EnemyInterface  {
 	}
 	
 	public void move (){
-		position.x += V * Math.cos(position.angle) * Level.delta;
-		position.y += V * Math.sin(position.angle) * Level.delta * (-1.0);
-		position.angle += RV * Level.delta;
+		position.x += V * Math.cos(position.angle) * Level.getDelta();
+		position.y += V * Math.sin(position.angle) * Level.getDelta() * (-1.0);
+		position.angle += RV * Level.getDelta();
 	}
 	
 	public void shoot (){
 		//se o inimigo estiver acima do personagem e o tempo atual for maior
 		//que o tempo do próximo tiro acontece um disparo
-		if(Level.currentTime > nextShoot && position.y < Main.player.getPositionY()){
+		if(Level.getCurrentTime() > nextShoot && position.y < Main.player.getPositionY()){
 			double vx = Math.cos(position.angle) * 0.45;
 			double vy = Math.sin(position.angle) * 0.45 * (-1.0);
 			Eprojectile novo = new Eprojectile(position.x, position.y, vx, vy);
 			projectiles.add(novo);
 			//o tempo do próximo disparo é atualizado
-			nextShoot = (long) (Level.currentTime + 200 + Math.random() * 500);
+			nextShoot = (long) (Level.getCurrentTime() + 200 + Math.random() * 500);
 		}
 	}
 	
@@ -56,7 +56,7 @@ public class Ship extends Enemy implements EnemyInterface  {
 		
 		//atualizando os projeteis
 		for (Eprojectile projectile : projectiles){
-			if (projectile.position.y < 0){
+			if (projectile.getPositionY() < 0){
 				inactiveProjectiles.add(projectile);
 			} else {
 				projectile.atualiza();
@@ -82,8 +82,8 @@ public class Ship extends Enemy implements EnemyInterface  {
 		if(!exploding){
 			GameLib.setColor(Color.CYAN);
 			GameLib.drawCircle(position.x, position.y, radius);
-		} else if (Level.currentTime <= explosion_end){
-			double alpha = (Level.currentTime - explosion_start) / (explosion_end - explosion_start);
+		} else if (Level.getCurrentTime() <= explosion_end){
+			double alpha = (Level.getCurrentTime() - explosion_start) / (explosion_end - explosion_start);
 			GameLib.drawExplosion(position.x, position.y, alpha);
 		}
 	}
