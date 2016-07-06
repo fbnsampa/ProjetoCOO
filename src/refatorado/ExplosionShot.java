@@ -2,7 +2,7 @@ package refatorado;
 
 class ExplosionShot implements ShotBehavior{
 
-	public void shoot(){
+	public void shoot(Enemy caller){
 		
 	}
 	

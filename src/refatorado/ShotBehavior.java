@@ -2,6 +2,6 @@ package refatorado;
 
 interface ShotBehavior {
 	
-	void shoot();
+	void shoot(Enemy caller);
 	
 }

@@ -16,6 +16,8 @@ public class Ship extends Enemy implements EnemyInterface  {
 		nextShoot = Level.getCurrentTime() + 500;
 		radius = 9.0;
 		next = Level.getCurrentTime() + 500;
+		sb = new StraightShot();
+		mb = new StraightMove();
 	}
 	
 	public static long getNext() {
@@ -29,25 +31,6 @@ public class Ship extends Enemy implements EnemyInterface  {
 	public boolean isOutOfScreen(){
 		if(position.y > GameLib.HEIGHT + 10) return true;
 		return false;
-	}
-	
-	public void move (){
-		position.x += V * Math.cos(position.angle) * Level.getDelta();
-		position.y += V * Math.sin(position.angle) * Level.getDelta() * (-1.0);
-		position.angle += RV * Level.getDelta();
-	}
-	
-	public void shoot (){
-		//se o inimigo estiver acima do personagem e o tempo atual for maior
-		//que o tempo do próximo tiro acontece um disparo
-		if(Level.getCurrentTime() > nextShoot && position.y < Main.player.getPositionY()){
-			double vx = Math.cos(position.angle) * 0.45;
-			double vy = Math.sin(position.angle) * 0.45 * (-1.0);
-			Eprojectile novo = new Eprojectile(position.x, position.y, vx, vy);
-			projectiles.add(novo);
-			//o tempo do próximo disparo é atualizado
-			nextShoot = (long) (Level.getCurrentTime() + 200 + Math.random() * 500);
-		}
 	}
 	
 	public void atualiza(){
@@ -68,8 +51,14 @@ public class Ship extends Enemy implements EnemyInterface  {
 		
 		//se o inimigo for explodido aquela posição do vetor passa a ser inativa
 		if(!exploding && !isOutOfScreen()){
+			//se o inimigo estiver acima do personagem e o tempo atual for maior
+			//que o tempo do próximo tiro acontece um disparo
+			if(Level.getCurrentTime() > nextShoot && position.y < Main.player.getPositionY()){
+				shoot();
+				//o tempo do próximo disparo é atualizado
+				nextShoot = (long) (Level.getCurrentTime() + 200 + Math.random() * 500);
+			}
 			move();
-			shoot();
 		}
 	}
 	

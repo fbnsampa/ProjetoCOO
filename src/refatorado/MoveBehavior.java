@@ -2,6 +2,6 @@ package refatorado;
 
 interface MoveBehavior {
 	
-	void move();
+	void move(Enemy caller);
 	
 }
