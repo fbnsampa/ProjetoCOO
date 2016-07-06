@@ -59,16 +59,9 @@ public class Ship extends Enemy implements EnemyInterface  {
 			projectiles.remove(projectile);
 		
 		//se o inimigo for explodido aquela posição do vetor passa a ser inativa
-		if(exploding){
-			if(Level.currentTime > explosion_end){
-				exploding = false;
-			}
-		} else {
-			if (!isOutOfScreen()){
-				move();
-				shoot();
-			}
-			
+		if(!exploding && !isOutOfScreen()){
+			move();
+			shoot();
 		}
 	}
 	
@@ -78,12 +71,12 @@ public class Ship extends Enemy implements EnemyInterface  {
 		for (Eprojectile projectile : projectiles)
 			projectile.desenha();
 		
-		if(exploding){
-			double alpha = (Level.currentTime - explosion_start) / (explosion_end - explosion_start);
-			GameLib.drawExplosion(position.x, position.y, alpha);
-		} else {
+		if(!exploding){
 			GameLib.setColor(Color.CYAN);
 			GameLib.drawCircle(position.x, position.y, radius);
+		} else if (Level.currentTime <= explosion_end){
+			double alpha = (Level.currentTime - explosion_start) / (explosion_end - explosion_start);
+			GameLib.drawExplosion(position.x, position.y, alpha);
 		}
 	}
 

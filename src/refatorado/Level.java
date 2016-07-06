@@ -100,8 +100,6 @@ public class Level extends Subject<Enemy>{
 		
 		currentTime = System.currentTimeMillis();
 		
-		//System.out.println(currentTime + " : " + observers.size());
-		
 		
 		/***************************/
 		/* Verificação de colisões */
@@ -128,8 +126,6 @@ public class Level extends Subject<Enemy>{
 		launchEnemy();
 		player.atualiza();
 		
-		//if (!observers.isEmpty()) System.out.println(observers.get(0).projectiles.size());
-		
 		/*******************/
 		/* Desenho da cena */
 		/*******************/
@@ -139,7 +135,7 @@ public class Level extends Subject<Enemy>{
 		
 		//Elimina os inimigos destruidos da lista de observadores
 		for (Enemy enemy : explodingEnemys){
-			if (!enemy.exploding){
+			if (currentTime > enemy.explosion_end && enemy.projectiles.size() == 0){
 				inactiveEnemys.add(enemy);
 			}
 		}

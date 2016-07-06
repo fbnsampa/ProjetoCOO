@@ -98,33 +98,22 @@ public class Worm extends Enemy implements EnemyInterface {
 		for (Eprojectile projectile : inactiveProjectiles)
 			projectiles.remove(projectile);
 		
-		if(exploding) {
-			if(Level.currentTime > explosion_end){
-				exploding = false;
-			}
-		} else {
+		if(!exploding && !isOutOfScreen()) {
 			//Dependendo das condições durante o movimento o shoot é lançado ou não
 			if (move())	shoot();
 		}
-	}
-	
-	public void verifica(){
-		/* verificando se novos inimigos (tipo 2) devem ser "lançados" */
-		
-
 	}
 	
 	public void desenha(){
 		for (Eprojectile projectile : projectiles){
 			projectile.desenha();
 		}
-		
-		if(exploding){
-			double alpha = (Level.currentTime - explosion_start) / (explosion_end - explosion_start);
-			GameLib.drawExplosion(position.x, position.y, alpha);
-		} else {
+		if(!exploding){
 			GameLib.setColor(Color.MAGENTA);
 			GameLib.drawDiamond(position.x, position.y, radius);
+		} else if (Level.currentTime <= explosion_end){
+			double alpha = (Level.currentTime - explosion_start) / (explosion_end - explosion_start);
+			GameLib.drawExplosion(position.x, position.y, alpha);
 		}
 	}
 

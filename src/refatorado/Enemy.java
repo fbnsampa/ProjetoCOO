@@ -7,8 +7,8 @@ abstract class Enemy implements Observer{
 	double V;					// velocidades
 	double RV;					// velocidades de rotação
 	double radius;				// raio (tamanho do inimigo 1)
-	long explosion_start;		// instantes dos inícios das explosões
-	long explosion_end;			// instantes dos finais da explosões
+	double explosion_start;		// instantes dos inícios das explosões
+	double explosion_end;			// instantes dos finais da explosões
 	long nextShoot;				// instantes do próximo tiro
 	boolean exploding;
 	

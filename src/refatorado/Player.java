@@ -7,8 +7,8 @@ class Player implements Observer{
 	Cordinate position;
 	Cordinate speedy;
 	double radius;						// raio (tamanho aproximado do player)
-	long explosion_start;				// instante do início da explosão
-	long explosion_end;					// instante do final da explosão
+	double explosion_start;				// instante do início da explosão
+	double explosion_end;				// instante do final da explosão
 	long nextShot;						// instante a partir do qual pode haver um próximo tiro
 	boolean exploding;
 
