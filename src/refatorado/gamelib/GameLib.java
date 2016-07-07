@@ -83,7 +83,6 @@ public class GameLib {
 		int width = (int) Math.round(2 * radius);
 		int height = (int) Math.round(2 * radius);
 		
-		g.drawOval(x, y, width, height);
 		g.fillOval(x, y, width, height);
 	}
 	

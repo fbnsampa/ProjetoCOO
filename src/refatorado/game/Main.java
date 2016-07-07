@@ -1,6 +1,10 @@
 package refatorado.game;
 
+import java.io.*;
+import java.util.Scanner;
+
 import refatorado.gamelib.GameLib;
+
 
 public class Main{
 	
@@ -12,6 +16,7 @@ public class Main{
 	/* Indica que o jogo está em execução */
 	private static boolean running;
 
+	
 	protected static void setRunning(boolean running) {
 		Main.running = running;
 	}
@@ -26,18 +31,38 @@ public class Main{
 	
 	/* Método principal */
 	
-	public static void main(String [] args){
 
+	
+	public static void main(String [] args){
+		//leitura de arquivo
+		
+//		int maxHP = 0;
+//		int numLevel = 0;
+//		String [] fileNames = new String [1];
+//		File file = new File (args[0]);
+//		
+//		try (Scanner in = new Scanner(file)){
+//			maxHP = in.nextInt();
+//			numLevel = in.nextInt();
+//			fileNames = new String [numLevel];
+//
+//			for (int i = 0; i < numLevel; i++)
+//				fileNames[i] = in.nextLine();
+//			
+//		} catch (FileNotFoundException x){
+//			System.out.println("File not found!");
+//			x.printStackTrace();			
+//		}
+		
 		/* Indica que o jogo está em execução */
 		running = true;
-
 		player = new Player();
 		Background background = new Background();
 
 		/* iniciado interface gráfica */
 		
 		GameLib.initGraphics();
-		Level level = new Level();
+		
 		
 		/*************************************************************************************************/
 		/*                                                                                               */
@@ -58,20 +83,26 @@ public class Main{
 		/*                                                                                               */
 		/*************************************************************************************************/
 		
-		while(running){
 		
-			level.run();
+//		for (int i = 0; i < numLevel; i++){
+	
+			Level level = new Level();
+//			level.load(fileNames[i]);
 			
-			/* desenhando plano fundo*/
-			background.desenha();
+			while(running){
 			
-			GameLib.display();
-			
-			/* faz uma pausa de modo que cada execução do laço do main loop demore aproximadamente 5 ms. */
-			
-			busyWait(Level.getCurrentTime() + 5);
-		}
-		
+				level.run();
+				
+				/* desenhando plano fundo*/
+				background.desenha();
+				
+				GameLib.display();
+				
+				/* faz uma pausa de modo que cada execução do laço do main loop demore aproximadamente 5 ms. */
+				
+				busyWait(Level.getCurrentTime() + 5);
+			}
+//		}
 		System.exit(0);
 	}
 	
