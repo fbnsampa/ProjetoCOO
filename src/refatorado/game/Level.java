@@ -19,7 +19,7 @@ public class Level extends Subject<Enemy>{
 		super();
 		explodingEnemys = new LinkedList<Enemy>();
 		player = Main.player;
-		currentTime = 0;
+		currentTime = System.currentTimeMillis();
 		delta = 0;
 		Ship.setNext(System.currentTimeMillis() + 2000); //bizarro porem provisorio
 		Worm.setNext(System.currentTimeMillis() + 7000); //bizarro porem provisorio
@@ -133,8 +133,7 @@ public class Level extends Subject<Enemy>{
 		}
 		
 		//launchEnemy();
-		if (observers.size() < 1) addObserver(new Ship());
-		//System.out.println(currentTime + "   Projectiles : " + observers.get(0).projectiles.size());
+		if (observers.size() < 1) addObserver(new Boss());
 		player.update();
 		notifyObservers();
 		
@@ -151,6 +150,7 @@ public class Level extends Subject<Enemy>{
 				inactiveEnemys.add(enemy);
 			}
 		}
+		
 		for (Enemy enemy : inactiveEnemys) removeObserver(enemy);
 		
 	}

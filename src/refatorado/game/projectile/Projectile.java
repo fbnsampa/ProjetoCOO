@@ -25,7 +25,7 @@ abstract class Projectile {
 	public double getPositionY() {
 		return position.y;
 	}
-
+	
 	public void update(){
 		position.x += speed.x * Level.getDelta();
 		position.y += speed.y * Level.getDelta();

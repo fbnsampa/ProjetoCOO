@@ -32,12 +32,12 @@ public class Main{
 		running = true;
 
 		player = new Player();
-		Level level = new Level();
 		Background background = new Background();
 
 		/* iniciado interface gráfica */
 		
 		GameLib.initGraphics();
+		Level level = new Level();
 		
 		/*************************************************************************************************/
 		/*                                                                                               */

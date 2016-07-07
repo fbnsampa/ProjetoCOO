@@ -76,6 +76,17 @@ public class GameLib {
 		g.drawOval(x, y, width, height);
 	}
 	
+	public static void drawBall(double cx, double cy, double radius){
+		
+		int x = (int) Math.round(cx - radius);
+		int y = (int) Math.round(cy - radius);
+		int width = (int) Math.round(2 * radius);
+		int height = (int) Math.round(2 * radius);
+		
+		g.drawOval(x, y, width, height);
+		g.fillOval(x, y, width, height);
+	}
+	
 	public static void drawDiamond(double x, double y, double radius){
 		
 		int x1 = (int) Math.round(x);

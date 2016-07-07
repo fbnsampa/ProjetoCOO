@@ -47,6 +47,14 @@ public abstract class Enemy implements Observer, Character{
 		return radius;
 	}
 	
+	public double getDirectionX(){
+		return speed.getDirectionX();
+	}
+	
+	public double getDirectionY(){
+		return speed.getDirectionY();
+	}
+	
 	public boolean isExploding() {
 		return exploding;
 	}
@@ -82,7 +90,7 @@ public abstract class Enemy implements Observer, Character{
 	}
 	
 	public boolean isOutOfScreen(){
-		return true;
+		return false;
 	}
 	
 }

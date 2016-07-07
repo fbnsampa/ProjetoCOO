@@ -14,16 +14,16 @@ public class Boss extends Enemy implements EnemyInterface {
 	public Boss (){
 		super();
 		position.x = GameLib.WIDTH/2;
-		position.y = 20;
-		position.angle = 4.7123889803847;  //3 * Math.PI
+		position.y = -12.0;
+		position.angle = 0.0;  //3 * Math.PI
 		speed.x = 0.0;
-		speed.y = 0.2;
+		speed.y = 0.20;
 		RV = 0.0;
-		nextShot = Level.getCurrentTime() + 500;
-		radius = 9.0;
-		sb = new StraightShot();
+		nextShot = Level.getCurrentTime() + 1400;
+		radius = 25.0;
+		sb = new ExplosionShot();
 		mb = new StraightMove();
-		
+		System.out.println("novo boss criado");
 	}	
 	
 	public void draw(){
@@ -31,9 +31,8 @@ public class Boss extends Enemy implements EnemyInterface {
 			projectile.draw();
 		
 		if(!exploding){
-			//System.out.println("x : "  +  position.x  + "    y : " + position.y);
-			GameLib.setColor(Color.BLUE);
-			GameLib.drawCircle(position.x, position.y, radius);
+			GameLib.setColor(Color.GRAY);
+			GameLib.drawBall(position.x, position.y, radius);
 		} else if (Level.getCurrentTime() <= explosion_end){
 			double alpha = (Level.getCurrentTime() - explosion_start) / (explosion_end - explosion_start);
 			GameLib.drawExplosion(position.x, position.y, alpha);
@@ -42,7 +41,7 @@ public class Boss extends Enemy implements EnemyInterface {
 	
 	public void update(){
 		LinkedList <Eprojectile> inactiveProjectiles = new LinkedList <Eprojectile>();
-		
+
 		//atualizando os projeteis
 		for (Eprojectile projectile : projectiles){
 			if (projectile.getPositionY() > GameLib.HEIGHT){
@@ -51,7 +50,6 @@ public class Boss extends Enemy implements EnemyInterface {
 				projectile.update();
 			}
 		}
-		
 		for (Eprojectile projectile : inactiveProjectiles)
 			projectiles.remove(projectile);
 		
@@ -59,14 +57,13 @@ public class Boss extends Enemy implements EnemyInterface {
 		if(!exploding){
 			//se o inimigo estiver acima do personagem e o tempo atual for maior
 			//que o tempo do próximo tiro acontece um disparo
-			if(Level.getCurrentTime() > nextShot && position.y < Main.player.getPositionY()){
+			if(Level.getCurrentTime() > nextShot){
 				shoot();
 				//o tempo do próximo disparo é atualizado
-				nextShot = (long) (Level.getCurrentTime() + 200 + Math.random() * 500);
+				nextShot = (long) (Level.getCurrentTime() + 5000);
 			}
 			move();
 		}
-		this.update = false;
 	}
 	
 	

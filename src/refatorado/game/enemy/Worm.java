@@ -1,13 +1,9 @@
 package refatorado.game.enemy;
 import java.awt.Color;
 import java.util.LinkedList;
-
 import refatorado.game.Level;
 import refatorado.game.projectile.Eprojectile;
 import refatorado.gamelib.GameLib;
-//essa classe talvez não precise ser public pois somente Level precisa dela
-//e ainda de maneira provisória uma vez que depois de implementados os arquivos
-//ele não precisará referenciar naves diretamente
 public class Worm extends Enemy implements EnemyInterface {
 	private static long next;
 	private static long spawnX;			// coordenada x do próximo inimigo tipo 2 a aparecer
