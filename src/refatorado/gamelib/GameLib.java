@@ -1,5 +1,6 @@
 package refatorado.gamelib;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Toolkit;
 
@@ -40,6 +41,7 @@ public class GameLib {
 	private static Graphics g = null;
 	private static MyKeyAdapter keyboard = null;
 	
+
 	public static void initGraphics(){
 		
 		frame = new MyFrame("Projeto COO");
@@ -135,6 +137,12 @@ public class GameLib {
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, frame.getWidth() - 1, frame.getHeight() - 1);
 		g.setColor(Color.WHITE);
+	}
+	
+	public static void writeName(Font namefont, String name, int x, int y){
+		 g.setFont(namefont);
+		 g.setColor(Color.white);
+		 g.drawString(name, x, y);
 	}
 	
 	//O keyboard eh privado. Portanto o metodo isKeyPressed nao pode ser acessado de fora.
