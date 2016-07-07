@@ -3,14 +3,15 @@ import java.awt.Color;
 import java.util.LinkedList;
 
 import refatorado.game.Level;
+import refatorado.game.lifebar.LifeBarEnemy;
 import refatorado.game.projectile.Eprojectile;
 import refatorado.gamelib.GameLib;
 
-public class Boss extends Enemy implements EnemyInterface {
+public class DeathStar extends Enemy implements EnemyInterface {
 	private long nextShot;
+	public LifeBarEnemy hp;
 	
-	
-	public Boss (){
+	public DeathStar (){
 		super();
 		position.x = 60;
 		position.y = 80;
@@ -22,9 +23,9 @@ public class Boss extends Enemy implements EnemyInterface {
 		radius = 40.0;
 		sb = new ExplosionShot();
 		mb = new PongMove();
-	}	
+	}
 	
-	public Boss (double x, double y, long spawn, int maxHP){
+	public DeathStar (double x, double y, long spawn, int maxHP){
 		super(x, y, spawn);
 		position.angle = 0.0; 		//3 * Math.PI
 		speed.x = 0.20;
@@ -34,7 +35,7 @@ public class Boss extends Enemy implements EnemyInterface {
 		radius = 40.0;
 		sb = new ExplosionShot();
 		mb = new PongMove();
-	}
+	}	
 	
 	public void draw(){
 		for (Eprojectile projectile : projectiles)

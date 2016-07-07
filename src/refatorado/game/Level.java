@@ -1,9 +1,12 @@
 package refatorado.game;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
 import refatorado.game.enemy.Enemy;
 import refatorado.game.enemy.Ship;
 import refatorado.game.enemy.Worm;
 import refatorado.game.enemy.Boss;
+import refatorado.game.enemy.DeathStar;
 import refatorado.game.projectile.Eprojectile;
 import refatorado.game.projectile.Pprojectile;
 
@@ -35,6 +38,47 @@ public class Level extends Subject<Enemy>{
 
 	public void load (String name){
 		//Carrega as configurações no documento de texto
+		List <Enemy> nextEnemys = new LinkedList <Enemy>();
+		
+		File file = new File (name);
+		
+		try (Scanner in = new Scanner(file)){
+			String [] line;
+			
+			while (in.hasNext()){
+				line = in.nextLine().split(" ");
+				Enemy novo;
+				if (line.length == 5){ //eh um inimigo comum
+					int type = Integer.parseInt(line[1]);
+					double x = Double.parseDouble(line[3]);
+					double y = Double.parseDouble(line[4]);
+					long spawn = Long.parseLong(line[2]);
+					if (type == 1) novo = new Ship(x, y, spawn);
+					else novo = new Worm(x, y, spawn);
+					nextEnemys.add(novo);
+				} else { //eh um boss
+					int type = Integer.parseInt(line[1]);
+					int maxHP = Integer.parseInt(line[2]);
+					double x = Double.parseDouble(line[4]);
+					double y = Double.parseDouble(line[5]);
+					long spawn = Long.parseLong(line[3]);
+					if (type == 1) novo = new DeathStar(x, y, spawn,maxHP);
+					else novo = new Boss(x, y, spawn, maxHP);
+				}
+				
+				//DAR SORT NO nextEnemys
+				
+			}
+			
+			
+		} catch (FileNotFoundException x){
+			System.out.println("File not found!");
+			x.printStackTrace();			
+		}
+		
+		
+		
+		
 		
 	}
 	
@@ -140,7 +184,6 @@ public class Level extends Subject<Enemy>{
 		/*******************/
 		/* Desenho da cena */
 		/*******************/
-		
 		player.draw();
 		for (Enemy enemy : observers) enemy.draw();
 		

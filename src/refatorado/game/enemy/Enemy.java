@@ -16,6 +16,7 @@ public abstract class Enemy implements Observer, Character{
 	protected double explosion_end;			// instantes dos finais da explosões
 	protected boolean exploding;
 	protected boolean update;
+	protected long spawn;
 	protected ShotBehavior sb;
 	protected MoveBehavior mb;
 	
@@ -25,6 +26,15 @@ public abstract class Enemy implements Observer, Character{
 		speed = new Cordinate();
 		exploding = false;
 		update = false;
+	}
+	
+	Enemy(double x, double y, long spawn){
+		projectiles = new ArrayList <Eprojectile>();
+		position = new Cordinate(x, y);
+		speed = new Cordinate();
+		exploding = false;
+		update = false;
+		this.spawn = spawn;
 	}
 	
 	public double getPositionX() {

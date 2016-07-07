@@ -25,6 +25,19 @@ public class Ship extends Enemy implements EnemyInterface  {
 		mb = new StraightMove();
 	}
 	
+	public Ship (double x, double y, long spawn){
+		super(x, y, spawn);
+		position.angle = 4.7123889803847;  //3 * Math.PI
+		speed.x = 0.0;
+		speed.y = 0.20 + Math.random() * 0.15;
+		RV = 0.0;
+		nextShot = Level.getCurrentTime() + 500;
+		radius = 9.0;
+		next = Level.getCurrentTime() + 500;
+		sb = new StraightShot();
+		mb = new StraightMove();
+	}
+	
 	public static long getNext() {
 		return next;
 	}
