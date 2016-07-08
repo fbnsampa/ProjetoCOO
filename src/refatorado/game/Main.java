@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 import refatorado.gamelib.GameLib;
 
-
+//main exdruxulo
 public class Main{
 	
 	/* Constantes relacionadas aos estados que os elementos   */
