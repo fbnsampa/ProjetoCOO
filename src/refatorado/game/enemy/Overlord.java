@@ -1,16 +1,15 @@
 package refatorado.game.enemy;
 import java.awt.Color;
 import java.util.LinkedList;
-
 import refatorado.game.Level;
 import refatorado.game.lifebar.LifeBarEnemy;
 import refatorado.game.projectile.Eprojectile;
 import refatorado.gamelib.GameLib;
 
-public class Boss extends Enemy implements EnemyInterface {
+public class Overlord extends Enemy implements EnemyInterface {
 	private long nextShot;
 	
-	public Boss (){
+	public Overlord (){
 		super();
 		life = new LifeBarEnemy (10);
 		position.x = 60;
@@ -25,7 +24,7 @@ public class Boss extends Enemy implements EnemyInterface {
 		mb = new PongMove();
 	}	
 	
-	public Boss (double x, double y, long spawn, int maxHP){
+	public Overlord (double x, double y, long spawn, int maxHP){
 		super(x, y, spawn);
 		if (maxHP < 1) maxHP = 1;
 		life = new LifeBarEnemy (maxHP);

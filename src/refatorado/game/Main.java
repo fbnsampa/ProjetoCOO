@@ -41,25 +41,25 @@ public class Main{
 		try (Scanner in = new Scanner(file)){
 			maxHP = in.nextInt();
 			numLevel = in.nextInt();
+			in.nextLine();
 			fileNames = new String [numLevel];
 
 			for (int i = 0; i < numLevel; i++)
 				fileNames[i] = in.nextLine();
 			
 		} catch (FileNotFoundException x){
-			System.out.println("File not found!");
+			System.out.println("'" + args[0] + "'" + " file not found!");
 			x.printStackTrace();			
 		}
 		
 		/* Indica que o jogo está em execução */
 		running = true;
-		player = new Player();
 		Background background = new Background();
 
 		/* iniciado interface gráfica */
 		
 		GameLib.initGraphics();
-		
+		player = new Player();
 		
 		/*************************************************************************************************/
 		/*                                                                                               */
@@ -80,9 +80,7 @@ public class Main{
 		/*                                                                                               */
 		/*************************************************************************************************/
 		
-		
 		for (int i = 0; i < numLevel; i++){
-	
 			Level level = new Level();
 			level.load(fileNames[i]);
 			

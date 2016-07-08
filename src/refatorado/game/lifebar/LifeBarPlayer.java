@@ -30,7 +30,8 @@ public class LifeBarPlayer extends LifeBar {
 	}
 	
 	public void restoreHp(){
-		this.hp = maxhp;  
+		this.hp = maxhp;
+		draw();
 	}
 
 }

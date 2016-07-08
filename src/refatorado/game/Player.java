@@ -19,6 +19,7 @@ public class Player implements Observer, Character{
 	private boolean exploding;
 
 	Player(){
+		life = new LifeBarPlayer (10);
 		projectiles = new ArrayList <Pprojectile>();
 		position = new Cordinate(GameLib.WIDTH / 2, GameLib.HEIGHT * 0.90);
 		speed = new Cordinate (0.25, 0.25);
@@ -41,10 +42,7 @@ public class Player implements Observer, Character{
 		nextShot = Level.getCurrentTime();
 		exploding = false;
 	}
-	
 
-	
-	
 	public double getPositionX() {
 		return position.x;
 	}
@@ -60,7 +58,7 @@ public class Player implements Observer, Character{
 	public boolean isExploding() {
 		return exploding;
 	}
-
+	
 	public void setExploding() {
 		exploding = true;
 		explosion_start = Level.getCurrentTime();
@@ -72,15 +70,12 @@ public class Player implements Observer, Character{
 			if(Level.getCurrentTime() > explosion_end){
 				//state = Main.ACTIVE;
 				exploding = false;
+				life.restoreHp();
 			}
 		}
 	}
-	
 	private void readIn(){
-		/********************************************/
 		/* Verificando entrada do usuário (teclado) */
-		/********************************************/
-		
 		if(!exploding){
 			if(GameLib.iskeyPressed(GameLib.KEY_UP)) position.y -= Level.getDelta() * speed.y;
 			if(GameLib.iskeyPressed(GameLib.KEY_DOWN)) position.y += Level.getDelta() * speed.y;
@@ -105,9 +100,15 @@ public class Player implements Observer, Character{
 		if(position.y >= GameLib.HEIGHT) position.y = GameLib.HEIGHT - 1;
 	}
 	
-	 public void draw(){
+	public boolean isVulnerable(){
+		return life.isVulnerable();
+	}
+	
+	public void draw(){
 		for (Pprojectile projectile : projectiles)
 			projectile.draw();
+		
+		life.draw();
 		
 		/* desenhando player */
 		if(exploding){

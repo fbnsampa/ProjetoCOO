@@ -9,11 +9,10 @@ import refatorado.gamelib.GameLib;
 
 public class DeathStar extends Enemy implements EnemyInterface {
 	private long nextShot;
-	public LifeBarEnemy life;
 	
 	public DeathStar (){
 		super();
-		life = new LifeBarEnemy(1);
+		life = new LifeBarEnemy(10);
 		position.x = 60;
 		position.y = 80;
 		position.angle = 0.0; 		//3 * Math.PI
@@ -36,6 +35,11 @@ public class DeathStar extends Enemy implements EnemyInterface {
 		RV = 0.0;
 		nextShot = Level.getCurrentTime() + 800;
 		radius = 40.0;
+		if (x < radius) position.x = radius;
+		else if (x > GameLib.WIDTH - radius) position.x = GameLib.WIDTH - radius;
+		if (y < radius) position.y = radius;
+		else if (y > GameLib.HEIGHT - radius) position.y = GameLib.HEIGHT - radius;
+		
 		sb = new ExplosionShot();
 		mb = new PongMove();
 	}	
@@ -43,6 +47,8 @@ public class DeathStar extends Enemy implements EnemyInterface {
 	public void draw(){
 		for (Eprojectile projectile : projectiles)
 			projectile.draw();
+		
+		life.draw();
 		
 		if(!exploding){
 			GameLib.setColor(Color.GRAY);

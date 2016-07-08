@@ -18,7 +18,8 @@ public class Level extends Subject<Enemy>{
 	private Player player;
 	private LinkedList <Enemy> explodingEnemys;
 	private List <Enemy> nextEnemys;
-	
+	int count =  0;
+	//Enemy meuBoss;
 	
 	public Level (){
 		super();
@@ -42,7 +43,6 @@ public class Level extends Subject<Enemy>{
 
 	public void load (String name){
 		//Carrega as configurações no documento de texto
-		
 		File file = new File (name);
 		
 		try (Scanner in = new Scanner(file)){
@@ -67,21 +67,16 @@ public class Level extends Subject<Enemy>{
 					long spawn = Long.parseLong(line[3]);
 					if (type == 1) novo = new DeathStar(x, y, spawn,maxHP);
 					else novo = new Boss(x, y, spawn, maxHP);
+					//meuBoss = novo;
 				}
-				//Organizar nextEnemys
+				//Ordenar elementos de nextEnemys em ordem crescente de spawn
 				Collections.sort(nextEnemys);
 			}
 			
-			
 		} catch (FileNotFoundException x){
-			System.out.println("File not found!");
+			System.out.println("'" + name + "'" + " file not found!");
 			x.printStackTrace();			
 		}
-		
-		
-		
-		
-		
 	}
 	
 	//Verifica se alguma colisao explodiu o player
@@ -94,7 +89,8 @@ public class Level extends Subject<Enemy>{
 			dist = Math.sqrt(dx * dx + dy * dy);
 
 			if (dist < (player.getRadius() + enemy.getRadius()) * 0.8){
-				player.setExploding();
+				System.out.println(count);
+				if (player.life.takeHit()) player.setExploding();
 				return;
 			}
 			
@@ -104,7 +100,8 @@ public class Level extends Subject<Enemy>{
 				dist = Math.sqrt(dx * dx + dy * dy);
 				
 				if (dist < (player.getRadius() + projectile.getRadius()) * 0.8){
-					player.setExploding();
+					
+					if (player.life.takeHit()) player.setExploding();
 					return;
 				}
 			}
@@ -112,27 +109,25 @@ public class Level extends Subject<Enemy>{
 	}
 
 	//Verifica se os projéteis atirados pelo player destruiu algum inimigo
-	//Retorna uma lista ligada com todos os inimigos destruidos
 	public void verifyEnemyColision (){
 		for (Pprojectile projectile : player.projectiles){
 			for (Enemy enemy : observers){
-				if (!enemy.isExploding()){
+				if (!enemy.isExploding() && enemy.isVulnerable()){
 					double dx = enemy.getPositionX() - projectile.getPositionX();
 					double dy = enemy.getPositionY() - projectile.getPositionY();
 					double dist = Math.sqrt(dx * dx + dy * dy);
 					if (dist < enemy.getRadius()){
-						enemy.setExploding();
-						explodingEnemys.add(enemy);
+						if (enemy.life.takeHit()){
+							enemy.setExploding();
+							explodingEnemys.add(enemy);
+						}
 					}
-				}
+				} 
 			}
 		}
 	}
 	
 	public void launchEnemyOld (){
-		/* verificando se novos inimigos (tipo 1) devem ser "lançados" */
-		//lançando um ship
-		
 		if(currentTime > Ship.getNext()){
 			addObserver(new Ship());
 			Ship.setNext(Level.currentTime + 500);
@@ -144,40 +139,29 @@ public class Level extends Subject<Enemy>{
 	}
 	
 	public void launchEnemy (){
-		/* verificando se novos inimigos (tipo 1) devem ser "lançados" */
 		while (!nextEnemys.isEmpty()){
 			if (currentTime - startTime > nextEnemys.get(0).getSpawn()){
 				addObserver(nextEnemys.get(0));
 				nextEnemys.remove(0);
+				//count++;
 			} else return;
 		}
 	}
 	
 	public void run(){
-		/* Usada para atualizar o estado dos elementos do jogo    */
-		/* (player, projéteis e inimigos) "delta" indica quantos  */
-		/* ms se passaram desde a última atualização.             */
-		
+		count++;
 		delta = System.currentTimeMillis() - currentTime;
 		
-		/* Já a variável "currentTime" nos dá o timestamp atual.  */
-		
+		//A variável "currentTime" nos dá o timestamp atual.
 		currentTime = System.currentTimeMillis();
 		
+		//System.out.println("X: " + meuBoss.getPositionX() + "   Y: " + meuBoss.getPositionY());
 		
-		
-		/***************************/
-		/* Verificação de colisões */
-		/***************************/
-					
-		if (!player.isExploding()) verifyPlayerColision();
+		//Verificação de colisões
+		if (!player.isExploding() || player.isVulnerable()) verifyPlayerColision();
 		verifyEnemyColision();
 		
-		
-		/***************************/
-		/* Atualizações de estados */
-		/***************************/
-		
+		//Atualizações de estados
 		LinkedList <Enemy> inactiveEnemys = new LinkedList <Enemy>();
 		
 		for (Enemy enemy : observers){
@@ -188,15 +172,14 @@ public class Level extends Subject<Enemy>{
 			}
 		}
 		
-		launchEnemy();
-		//if (observers.size() < 1) addObserver(new Boss());
-		//launchEnemyOld();
+//		launchEnemy();
+		if (observers.size() < 1) addObserver(new DeathStar());
+//		launchEnemyOld();
+	
 		player.update();
 		notifyObservers();
 		
-		/*******************/
-		/* Desenho da cena */
-		/*******************/
+		// Desenho da cena
 		player.draw();
 		for (Enemy enemy : observers) enemy.draw();
 		
@@ -208,8 +191,5 @@ public class Level extends Subject<Enemy>{
 		}
 		
 		for (Enemy enemy : inactiveEnemys) removeObserver(enemy);
-		
 	}
-	
-	
 }

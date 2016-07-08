@@ -3,11 +3,13 @@ import java.util.*;
 import refatorado.game.Cordinate;
 import refatorado.game.Level;
 import refatorado.game.Observer;
+import refatorado.game.lifebar.LifeBarEnemy;
 import refatorado.game.projectile.Eprojectile;
 import refatorado.game.Character;
 
 public abstract class Enemy implements Observer, Character, Comparable<Enemy>{
 	public List <Eprojectile> projectiles;//para mexer quando for usar pacotes 
+	public LifeBarEnemy life;
 	protected Cordinate position;
 	protected Cordinate speed;
 	protected double RV;					// velocidades de rotação
@@ -21,6 +23,7 @@ public abstract class Enemy implements Observer, Character, Comparable<Enemy>{
 	protected MoveBehavior mb;
 	
 	Enemy(){
+		life = new LifeBarEnemy(1);
 		projectiles = new ArrayList <Eprojectile>();
 		position = new Cordinate();
 		speed = new Cordinate();
@@ -29,6 +32,7 @@ public abstract class Enemy implements Observer, Character, Comparable<Enemy>{
 	}
 	
 	Enemy(double x, double y, long spawn){
+		life = new LifeBarEnemy(1);
 		projectiles = new ArrayList <Eprojectile>();
 		position = new Cordinate(x, y);
 		speed = new Cordinate();
@@ -71,6 +75,10 @@ public abstract class Enemy implements Observer, Character, Comparable<Enemy>{
 	
 	public boolean isExploding() {
 		return exploding;
+	}
+	
+	public boolean isVulnerable() {
+		return this.life.isVulnerable();
 	}
 	
 	public void setExploding() {
