@@ -13,10 +13,12 @@ import refatorado.game.projectile.Pprojectile;
 public class Level extends Subject<Enemy>{
 
 	private static long currentTime;
+	private static long startTime;
 	private static long delta;
 	private Player player;
 	private LinkedList <Enemy> explodingEnemys;
 	private List <Enemy> nextEnemys;
+	
 	
 	public Level (){
 		super();
@@ -24,6 +26,7 @@ public class Level extends Subject<Enemy>{
 		nextEnemys = new LinkedList <Enemy>();
 		player = Main.player;
 		currentTime = System.currentTimeMillis();
+		startTime = currentTime;
 		delta = 0;
 		Ship.setNext(System.currentTimeMillis() + 2000); //bizarro porem provisorio
 		Worm.setNext(System.currentTimeMillis() + 7000); //bizarro porem provisorio
@@ -143,7 +146,7 @@ public class Level extends Subject<Enemy>{
 	public void launchEnemy (){
 		/* verificando se novos inimigos (tipo 1) devem ser "lançados" */
 		while (!nextEnemys.isEmpty()){
-			if (currentTime > nextEnemys.get(0).getSpawn()){
+			if (currentTime - startTime > nextEnemys.get(0).getSpawn()){
 				addObserver(nextEnemys.get(0));
 				nextEnemys.remove(0);
 			} else return;
@@ -185,9 +188,9 @@ public class Level extends Subject<Enemy>{
 			}
 		}
 		
-		//launchEnemy();
+		launchEnemy();
 		//if (observers.size() < 1) addObserver(new Boss());
-		launchEnemyOld();
+		//launchEnemyOld();
 		player.update();
 		notifyObservers();
 		
