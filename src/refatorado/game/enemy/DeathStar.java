@@ -10,6 +10,7 @@ import refatorado.gamelib.GameLib;
 
 public class DeathStar extends Enemy implements EnemyInterface {
 	private long nextShot;
+	private int countShot;
 	
 	public DeathStar (){
 		super();
@@ -20,6 +21,7 @@ public class DeathStar extends Enemy implements EnemyInterface {
 		speed.x = 0.20;
 		speed.y = 0.20;
 		RV = 0.0;
+		countShot = 0;
 		nextShot = Level.getCurrentTime() + 800;
 		radius = 40.0;
 		sb = new ExplosionShot();
@@ -34,7 +36,7 @@ public class DeathStar extends Enemy implements EnemyInterface {
 		speed.x = 0.20;
 		speed.y = 0.20;
 		RV = 0.0;
-		nextShot = Level.getCurrentTime() + 800;
+		nextShot = Level.getCurrentTime() + 4000;
 		radius = 40.0;
 		if (x < radius) position.x = radius;
 		else if (x > GameLib.WIDTH - radius) position.x = GameLib.WIDTH - radius;
@@ -79,12 +81,14 @@ public class DeathStar extends Enemy implements EnemyInterface {
 		
 		//se o inimigo for explodido aquela posição do vetor passa a ser inativa
 		if(!exploding){
-			//se o inimigo estiver acima do personagem e o tempo atual for maior
-			//que o tempo do próximo tiro acontece um disparo
 			if(Level.getCurrentTime() > nextShot){
 				shoot();
-				//o tempo do próximo disparo é atualizado
-				nextShot = (long) (Level.getCurrentTime() + 4500);
+				countShot++;
+				if (countShot < 3) nextShot = (long) (Level.getCurrentTime() + 100);
+				else {
+					nextShot = (long) (Level.getCurrentTime() + 4500);
+					countShot = 0;
+				}
 			}
 			
 			move();

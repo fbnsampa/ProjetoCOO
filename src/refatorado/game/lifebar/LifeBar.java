@@ -22,7 +22,6 @@ abstract class LifeBar {
 	public boolean takeHit(){
 		
 		if (!vulnerable && (Level.getCurrentTime() > invulnerableEnd)) vulnerable = true;
-//		else System.out.println("CurrentTime = " + Level.getCurrentTime() + "   invulnerableEnd = " + invulnerableEnd);
 		
 		if (vulnerable){
 			this.hp--;

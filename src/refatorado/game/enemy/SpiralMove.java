@@ -13,7 +13,7 @@ class SpiralMove implements MoveBehavior{
 		caller.position.y += caller.getSpeedY() * Math.sin(caller.position.angle) * Level.getDelta() * (-1.0);
 		caller.position.angle += caller.RV * Level.getDelta();
 		
-		double threshold = GameLib.HEIGHT * 0.30;
+		double threshold = GameLib.HEIGHT * 0.3;
 		//dependendo de onde o inimigo 2 estiver na tela a sua rotação
 		//é modificada
 		if(previousY < threshold && caller.position.y >= threshold) {

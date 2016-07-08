@@ -14,27 +14,17 @@ public class Worm extends Enemy implements EnemyInterface {
 		super();
 		sb = new SplitShot();
 		mb = new SpiralMove();
-		
-		if (count == 0){
-			spawnX = (long) (GameLib.WIDTH * 0.20);
-			count = 1;
-			radius = 12.0;
-		} else {
-			position.x = spawnX;
-			position.y = -10.0;
-			position.angle = (3 * Math.PI) / 2;
-			speed.x = 0.42;
-			speed.y = 0.42;
-			radius = 12.0;
-			RV = 0.0;
-			count++;
-			if(count < 10){
-				Worm.next = Level.getCurrentTime() + 120;
-			} else { //count == 10
-				Worm.count = 0; //verificar se nao deve ser -1
-				Worm.spawnX = (long) (Math.random() > 0.5 ? GameLib.WIDTH * 0.2 : GameLib.WIDTH * 0.8);
-				Worm.next = (long) (Level.getCurrentTime() + 3000 + Math.random() * 3000);
-			}
+//		
+		position.x = spawnX;
+		position.y = -10.0;
+		position.angle = (3 * Math.PI) / 2;
+		speed.x = 0.42;
+		speed.y = 0.42;
+		radius = 12.0;
+		RV = 0.0;
+		count++;
+		if(count == 10){
+			Worm.count = 0; //verificar se nao deve ser -1
 		}
 	}
 	
@@ -42,27 +32,17 @@ public class Worm extends Enemy implements EnemyInterface {
 		super(x, y, spawn);
 		sb = new SplitShot();
 		mb = new SpiralMove();
-		
-		if (count == 0){
-			spawnX = (long) (GameLib.WIDTH * 0.20);
-			count = 1;
-			radius = 12.0;
-		} else {
-			position.x = spawnX;
-			position.y = -10.0;
-			position.angle = (3 * Math.PI) / 2;
-			speed.x = 0.42;
-			speed.y = 0.42;
-			radius = 12.0;
-			RV = 0.0;
-			count++;
-			if(count < 10){
-				Worm.next = Level.getCurrentTime() + 120;
-			} else { //count == 10
-				Worm.count = 0; //verificar se nao deve ser -1
-				Worm.spawnX = (long) (Math.random() > 0.5 ? GameLib.WIDTH * 0.2 : GameLib.WIDTH * 0.8);
-				Worm.next = (long) (Level.getCurrentTime() + 3000 + Math.random() * 3000);
-			}
+
+		position.x = 100.0;
+		position.y = 400.0;
+		position.angle = (3 * Math.PI) / 2;
+		speed.x = 0.42;
+		speed.y = 0.42;
+		radius = 12.0;
+		RV = 0.0;
+		count++;
+		if(count == 10){
+			count = 0; //verificar se nao deve ser -1
 		}
 	}
 	

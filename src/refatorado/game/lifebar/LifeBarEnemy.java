@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 
 public class LifeBarEnemy extends LifeBar {
-
+	
 	public LifeBarEnemy(int hp) {
 		super(hp);
 		this.invulnerableDuration = 100;
