@@ -4,8 +4,9 @@ import java.util.LinkedList;
 import refatorado.game.Level;
 import refatorado.game.projectile.Eprojectile;
 import refatorado.gamelib.GameLib;
+
 public class Worm extends Enemy implements EnemyInterface {
-	private static long next;
+	private static long next;			//não será necessario na versao final
 	private static long spawnX;			// coordenada x do próximo inimigo tipo 2 a aparecer
 	private static int count = 0;		// contagem de inimigos tipo 2 (usada na "formação de voo")
 

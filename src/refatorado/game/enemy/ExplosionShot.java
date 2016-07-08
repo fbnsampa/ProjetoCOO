@@ -18,15 +18,15 @@ class ExplosionShot implements ShotBehavior{
 		Eprojectile [] novo = new Eprojectile[8];
 		double [][] ref = {{0.0, -1.0},{1.0, -1.0},{1.0, 0.0},{1.0, 1.0},{0.0, 1.0},{-1.0, 1.0},{-1.0, 0.0},{-1.0, -1.0}};
 		
-		System.out.println((vx + speed) * -1.0);
-		System.out.println(speed * -1.0);
-		System.out.println(vx - speed);
-		System.out.println(vx  * -1.0);
-		System.out.println("0.0");
-		System.out.println(vx);
-		System.out.println((vx - speed) * -1.0);
-		System.out.println(speed);
-		System.out.println(vx + speed);
+//		System.out.println((vx + speed) * -1.0);
+//		System.out.println(speed * -1.0);
+//		System.out.println(vx - speed);
+//		System.out.println(vx  * -1.0);
+//		System.out.println("0.0");
+//		System.out.println(vx);
+//		System.out.println((vx - speed) * -1.0);
+//		System.out.println(speed);
+//		System.out.println(vx + speed);
 		
 		
 		

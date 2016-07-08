@@ -9,7 +9,6 @@ import refatorado.gamelib.GameLib;
 public class Boss extends Enemy implements EnemyInterface {
 	private long nextShot;
 	
-	
 	public Boss (){
 		super();
 		position.x = 60;

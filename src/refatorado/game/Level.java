@@ -16,11 +16,12 @@ public class Level extends Subject<Enemy>{
 	private static long delta;
 	private Player player;
 	private LinkedList <Enemy> explodingEnemys;
-
+	private List <Enemy> nextEnemys;
 	
 	public Level (){
 		super();
 		explodingEnemys = new LinkedList<Enemy>();
+		nextEnemys = new LinkedList <Enemy>();
 		player = Main.player;
 		currentTime = System.currentTimeMillis();
 		delta = 0;
@@ -38,7 +39,6 @@ public class Level extends Subject<Enemy>{
 
 	public void load (String name){
 		//Carrega as configurações no documento de texto
-		List <Enemy> nextEnemys = new LinkedList <Enemy>();
 		
 		File file = new File (name);
 		
@@ -65,9 +65,8 @@ public class Level extends Subject<Enemy>{
 					if (type == 1) novo = new DeathStar(x, y, spawn,maxHP);
 					else novo = new Boss(x, y, spawn, maxHP);
 				}
-				
-				//DAR SORT NO nextEnemys
-				
+				//Organizar nextEnemys
+				Collections.sort(nextEnemys);
 			}
 			
 			
@@ -127,7 +126,7 @@ public class Level extends Subject<Enemy>{
 		}
 	}
 	
-	public void launchEnemy (){
+	public void launchEnemyOld (){
 		/* verificando se novos inimigos (tipo 1) devem ser "lançados" */
 		//lançando um ship
 		
@@ -138,6 +137,16 @@ public class Level extends Subject<Enemy>{
 		
 		if(currentTime > Worm.getNext()){
 			addObserver(new Worm());
+		}
+	}
+	
+	public void launchEnemy (){
+		/* verificando se novos inimigos (tipo 1) devem ser "lançados" */
+		while (!nextEnemys.isEmpty()){
+			if (currentTime > nextEnemys.get(0).getSpawn()){
+				addObserver(nextEnemys.get(0));
+				nextEnemys.remove(0);
+			} else return;
 		}
 	}
 	
@@ -177,7 +186,8 @@ public class Level extends Subject<Enemy>{
 		}
 		
 		//launchEnemy();
-		if (observers.size() < 1) addObserver(new Boss());
+		//if (observers.size() < 1) addObserver(new Boss());
+		launchEnemyOld();
 		player.update();
 		notifyObservers();
 		

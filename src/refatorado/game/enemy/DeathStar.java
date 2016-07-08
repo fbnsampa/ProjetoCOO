@@ -9,10 +9,11 @@ import refatorado.gamelib.GameLib;
 
 public class DeathStar extends Enemy implements EnemyInterface {
 	private long nextShot;
-	public LifeBarEnemy hp;
+	public LifeBarEnemy life;
 	
 	public DeathStar (){
 		super();
+		life = new LifeBarEnemy(1);
 		position.x = 60;
 		position.y = 80;
 		position.angle = 0.0; 		//3 * Math.PI
@@ -27,6 +28,8 @@ public class DeathStar extends Enemy implements EnemyInterface {
 	
 	public DeathStar (double x, double y, long spawn, int maxHP){
 		super(x, y, spawn);
+		if (maxHP < 1) maxHP = 1;
+		life = new LifeBarEnemy (maxHP);
 		position.angle = 0.0; 		//3 * Math.PI
 		speed.x = 0.20;
 		speed.y = 0.20;
@@ -85,6 +88,5 @@ public class DeathStar extends Enemy implements EnemyInterface {
 			move();
 		}
 	}
-	
 	
 }

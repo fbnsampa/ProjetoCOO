@@ -30,29 +30,26 @@ public class Main{
 	}
 	
 	/* Método principal */
-	
-
-	
 	public static void main(String [] args){
-		//leitura de arquivo
 		
-//		int maxHP = 0;
-//		int numLevel = 0;
-//		String [] fileNames = new String [1];
-//		File file = new File (args[0]);
-//		
-//		try (Scanner in = new Scanner(file)){
-//			maxHP = in.nextInt();
-//			numLevel = in.nextInt();
-//			fileNames = new String [numLevel];
-//
-//			for (int i = 0; i < numLevel; i++)
-//				fileNames[i] = in.nextLine();
-//			
-//		} catch (FileNotFoundException x){
-//			System.out.println("File not found!");
-//			x.printStackTrace();			
-//		}
+		//leitura de arquivo
+		int maxHP = 0;
+		int numLevel = 0;
+		String [] fileNames = new String [1];
+		File file = new File (args[0]);
+		
+		try (Scanner in = new Scanner(file)){
+			maxHP = in.nextInt();
+			numLevel = in.nextInt();
+			fileNames = new String [numLevel];
+
+			for (int i = 0; i < numLevel; i++)
+				fileNames[i] = in.nextLine();
+			
+		} catch (FileNotFoundException x){
+			System.out.println("File not found!");
+			x.printStackTrace();			
+		}
 		
 		/* Indica que o jogo está em execução */
 		running = true;
@@ -84,10 +81,10 @@ public class Main{
 		/*************************************************************************************************/
 		
 		
-//		for (int i = 0; i < numLevel; i++){
+		for (int i = 0; i < numLevel; i++){
 	
 			Level level = new Level();
-//			level.load(fileNames[i]);
+			level.load(fileNames[i]);
 			
 			while(running){
 			
@@ -102,7 +99,7 @@ public class Main{
 				
 				busyWait(Level.getCurrentTime() + 5);
 			}
-//		}
+		}
 		System.exit(0);
 	}
 	

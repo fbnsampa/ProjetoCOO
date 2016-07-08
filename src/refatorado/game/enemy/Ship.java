@@ -7,7 +7,7 @@ import refatorado.game.projectile.Eprojectile;
 import refatorado.gamelib.GameLib;
 
 public class Ship extends Enemy implements EnemyInterface  {
-	private static long next;
+	private static long next;		//não será necessario na versao final
 	private long nextShot;			// instantes do próximo tiro
 	
 	public Ship (){

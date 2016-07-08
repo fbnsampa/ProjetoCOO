@@ -6,7 +6,7 @@ import refatorado.game.Observer;
 import refatorado.game.projectile.Eprojectile;
 import refatorado.game.Character;
 
-public abstract class Enemy implements Observer, Character{
+public abstract class Enemy implements Observer, Character, Comparable<Enemy>{
 	public List <Eprojectile> projectiles;//para mexer quando for usar pacotes 
 	protected Cordinate position;
 	protected Cordinate speed;
@@ -65,6 +65,10 @@ public abstract class Enemy implements Observer, Character{
 		return speed.getDirectionY();
 	}
 	
+	public long getSpawn(){
+		return this.spawn;
+	}
+	
 	public boolean isExploding() {
 		return exploding;
 	}
@@ -83,6 +87,12 @@ public abstract class Enemy implements Observer, Character{
 		this.update = true;
 	}
 	
+	public int compareTo(Enemy e){
+		if (this.spawn > e.spawn) return 1;
+		if (this.spawn < e.spawn) return -1;
+		return 0;
+	}
+	
 	public void shoot (){
 		this.sb.shoot(this);
 	}
@@ -91,16 +101,16 @@ public abstract class Enemy implements Observer, Character{
 		this.mb.move(this);
 	}
 	
+	public boolean isOutOfScreen(){
+		return false;
+	}
+	
 	public void update(){
 	
 	}
 	
 	public void draw(){
 
-	}
-	
-	public boolean isOutOfScreen(){
-		return false;
 	}
 	
 }
