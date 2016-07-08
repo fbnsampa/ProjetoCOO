@@ -1,7 +1,6 @@
 package refatorado.game.enemy;
 import java.awt.Color;
 import java.util.LinkedList;
-
 import refatorado.game.Level;
 import refatorado.game.Main;
 import refatorado.game.lifebar.LifeBarEnemy;
@@ -16,6 +15,7 @@ public class DeathStar extends Enemy implements EnemyInterface {
 	private long chargingEnd;
 	private double previousSpeedX;
 	private double previousSpeedY;
+	int color, colorAux;
 	
 	public DeathStar (){
 		super();
@@ -30,8 +30,10 @@ public class DeathStar extends Enemy implements EnemyInterface {
 		nextShot = Level.getCurrentTime();
 		nextCharge = nextShot + 4000;
 		chargingEnd = nextShot;
-		radius = 45.0;
+		radius = 60.0;
 		charging = false;
+		color = 0;
+		colorAux = 1;
 		sb = new ExplosionShot();
 		mb = new PongMove();
 	}
@@ -49,12 +51,13 @@ public class DeathStar extends Enemy implements EnemyInterface {
 		nextShot = Level.getCurrentTime();
 		nextCharge = nextShot + 4000;
 		chargingEnd = nextShot;
-		radius = 40.0;
+		radius = 35.0;
 		if (x < radius) position.x = radius;
 		else if (x > GameLib.WIDTH - radius) position.x = GameLib.WIDTH - radius;
 		if (y < radius) position.y = radius;
 		else if (y > GameLib.HEIGHT - radius) position.y = GameLib.HEIGHT - radius;
-		
+		color = 0;
+		colorAux = 0;
 		sb = new ExplosionShot();
 		mb = new PongMove();
 	}	
@@ -66,7 +69,14 @@ public class DeathStar extends Enemy implements EnemyInterface {
 		life.draw();
 		
 		if(!exploding){
-			GameLib.setColor(Color.GRAY);
+			Color c = Color.GRAY;
+			if (charging){
+				if (color > 230) colorAux = -1;
+				else if (color < 80) colorAux = 1;
+				color += colorAux;
+				c = new Color (color, color, color);
+			}
+			GameLib.setColor(c);
 			GameLib.drawBall(position.x, position.y, radius);
 			GameLib.setColor(Color.DARK_GRAY);
 			GameLib.drawBall(position.x+radius/3.0, position.y-radius/2.5, radius/3.5);
