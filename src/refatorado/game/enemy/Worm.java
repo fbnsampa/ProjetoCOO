@@ -33,8 +33,8 @@ public class Worm extends Enemy implements EnemyInterface {
 		sb = new SplitShot();
 		mb = new SpiralMove();
 
-		position.x = 100.0;
-		position.y = 400.0;
+		position.x = x;
+		position.y = y;
 		position.angle = (3 * Math.PI) / 2;
 		speed.x = 0.42;
 		speed.y = 0.42;
