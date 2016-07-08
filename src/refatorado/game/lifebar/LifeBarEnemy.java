@@ -5,8 +5,8 @@ import java.awt.Font;
 
 public class LifeBarEnemy extends LifeBar {
 	
-	public LifeBarEnemy(int hp) {
-		super(hp);
+	public LifeBarEnemy(int hp, String name) {
+		super(hp, name);
 		this.invulnerableDuration = 100;
 	}
 	
@@ -25,7 +25,7 @@ public class LifeBarEnemy extends LifeBar {
 		}
 		 
 		Font enemyfont = new Font("Arial", Font.BOLD,11);
-		GameLib.writeName(enemyfont, "ENEMY", 365, 55);
+		GameLib.writeName(enemyfont, name, 353, 55);
 	}
 
 }

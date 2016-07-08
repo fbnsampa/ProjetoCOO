@@ -12,28 +12,17 @@ class ExplosionShot implements ShotBehavior{
 		double vn = v * -1.0;
 		double x = caller.getPositionX();
 		double y = caller.getPositionY();
-		double midScreenX = GameLib.WIDTH/2;
-		double midScreenY = GameLib.HEIGHT/2;
 		
-		if (x < midScreenX && y < midScreenY){
-			caller.projectiles.add(new Eprojectile(x, y, v, 0.0));
-			caller.projectiles.add(new Eprojectile(x, y, v, v));
-			caller.projectiles.add(new Eprojectile(x, y, 0.0, vn));
-		} else if (x > midScreenX && y < midScreenY){
-			caller.projectiles.add(new Eprojectile(x, y, vn, 0.0));
-			caller.projectiles.add(new Eprojectile(x, y, vn, v));
-			caller.projectiles.add(new Eprojectile(x, y, 0.0, vn));
-		} else if (x >= midScreenX && y >= midScreenY){
-			caller.projectiles.add(new Eprojectile(x, y, vn, 0.0));
-			caller.projectiles.add(new Eprojectile(x, y, vn, vn));
-			caller.projectiles.add(new Eprojectile(x, y, 0.0, vn));
-		} else if (x <= midScreenX && y >= midScreenY){
-			caller.projectiles.add(new Eprojectile(x, y, v, 0.0));
-			caller.projectiles.add(new Eprojectile(x, y, v, vn));
-			caller.projectiles.add(new Eprojectile(x, y, 0.0, v));
-			
-		} 
-
+		caller.projectiles.add(new Eprojectile(x, y, 0.0, vn));
+		caller.projectiles.add(new Eprojectile(x, y, v, vn));
+		caller.projectiles.add(new Eprojectile(x, y, v, 0.0));
+		caller.projectiles.add(new Eprojectile(x, y, v, v));
+		caller.projectiles.add(new Eprojectile(x, y, 0.0, v));
+		caller.projectiles.add(new Eprojectile(x, y, vn, v));
+		caller.projectiles.add(new Eprojectile(x, y, vn, 0.0));
+		caller.projectiles.add(new Eprojectile(x, y, vn, vn));
+		
+		
 		
 	}
 	

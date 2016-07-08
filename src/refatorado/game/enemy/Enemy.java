@@ -23,7 +23,7 @@ public abstract class Enemy implements Observer, Character, Comparable<Enemy>{
 	protected MoveBehavior mb;
 	
 	Enemy(){
-		life = new LifeBarEnemy(1);
+		life = new LifeBarEnemy(1, "ENEMY");
 		projectiles = new ArrayList <Eprojectile>();
 		position = new Cordinate();
 		speed = new Cordinate();
@@ -32,7 +32,7 @@ public abstract class Enemy implements Observer, Character, Comparable<Enemy>{
 	}
 	
 	Enemy(double x, double y, long spawn){
-		life = new LifeBarEnemy(1);
+		life = new LifeBarEnemy(1, "ENEMY");
 		projectiles = new ArrayList <Eprojectile>();
 		position = new Cordinate(x, y);
 		speed = new Cordinate();

@@ -9,12 +9,17 @@ import refatorado.game.projectile.Eprojectile;
 import refatorado.gamelib.GameLib;
 
 public class DeathStar extends Enemy implements EnemyInterface {
+	private long nextCharge;
 	private long nextShot;
 	private int countShot;
+	private boolean charging;
+	private long chargingEnd;
+	private double previousSpeedX;
+	private double previousSpeedY;
 	
 	public DeathStar (){
 		super();
-		life = new LifeBarEnemy(10);
+		life = new LifeBarEnemy(10, "DEATHSTAR");
 		position.x = 60;
 		position.y = 80;
 		position.angle = 0.0; 		//3 * Math.PI
@@ -22,8 +27,11 @@ public class DeathStar extends Enemy implements EnemyInterface {
 		speed.y = 0.20;
 		RV = 0.0;
 		countShot = 0;
-		nextShot = Level.getCurrentTime() + 800;
-		radius = 40.0;
+		nextShot = Level.getCurrentTime();
+		nextCharge = nextShot + 4000;
+		chargingEnd = nextShot;
+		radius = 45.0;
+		charging = false;
 		sb = new ExplosionShot();
 		mb = new PongMove();
 	}
@@ -31,12 +39,16 @@ public class DeathStar extends Enemy implements EnemyInterface {
 	public DeathStar (double x, double y, long spawn, int maxHP){
 		super(x, y, spawn);
 		if (maxHP < 1) maxHP = 1;
-		life = new LifeBarEnemy (maxHP);
+		life = new LifeBarEnemy (maxHP, "DEATHSTAR");
 		position.angle = 0.0; 		//3 * Math.PI
 		speed.x = 0.20;
 		speed.y = 0.20;
+		previousSpeedX = 0.0;
+		previousSpeedY = 0.0;
 		RV = 0.0;
-		nextShot = Level.getCurrentTime() + 4000;
+		nextShot = Level.getCurrentTime();
+		nextCharge = nextShot + 4000;
+		chargingEnd = nextShot;
 		radius = 40.0;
 		if (x < radius) position.x = radius;
 		else if (x > GameLib.WIDTH - radius) position.x = GameLib.WIDTH - radius;
@@ -64,6 +76,19 @@ public class DeathStar extends Enemy implements EnemyInterface {
 			GameLib.drawExplosion(position.x, position.y, alpha);
 		}
 	}
+
+	public boolean insideThreshold(){
+		double threshold = 0.35;
+		double thresholdX = GameLib.WIDTH * threshold;
+		double thresholdY = GameLib.HEIGHT * threshold;
+		
+		if (position.y > thresholdY && position.x < GameLib.HEIGHT - thresholdX &&
+				position.y < GameLib.HEIGHT - thresholdY && position.x > thresholdX) return true;
+		
+		return false;
+	}
+	
+	
 	
 	public void update(){
 		LinkedList <Eprojectile> inactiveProjectiles = new LinkedList <Eprojectile>();
@@ -81,21 +106,35 @@ public class DeathStar extends Enemy implements EnemyInterface {
 		
 		//se o inimigo for explodido aquela posição do vetor passa a ser inativa
 		if(!exploding){
-			if(Level.getCurrentTime() > nextShot){
-				shoot();
-				countShot++;
-				if (countShot < 3) nextShot = (long) (Level.getCurrentTime() + 100);
-				else {
-					nextShot = (long) (Level.getCurrentTime() + 4500);
-					countShot = 0;
+			if (!charging){
+				if(Level.getCurrentTime() > nextCharge && insideThreshold()){
+					charging = true;
+					previousSpeedX = speed.x;
+					previousSpeedY = speed.y;
+					speed.x = 0;
+					speed.y = 0;
+					chargingEnd = Level.getCurrentTime() + 2500;
+					nextShot = Level.getCurrentTime() + 1500;
+				}
+			} else { //if charging
+				if (Level.getCurrentTime() > chargingEnd){
+					charging = false;
+					speed.x = previousSpeedX;
+					speed.y = previousSpeedY;
+					nextCharge = Level.getCurrentTime() + 5000;
+				} else if (Level.getCurrentTime() > nextShot) {
+					shoot();
+					countShot++;
+					if (countShot < 3) nextShot = (long) (Level.getCurrentTime() + 100);
+					else {
+						nextShot = (long) (Level.getCurrentTime() + 4000);
+						countShot = 0;
+					}
 				}
 			}
-			
 			move();
-		} else {
-			Main.EndLevel = true;
-			//Main.EndLevelTime = Level.getCurrentTime() + 3000;
-		}
+		} else Main.EndLevel = true; //Se o boss tiver explodido
+		
 	}
 	
 }

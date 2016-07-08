@@ -169,8 +169,8 @@ public class Level extends Subject<Enemy>{
 			}
 		}
 		
-		launchEnemy();
-//		if (observers.size() < 1) addObserver(new DeathStar());
+//		launchEnemy();
+		if (observers.size() < 1) addObserver(new Overlord());
 	
 		player.update();
 		notifyObservers();
