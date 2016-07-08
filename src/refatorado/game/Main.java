@@ -82,16 +82,16 @@ public class Main{
 		/*************************************************************************************************/
 		
 		for (int i = 0; i < numLevel; i++){
+			System.out.println("Level " + i);
 			Level level = new Level();
 			level.load(fileNames[i]);
 			EndLevel = false;
-			System.out.println("Novo Level!");
 			while(running && !EndLevel){
-			
-				level.run();
-				
-				/* desenhando plano fundo*/
 				background.desenha();
+				level.run();
+					
+				/* desenhando plano fundo*/
+
 				
 				GameLib.display();
 				
@@ -101,6 +101,8 @@ public class Main{
 				
 				//if (EndLevel && Level.getCurrentTime() > EndLevelTime) break;
 			}
+			player.life.restoreHp();
+			if (!running) break;
 		}
 		System.exit(0);
 	}

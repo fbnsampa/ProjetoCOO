@@ -28,7 +28,6 @@ abstract class LifeBar {
 			this.hp--;
 			vulnerable = false;
 			invulnerableEnd = Level.getCurrentTime() + invulnerableDuration;
-			draw();
 			if(this.hp == 0) return true;
 		}
 		return false;	

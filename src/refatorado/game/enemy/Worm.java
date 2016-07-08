@@ -39,7 +39,7 @@ public class Worm extends Enemy implements EnemyInterface {
 	}
 	
 	public Worm(double x, double y, long spawn){
-		super();
+		super(x, y, spawn);
 		sb = new SplitShot();
 		mb = new SpiralMove();
 		

@@ -63,10 +63,11 @@ public class Level extends Subject<Enemy>{
 					if (type == 1) nextEnemys.add(new DeathStar(x, y, spawn,maxHP));
 					else nextEnemys.add(new Overlord(x, y, spawn, maxHP));
 				}
-				//Ordenar elementos de nextEnemys em ordem crescente de spawn
-				Collections.sort(nextEnemys);
 			}
 			
+			//Ordenar elementos de nextEnemys em ordem crescente de spawn
+			Collections.sort(nextEnemys);
+
 		} catch (FileNotFoundException x){
 			System.out.println("'" + name + "'" + " file not found!");
 			x.printStackTrace();			
