@@ -9,8 +9,8 @@ class SpiralMove implements MoveBehavior{
 		double previousY = caller.position.y;
 		//caso o inimigo esteja ativo são feitos os calculos e atribuições
 		//para determinar sua movimentação
-		caller.position.x += caller.V * Math.cos(caller.position.angle) * Level.getDelta();
-		caller.position.y += caller.V * Math.sin(caller.position.angle) * Level.getDelta() * (-1.0);
+		caller.position.x += caller.getSpeedX() * Math.cos(caller.position.angle) * Level.getDelta();
+		caller.position.y += caller.getSpeedY() * Math.sin(caller.position.angle) * Level.getDelta() * (-1.0);
 		caller.position.angle += caller.RV * Level.getDelta();
 		
 		double threshold = GameLib.HEIGHT * 0.30;

@@ -3,7 +3,7 @@ import java.awt.Color;
 import java.util.*;
 
 import refatorado.gamelib.GameLib;
-
+//COMMIT EXDRUXULO
 class Background {
 	
 	/* estrelas que formam o fundo de primeiro plano */

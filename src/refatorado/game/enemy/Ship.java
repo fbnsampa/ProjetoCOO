@@ -1,26 +1,37 @@
 package refatorado.game.enemy;
 import java.awt.Color;
 import java.util.LinkedList;
-
 import refatorado.game.Level;
 import refatorado.game.Main;
 import refatorado.game.projectile.Eprojectile;
 import refatorado.gamelib.GameLib;
-//essa classe talvez não precise ser public pois somente Level precisa dela
-//e ainda de maneira provisória uma vez que depois de implementados os arquivos
-//ele não precisará referenciar naves diretamente
+
 public class Ship extends Enemy implements EnemyInterface  {
-	private static long next;
-	private long nextShoot;			// instantes do próximo tiro
+	private static long next;		//não será necessario na versao final
+	private long nextShot;			// instantes do próximo tiro
 	
 	public Ship (){
 		super();
 		position.x = Math.random() * (GameLib.WIDTH - 20.0) + 10.0;
 		position.y = -10.0;
-		position.angle = 3 * Math.PI / 2;
-		V = 0.20 + Math.random() * 0.15;
+		position.angle = 4.7123889803847;  //3 * Math.PI
+		speed.x = 0.0;
+		speed.y = 0.20 + Math.random() * 0.15;
 		RV = 0.0;
-		nextShoot = Level.getCurrentTime() + 500;
+		nextShot = Level.getCurrentTime() + 500;
+		radius = 9.0;
+		next = Level.getCurrentTime() + 500;
+		sb = new StraightShot();
+		mb = new StraightMove();
+	}
+	
+	public Ship (double x, double y, long spawn){
+		super(x, y, spawn);
+		position.angle = 4.7123889803847;  //3 * Math.PI
+		speed.x = 0.0;
+		speed.y = 0.20 + Math.random() * 0.15;
+		RV = 0.0;
+		nextShot = Level.getCurrentTime() + 500;
 		radius = 9.0;
 		next = Level.getCurrentTime() + 500;
 		sb = new StraightShot();
@@ -46,7 +57,7 @@ public class Ship extends Enemy implements EnemyInterface  {
 			
 			//atualizando os projeteis
 			for (Eprojectile projectile : projectiles){
-				if (projectile.getPositionY() < 0){
+				if (projectile.getPositionY() > GameLib.HEIGHT){
 					inactiveProjectiles.add(projectile);
 				} else {
 					projectile.update();
@@ -60,10 +71,10 @@ public class Ship extends Enemy implements EnemyInterface  {
 			if(!exploding && !isOutOfScreen()){
 				//se o inimigo estiver acima do personagem e o tempo atual for maior
 				//que o tempo do próximo tiro acontece um disparo
-				if(Level.getCurrentTime() > nextShoot && position.y < Main.player.getPositionY()){
+				if(Level.getCurrentTime() > nextShot && position.y < Main.player.getPositionY()){
 					shoot();
 					//o tempo do próximo disparo é atualizado
-					nextShoot = (long) (Level.getCurrentTime() + 200 + Math.random() * 500);
+					nextShot = (long) (Level.getCurrentTime() + 200 + Math.random() * 500);
 				}
 				move();
 			}

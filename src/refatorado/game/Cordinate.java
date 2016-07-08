@@ -22,4 +22,16 @@ public class Cordinate {
 		this.y = y;
 		this.angle = angle;
 	}
+	
+	public double getDirectionX(){
+		if (this.x > 0) return 1.0;
+		if (this.x < 0) return -1.0;
+		return 0.0;
+	}
+	
+	public double getDirectionY(){
+		if (this.y > 0) return 1.0;
+		if (this.y < 0) return -1.0;
+		return 0.0;
+	}
 }

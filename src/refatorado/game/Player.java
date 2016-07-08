@@ -1,13 +1,17 @@
 package refatorado.game;
 import java.awt.Color;
 import java.util.*;
+
+import refatorado.game.lifebar.LifeBarEnemy;
+import refatorado.game.lifebar.LifeBarPlayer;
 import refatorado.game.projectile.Pprojectile;
 import refatorado.gamelib.GameLib;
 //talvez essa classe não precise ser public só ship precisa dela
 public class Player implements Observer, Character{
 	List <Pprojectile> projectiles;//para mexer quando for usar pacotes
+	LifeBarPlayer life;
 	private Cordinate position;
-	private Cordinate speedy;
+	private Cordinate speed;
 	private double radius;						// raio (tamanho aproximado do player)
 	private double explosion_start;				// instante do início da explosão
 	private double explosion_end;				// instante do final da explosão
@@ -15,10 +19,10 @@ public class Player implements Observer, Character{
 	private boolean exploding;
 
 	Player(){
-		//state = Main.ACTIVE;
+		life = new LifeBarPlayer (10);
 		projectiles = new ArrayList <Pprojectile>();
 		position = new Cordinate(GameLib.WIDTH / 2, GameLib.HEIGHT * 0.90);
-		speedy = new Cordinate (0.25, 0.25);
+		speed = new Cordinate (0.25, 0.25);
 		radius = 12.0;
 		explosion_start = 0;
 		explosion_end = 0;
@@ -26,6 +30,19 @@ public class Player implements Observer, Character{
 		exploding = false;
 	}
 	
+	Player(int maxHP){
+		if (maxHP < 1) maxHP = 1;
+		life = new LifeBarPlayer (maxHP);
+		projectiles = new ArrayList <Pprojectile>();
+		position = new Cordinate(GameLib.WIDTH / 2, GameLib.HEIGHT * 0.90);
+		speed = new Cordinate (0.25, 0.25);
+		radius = 12.0;
+		explosion_start = 0;
+		explosion_end = 0;
+		nextShot = Level.getCurrentTime();
+		exploding = false;
+	}
+
 	public double getPositionX() {
 		return position.x;
 	}
@@ -41,32 +58,29 @@ public class Player implements Observer, Character{
 	public boolean isExploding() {
 		return exploding;
 	}
-
+	
 	public void setExploding() {
 		exploding = true;
 		explosion_start = Level.getCurrentTime();
 		explosion_end = Level.getCurrentTime() + 2000;
 	}
 
-	private void verificaExplosionPlayer(){
+	private void verifyExplosion(){
 		if(exploding){
 			if(Level.getCurrentTime() > explosion_end){
 				//state = Main.ACTIVE;
 				exploding = false;
+				life.restoreHp();
 			}
 		}
 	}
-	
-	private void verificaEntradaPlayer(){
-		/********************************************/
+	private void readIn(){
 		/* Verificando entrada do usuário (teclado) */
-		/********************************************/
-		
 		if(!exploding){
-			if(GameLib.iskeyPressed(GameLib.KEY_UP)) position.y -= Level.getDelta() * speedy.y;
-			if(GameLib.iskeyPressed(GameLib.KEY_DOWN)) position.y += Level.getDelta() * speedy.y;
-			if(GameLib.iskeyPressed(GameLib.KEY_LEFT)) position.x -= Level.getDelta() * speedy.x;
-			if(GameLib.iskeyPressed(GameLib.KEY_RIGHT)) position.x += Level.getDelta() * speedy.x;
+			if(GameLib.iskeyPressed(GameLib.KEY_UP)) position.y -= Level.getDelta() * speed.y;
+			if(GameLib.iskeyPressed(GameLib.KEY_DOWN)) position.y += Level.getDelta() * speed.y;
+			if(GameLib.iskeyPressed(GameLib.KEY_LEFT)) position.x -= Level.getDelta() * speed.x;
+			if(GameLib.iskeyPressed(GameLib.KEY_RIGHT)) position.x += Level.getDelta() * speed.x;
 			if(GameLib.iskeyPressed(GameLib.KEY_CONTROL)) {
 				if(Level.getCurrentTime() > nextShot){
 						projectiles.add(new Pprojectile(position.x, position.y - 2 * radius, 0.0, -1.0));
@@ -86,9 +100,15 @@ public class Player implements Observer, Character{
 		if(position.y >= GameLib.HEIGHT) position.y = GameLib.HEIGHT - 1;
 	}
 	
-	 public void draw(){
+	public boolean isVulnerable(){
+		return life.isVulnerable();
+	}
+	
+	public void draw(){
 		for (Pprojectile projectile : projectiles)
 			projectile.draw();
+		
+		life.draw();
 		
 		/* desenhando player */
 		if(exploding){
@@ -96,7 +116,7 @@ public class Player implements Observer, Character{
 			double alpha = (Level.getCurrentTime() - explosion_start) / (explosion_end - explosion_start);
 			GameLib.drawExplosion(position.x, position.y, alpha);
 		}
-		else{
+		else {
 			
 			GameLib.setColor(Color.BLUE);
 			GameLib.drawPlayer(position.x, position.y, radius);
@@ -118,8 +138,8 @@ public class Player implements Observer, Character{
 		for (Pprojectile projectile : inactiveProjectiles)
 			projectiles.remove(projectile);
 		
-		verificaExplosionPlayer();
-		verificaEntradaPlayer();
+		verifyExplosion();
+		readIn();
 	}
 
 }

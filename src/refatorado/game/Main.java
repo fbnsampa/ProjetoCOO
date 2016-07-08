@@ -1,17 +1,23 @@
 package refatorado.game;
 
+import java.io.*;
+import java.util.Scanner;
+
 import refatorado.gamelib.GameLib;
 
+//main exdruxulo
 public class Main{
 	
 	/* Constantes relacionadas aos estados que os elementos   */
 	/* do jogo (player, projeteis ou inimigos) podem assumir. */
 
 	public static Player player;
-	
+	public static boolean EndLevel;
+	public static long EndLevelTime;
 	/* Indica que o jogo está em execução */
 	private static boolean running;
 
+	
 	protected static void setRunning(boolean running) {
 		Main.running = running;
 	}
@@ -25,19 +31,36 @@ public class Main{
 	}
 	
 	/* Método principal */
-	
 	public static void main(String [] args){
+		
+		//leitura de arquivo
+		int maxHP = 0;
+		int numLevel = 0;
+		String [] fileNames = new String [1];
+		File file = new File (args[0]);
+		
+		try (Scanner in = new Scanner(file)){
+			maxHP = in.nextInt();
+			numLevel = in.nextInt();
+			in.nextLine();
+			fileNames = new String [numLevel];
 
+			for (int i = 0; i < numLevel; i++)
+				fileNames[i] = in.nextLine();
+			
+		} catch (FileNotFoundException x){
+			System.out.println("'" + args[0] + "'" + " file not found!");
+			x.printStackTrace();			
+		}
+		
 		/* Indica que o jogo está em execução */
 		running = true;
-
-		player = new Player();
-		Level level = new Level();
 		Background background = new Background();
 
 		/* iniciado interface gráfica */
 		
 		GameLib.initGraphics();
+		player = new Player();
 		
 		/*************************************************************************************************/
 		/*                                                                                               */
@@ -58,20 +81,29 @@ public class Main{
 		/*                                                                                               */
 		/*************************************************************************************************/
 		
-		while(running){
-		
-			level.run();
-			
-			/* desenhando plano fundo*/
-			background.desenha();
-			
-			GameLib.display();
-			
-			/* faz uma pausa de modo que cada execução do laço do main loop demore aproximadamente 5 ms. */
-			
-			busyWait(Level.getCurrentTime() + 5);
+		for (int i = 0; i < numLevel; i++){
+			System.out.println("Level " + i);
+			Level level = new Level();
+			level.load(fileNames[i]);
+			EndLevel = false;
+			while(running && !EndLevel){
+				background.desenha();
+				level.run();
+					
+				/* desenhando plano fundo*/
+
+				
+				GameLib.display();
+				
+				/* faz uma pausa de modo que cada execução do laço do main loop demore aproximadamente 5 ms. */
+				
+				busyWait(Level.getCurrentTime() + 5);
+				
+				//if (EndLevel && Level.getCurrentTime() > EndLevelTime) break;
+			}
+			player.life.restoreHp();
+			if (!running) break;
 		}
-		
 		System.exit(0);
 	}
 	
