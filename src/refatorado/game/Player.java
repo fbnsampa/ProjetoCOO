@@ -116,7 +116,7 @@ public class Player implements Observer, Character{
 			double alpha = (Level.getCurrentTime() - explosion_start) / (explosion_end - explosion_start);
 			GameLib.drawExplosion(position.x, position.y, alpha);
 		}
-		else{
+		else {
 			
 			GameLib.setColor(Color.BLUE);
 			GameLib.drawPlayer(position.x, position.y, radius);

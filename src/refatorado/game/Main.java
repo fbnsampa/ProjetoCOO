@@ -12,7 +12,8 @@ public class Main{
 	/* do jogo (player, projeteis ou inimigos) podem assumir. */
 
 	public static Player player;
-	
+	public static boolean EndLevel;
+	public static long EndLevelTime;
 	/* Indica que o jogo está em execução */
 	private static boolean running;
 
@@ -83,8 +84,9 @@ public class Main{
 		for (int i = 0; i < numLevel; i++){
 			Level level = new Level();
 			level.load(fileNames[i]);
-			
-			while(running){
+			EndLevel = false;
+			System.out.println("Novo Level!");
+			while(running && !EndLevel){
 			
 				level.run();
 				
@@ -96,6 +98,8 @@ public class Main{
 				/* faz uma pausa de modo que cada execução do laço do main loop demore aproximadamente 5 ms. */
 				
 				busyWait(Level.getCurrentTime() + 5);
+				
+				//if (EndLevel && Level.getCurrentTime() > EndLevelTime) break;
 			}
 		}
 		System.exit(0);

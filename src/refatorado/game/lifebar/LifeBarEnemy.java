@@ -7,7 +7,7 @@ public class LifeBarEnemy extends LifeBar {
 
 	public LifeBarEnemy(int hp) {
 		super(hp);
-		// TODO Auto-generated constructor stub
+		this.invulnerableDuration = 100;
 	}
 	
 	public void draw(){

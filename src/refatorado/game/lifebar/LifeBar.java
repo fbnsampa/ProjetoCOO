@@ -7,7 +7,8 @@ abstract class LifeBar {
 	protected int hp;
 	protected int maxhp;
 	protected boolean vulnerable;
-	protected long invulnerableEnd;
+	protected long invulnerableEnd; 	
+	protected long invulnerableDuration;
 	
 	LifeBar(int hp){
 		maxhp = hp;
@@ -26,7 +27,7 @@ abstract class LifeBar {
 		if (vulnerable){
 			this.hp--;
 			vulnerable = false;
-			invulnerableEnd = Level.getCurrentTime() + 1000;
+			invulnerableEnd = Level.getCurrentTime() + invulnerableDuration;
 			draw();
 			if(this.hp == 0) return true;
 		}

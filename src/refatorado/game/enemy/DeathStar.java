@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.util.LinkedList;
 
 import refatorado.game.Level;
+import refatorado.game.Main;
 import refatorado.game.lifebar.LifeBarEnemy;
 import refatorado.game.projectile.Eprojectile;
 import refatorado.gamelib.GameLib;
@@ -56,10 +57,6 @@ public class DeathStar extends Enemy implements EnemyInterface {
 			GameLib.setColor(Color.DARK_GRAY);
 			GameLib.drawBall(position.x+radius/3.0, position.y-radius/2.5, radius/3.5);
 			GameLib.fillRect(position.x, position.y, radius*2, 1);
-			
-//			GameLib.setColor(Color.RED);
-//			GameLib.fillRect(0.0, 0.0, 100.0, 52.0);
-			
 		} else if (Level.getCurrentTime() <= explosion_end){
 			double alpha = (Level.getCurrentTime() - explosion_start) / (explosion_end - explosion_start);
 			GameLib.drawExplosion(position.x, position.y, alpha);
@@ -84,14 +81,16 @@ public class DeathStar extends Enemy implements EnemyInterface {
 		if(!exploding){
 			//se o inimigo estiver acima do personagem e o tempo atual for maior
 			//que o tempo do próximo tiro acontece um disparo
-			if(Level.getCurrentTime() > nextShot &&
-				position.x > 120.0 && position.x < GameLib.WIDTH - 120.0 &&
-				position.y > 240.0 && position.y < GameLib.HEIGHT - 240){
+			if(Level.getCurrentTime() > nextShot){
 				shoot();
 				//o tempo do próximo disparo é atualizado
-				nextShot = (long) (Level.getCurrentTime() + 4000);
+				nextShot = (long) (Level.getCurrentTime() + 4500);
 			}
+			
 			move();
+		} else {
+			Main.EndLevel = true;
+			//Main.EndLevelTime = Level.getCurrentTime() + 3000;
 		}
 	}
 	

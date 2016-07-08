@@ -3,9 +3,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 import refatorado.game.enemy.Enemy;
+import refatorado.game.enemy.Overlord;
 import refatorado.game.enemy.Ship;
 import refatorado.game.enemy.Worm;
-import refatorado.game.enemy.Boss;
 import refatorado.game.enemy.DeathStar;
 import refatorado.game.projectile.Eprojectile;
 import refatorado.game.projectile.Pprojectile;
@@ -19,7 +19,6 @@ public class Level extends Subject<Enemy>{
 	private LinkedList <Enemy> explodingEnemys;
 	private List <Enemy> nextEnemys;
 	int count =  0;
-	//Enemy meuBoss;
 	
 	public Level (){
 		super();
@@ -29,8 +28,6 @@ public class Level extends Subject<Enemy>{
 		currentTime = System.currentTimeMillis();
 		startTime = currentTime;
 		delta = 0;
-		Ship.setNext(System.currentTimeMillis() + 2000); //bizarro porem provisorio
-		Worm.setNext(System.currentTimeMillis() + 7000); //bizarro porem provisorio
 	}
 	
 	public static long getCurrentTime() {
@@ -50,24 +47,21 @@ public class Level extends Subject<Enemy>{
 			
 			while (in.hasNext()){
 				line = in.nextLine().split(" ");
-				Enemy novo;
 				if (line.length == 5){ //eh um inimigo comum
 					int type = Integer.parseInt(line[1]);
 					double x = Double.parseDouble(line[3]);
 					double y = Double.parseDouble(line[4]);
 					long spawn = Long.parseLong(line[2]);
-					if (type == 1) novo = new Ship(x, y, spawn);
-					else novo = new Worm(x, y, spawn);
-					nextEnemys.add(novo);
+					if (type == 1) nextEnemys.add(new Ship(x, y, spawn));
+					else nextEnemys.add(new Worm(x, y, spawn));
 				} else { //eh um boss
 					int type = Integer.parseInt(line[1]);
 					int maxHP = Integer.parseInt(line[2]);
 					double x = Double.parseDouble(line[4]);
 					double y = Double.parseDouble(line[5]);
 					long spawn = Long.parseLong(line[3]);
-					if (type == 1) novo = new DeathStar(x, y, spawn,maxHP);
-					else novo = new Boss(x, y, spawn, maxHP);
-					//meuBoss = novo;
+					if (type == 1) nextEnemys.add(new DeathStar(x, y, spawn,maxHP));
+					else nextEnemys.add(new Overlord(x, y, spawn, maxHP));
 				}
 				//Ordenar elementos de nextEnemys em ordem crescente de spawn
 				Collections.sort(nextEnemys);
@@ -89,7 +83,7 @@ public class Level extends Subject<Enemy>{
 			dist = Math.sqrt(dx * dx + dy * dy);
 
 			if (dist < (player.getRadius() + enemy.getRadius()) * 0.8){
-				System.out.println(count);
+//				System.out.println(count);
 				if (player.life.takeHit()) player.setExploding();
 				return;
 			}
@@ -110,9 +104,10 @@ public class Level extends Subject<Enemy>{
 
 	//Verifica se os projéteis atirados pelo player destruiu algum inimigo
 	public void verifyEnemyColision (){
+		List <Pprojectile> inactiveProjectiles = new LinkedList<Pprojectile>();
 		for (Pprojectile projectile : player.projectiles){
 			for (Enemy enemy : observers){
-				if (!enemy.isExploding() && enemy.isVulnerable()){
+				if (!enemy.isExploding() || enemy.isVulnerable()){
 					double dx = enemy.getPositionX() - projectile.getPositionX();
 					double dy = enemy.getPositionY() - projectile.getPositionY();
 					double dist = Math.sqrt(dx * dx + dy * dy);
@@ -121,10 +116,13 @@ public class Level extends Subject<Enemy>{
 							enemy.setExploding();
 							explodingEnemys.add(enemy);
 						}
+						inactiveProjectiles.add(projectile);
 					}
 				} 
 			}
 		}
+		for (Pprojectile projectile : inactiveProjectiles)
+			player.projectiles.remove(projectile);
 	}
 	
 	public void launchEnemyOld (){
@@ -172,8 +170,8 @@ public class Level extends Subject<Enemy>{
 			}
 		}
 		
-//		launchEnemy();
-		if (observers.size() < 1) addObserver(new DeathStar());
+		launchEnemy();
+//		if (observers.size() < 1) addObserver(new DeathStar());
 //		launchEnemyOld();
 	
 		player.update();
@@ -191,5 +189,6 @@ public class Level extends Subject<Enemy>{
 		}
 		
 		for (Enemy enemy : inactiveEnemys) removeObserver(enemy);
+		
 	}
 }
