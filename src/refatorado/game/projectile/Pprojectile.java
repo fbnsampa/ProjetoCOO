@@ -4,9 +4,6 @@ import java.awt.Color;
 import refatorado.gamelib.GameLib;
 
 public class Pprojectile extends Projectile{
-	
-	/* variáveis dos projéteis disparados pelo player */
-
 	public Pprojectile(double x, double y, double vx, double vy){
 		super(x, y, vx, vy);
 	}

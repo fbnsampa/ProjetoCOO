@@ -17,27 +17,6 @@ public class DeathStar extends Enemy implements EnemyInterface {
 	private double previousSpeedY;
 	int color, colorAux;
 	
-	public DeathStar (){
-		super();
-		life = new LifeBarEnemy(10, "DEATHSTAR");
-		position.x = 60;
-		position.y = 80;
-		position.angle = 0.0; 		//3 * Math.PI
-		speed.x = 0.20;
-		speed.y = 0.20;
-		RV = 0.0;
-		countShot = 0;
-		nextShot = Level.getCurrentTime();
-		nextCharge = nextShot + 4000;
-		chargingEnd = nextShot;
-		radius = 60.0;
-		charging = false;
-		color = 0;
-		colorAux = 1;
-		sb = new ExplosionShot();
-		mb = new PongMove();
-	}
-	
 	public DeathStar (double x, double y, long spawn, int maxHP){
 		super(x, y, spawn);
 		if (maxHP < 1) maxHP = 1;
@@ -52,10 +31,13 @@ public class DeathStar extends Enemy implements EnemyInterface {
 		nextCharge = nextShot + 4000;
 		chargingEnd = nextShot;
 		radius = 60.0;
+		
+		//O boss não pode ficar fora da tela
 		if (x < radius) position.x = radius;
 		else if (x > GameLib.WIDTH - radius) position.x = GameLib.WIDTH - radius;
 		if (y < radius) position.y = radius;
 		else if (y > GameLib.HEIGHT - radius) position.y = GameLib.HEIGHT - radius;
+		
 		color = 0;
 		colorAux = 0;
 		sb = new ExplosionShot();
@@ -146,5 +128,4 @@ public class DeathStar extends Enemy implements EnemyInterface {
 		} else Main.EndLevel = true; //Se o boss tiver explodido
 		
 	}
-	
 }

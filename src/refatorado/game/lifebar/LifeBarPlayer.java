@@ -16,7 +16,7 @@ public class LifeBarPlayer extends LifeBar {
 		GameLib.setColor(Color.RED);
 		GameLib.fillRect(100.0, 50, 150.0, 15.0);//JOGADOR
 		
-		int aux = 150;
+		double aux = 150;
 		
 		if((hp) > 0){
 			aux = (hp)*(150/maxhp);
@@ -30,7 +30,7 @@ public class LifeBarPlayer extends LifeBar {
 	}
 	
 	public void restoreHp(){
-		this.hp = maxhp;
+		this.hp = (int) maxhp;
 		draw();
 	}
 

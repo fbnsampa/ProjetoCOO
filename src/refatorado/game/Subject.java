@@ -2,7 +2,7 @@ package refatorado.game;
 import java.util.*;
 
 abstract class Subject <T extends Observer> {
-	List <T> observers;//para mexer depois
+	List <T> observers;
 	
 	Subject (){
 		observers = new ArrayList<T>(); 

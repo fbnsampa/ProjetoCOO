@@ -6,33 +6,12 @@ import refatorado.game.projectile.Eprojectile;
 import refatorado.gamelib.GameLib;
 
 public class Worm extends Enemy implements EnemyInterface {
-	private static long next;			//não será necessario na versao final
-	private static long spawnX;			// coordenada x do próximo inimigo tipo 2 a aparecer
 	private static int count = 0;		// contagem de inimigos tipo 2 (usada na "formação de voo")
 
-	public Worm(){
-		super();
-		sb = new SplitShot();
-		mb = new SpiralMove();
-//		
-		position.x = spawnX;
-		position.y = -10.0;
-		position.angle = (3 * Math.PI) / 2;
-		speed.x = 0.42;
-		speed.y = 0.42;
-		radius = 12.0;
-		RV = 0.0;
-		count++;
-		if(count == 10){
-			Worm.count = 0; //verificar se nao deve ser -1
-		}
-	}
-	
 	public Worm(double x, double y, long spawn){
 		super(x, y, spawn);
 		sb = new SplitShot();
 		mb = new SpiralMove();
-
 		position.x = x;
 		position.y = y;
 		position.angle = (3 * Math.PI) / 2;
@@ -46,14 +25,6 @@ public class Worm extends Enemy implements EnemyInterface {
 		}
 	}
 	
-	public static long getNext() {
-		return next;
-	}
-
-	public static void setNext(long next) {
-		Worm.next = next;
-	}
-
 	public boolean isOutOfScreen(){
 		if(position.x < -10 || position.x > GameLib.WIDTH + 10 ) return true;
 		return false;

@@ -12,9 +12,6 @@ class SpiralMove implements MoveBehavior{
 		caller.position.x += caller.getSpeedX() * Math.cos(caller.position.angle) * Level.getDelta();
 		caller.position.y += caller.getSpeedY() * Math.sin(caller.position.angle) * Level.getDelta() * (-1.0);
 		caller.position.angle += caller.RV * Level.getDelta();
-		//isso define onde sera definida a curva que irá tangenciar o giro
-		//por exemplo se double threshold = GameLib.HEIGHT * 0.3 a curva tangenciara uma reta
-		//que se encontra em 30% da altura da tela
 		double threshold;
 
 		if(previousY<216) threshold = GameLib.HEIGHT * 0.3;
@@ -22,8 +19,6 @@ class SpiralMove implements MoveBehavior{
 			else if(previousY<648) threshold = GameLib.HEIGHT * 0.9;
 				else threshold = GameLib.HEIGHT;
 
-		//dependendo de onde o inimigo 2 estiver na tela a sua rotação
-		//é modificada
 		if(previousY < threshold && caller.position.y >= threshold) {
 			if(caller.position.x < GameLib.WIDTH / 2) caller.RV = 0.003;//começa girando pra direita
 			else caller.RV = -0.003;//começa girando pra esquerda

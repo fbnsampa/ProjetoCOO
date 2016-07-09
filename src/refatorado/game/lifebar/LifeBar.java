@@ -5,7 +5,7 @@ import refatorado.game.Level;
 abstract class LifeBar {
 	
 	protected int hp;
-	protected int maxhp;
+	protected double maxhp;
 	protected boolean vulnerable;
 	protected long invulnerableEnd; 	
 	protected long invulnerableDuration;

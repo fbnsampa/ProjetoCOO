@@ -5,7 +5,6 @@ import java.util.*;
 import refatorado.game.enemy.Enemy;
 import refatorado.game.enemy.Overlord;
 import refatorado.game.enemy.Ship;
-import refatorado.game.enemy.StarKiller;
 import refatorado.game.enemy.Worm;
 import refatorado.game.enemy.DeathStar;
 import refatorado.game.projectile.Eprojectile;
@@ -19,7 +18,6 @@ public class Level extends Subject<Enemy>{
 	private Player player;
 	private LinkedList <Enemy> explodingEnemys;
 	private List <Enemy> nextEnemys;
-	int count =  0;
 	
 	public Level (){
 		super();
@@ -97,7 +95,6 @@ public class Level extends Subject<Enemy>{
 				dist = Math.sqrt(dx * dx + dy * dy);
 				
 				if (dist < (player.getRadius() + projectile.getRadius()) * 0.8){
-					
 					if (player.life.takeHit()) player.setExploding();
 					return;
 				}
@@ -128,18 +125,7 @@ public class Level extends Subject<Enemy>{
 			player.projectiles.remove(projectile);
 	}
 	
-	public void launchEnemyOld (){
-		if(currentTime > Ship.getNext()){
-			addObserver(new Ship());
-			Ship.setNext(Level.currentTime + 500);
-		}
-		
-		if(currentTime > Worm.getNext()){
-			addObserver(new Worm());
-		}
-	}
-	
-	public void launchEnemy (){
+	public void launchEnemy(){
 		while (!nextEnemys.isEmpty()){
 			if (currentTime - startTime > nextEnemys.get(0).getSpawn()){
 				addObserver(nextEnemys.get(0));
@@ -149,7 +135,6 @@ public class Level extends Subject<Enemy>{
 	}
 	
 	public void run(){
-		count++;
 		delta = System.currentTimeMillis() - currentTime;
 		
 		//A variável "currentTime" nos dá o timestamp atual.
@@ -171,23 +156,22 @@ public class Level extends Subject<Enemy>{
 		}
 		
 		launchEnemy();
-//		if (observers.size() < 1) addObserver(new Overlord());
 	
 		player.update();
 		notifyObservers();
 		
 		// Desenho da cena
-		player.draw();
-		for (Enemy enemy : observers) enemy.draw();
 		
-		//Elimina os inimigos destruidos da lista de observadores
+		for (Enemy enemy : observers) enemy.draw();
+		player.draw();
+
 		for (Enemy enemy : explodingEnemys){
 			if (currentTime > enemy.getExplosion_end() && enemy.projectiles.size() == 0){
 				inactiveEnemys.add(enemy);
 			}
 		}
 		
+		//Elimina os inimigos destruidos da lista de observadores
 		for (Enemy enemy : inactiveEnemys) removeObserver(enemy);
-		
 	}
 }

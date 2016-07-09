@@ -9,26 +9,7 @@ import refatorado.gamelib.GameLib;
 
 public class Overlord extends Enemy implements EnemyInterface {
 	private long nextShot;
-	private boolean charging;
 	int color, colorAux;
-	
-	public Overlord (){
-		super();
-		life = new LifeBarEnemy(10, "OVERLORD");
-		position.x = 80;
-		position.y = 200;
-		position.angle = 0.0; 		//3 * Math.PI
-		speed.x = 0.20;
-		speed.y = 0.30;
-		RV = 0.0;
-		nextShot = Level.getCurrentTime();
-		radius = 60.0;
-		charging = false;
-		color = 0;
-		colorAux = 1;
-		sb = new LaserShot();
-		mb = new WaveMove(this, 80);
-	}
 	
 	public Overlord (double x, double y, long spawn, int maxHP){
 		super(x, y, spawn);
@@ -36,26 +17,25 @@ public class Overlord extends Enemy implements EnemyInterface {
 		life = new LifeBarEnemy (maxHP, "OVERLORD");
 		position.angle = 0.0; 		//3 * Math.PI
 		speed.x = 0.20;
-		speed.y = 0.20;
+		speed.y = 0.30;
 		RV = 0.0;
 		nextShot = Level.getCurrentTime();
 		radius = 60.0;
+		
 		if (x < radius) position.x = radius;
 		else if (x > GameLib.WIDTH - radius) position.x = GameLib.WIDTH - radius;
-		if (y < radius) position.y = radius;
-		else if (y > GameLib.HEIGHT - radius) position.y = GameLib.HEIGHT - radius;
+		if (y < radius + 80) position.y = radius + 80;
+		else if (y > GameLib.HEIGHT - radius - 80) position.y = GameLib.HEIGHT - radius - 80;
+		
 		color = 0;
 		colorAux = 0;
-		sb = new ExplosionShot();
-		mb = new WaveMove();
+		sb = new LaserShot();
+		mb = new WaveMove(this, 80);
 	}	
 	
 	public void draw(){
 		for (Eprojectile projectile : projectiles)
 			projectile.draw();
-		
-		life.draw();
-		
 		if(!exploding){
 			Color c = Color.GRAY;
 			if (color > 254) colorAux = -1;
@@ -74,20 +54,8 @@ public class Overlord extends Enemy implements EnemyInterface {
 			double alpha = (Level.getCurrentTime() - explosion_start) / (explosion_end - explosion_start);
 			GameLib.drawExplosion(position.x, position.y, alpha);
 		}
+		life.draw();
 	}
-
-	public boolean insideThreshold(){
-		double threshold = 0.35;
-		double thresholdX = GameLib.WIDTH * threshold;
-		double thresholdY = GameLib.HEIGHT * threshold;
-		
-		if (position.y > thresholdY && position.x < GameLib.HEIGHT - thresholdX &&
-				position.y < GameLib.HEIGHT - thresholdY && position.x > thresholdX) return true;
-		
-		return false;
-	}
-	
-	
 	
 	public void update(){
 		LinkedList <Eprojectile> inactiveProjectiles = new LinkedList <Eprojectile>();
@@ -100,6 +68,7 @@ public class Overlord extends Enemy implements EnemyInterface {
 				projectile.update();
 			}
 		}
+		
 		for (Eprojectile projectile : inactiveProjectiles)
 			projectiles.remove(projectile);
 		

@@ -1,14 +1,12 @@
 package refatorado.game;
 import java.awt.Color;
 import java.util.*;
-
-import refatorado.game.lifebar.LifeBarEnemy;
 import refatorado.game.lifebar.LifeBarPlayer;
 import refatorado.game.projectile.Pprojectile;
 import refatorado.gamelib.GameLib;
-//talvez essa classe não precise ser public só ship precisa dela
+
 public class Player implements Observer, Character{
-	List <Pprojectile> projectiles;//para mexer quando for usar pacotes
+	List <Pprojectile> projectiles;
 	LifeBarPlayer life;
 	private Cordinate position;
 	private Cordinate speed;
@@ -18,18 +16,6 @@ public class Player implements Observer, Character{
 	private long nextShot;						// instante a partir do qual pode haver um próximo tiro
 	private boolean exploding;
 
-	Player(){
-		life = new LifeBarPlayer (10);
-		projectiles = new ArrayList <Pprojectile>();
-		position = new Cordinate(GameLib.WIDTH / 2, GameLib.HEIGHT * 0.90);
-		speed = new Cordinate (0.25, 0.25);
-		radius = 12.0;
-		explosion_start = 0;
-		explosion_end = 0;
-		nextShot = Level.getCurrentTime();
-		exploding = false;
-	}
-	
 	Player(int maxHP){
 		if (maxHP < 1) maxHP = 1;
 		life = new LifeBarPlayer (maxHP);
@@ -74,6 +60,7 @@ public class Player implements Observer, Character{
 			}
 		}
 	}
+	
 	private void readIn(){
 		/* Verificando entrada do usuário (teclado) */
 		if(!exploding){
@@ -93,7 +80,6 @@ public class Player implements Observer, Character{
 		
 		/* Verificando se coordenadas do player ainda estão dentro	*/
 		/* da tela de jogo após processar entrada do usuário.       */
-		
 		if(position.x < 0.0) position.x = 0.0;
 		if(position.x >= GameLib.WIDTH) position.x = GameLib.WIDTH - 1;
 		if(position.y < 25.0) position.y = 25.0;
@@ -108,19 +94,17 @@ public class Player implements Observer, Character{
 		for (Pprojectile projectile : projectiles)
 			projectile.draw();
 		
-		life.draw();
-		
 		/* desenhando player */
 		if(exploding){
-			
 			double alpha = (Level.getCurrentTime() - explosion_start) / (explosion_end - explosion_start);
 			GameLib.drawExplosion(position.x, position.y, alpha);
 		}
 		else {
-			
 			GameLib.setColor(Color.BLUE);
 			GameLib.drawPlayer(position.x, position.y, radius);
 		}
+		
+		life.draw();
 	}
 	
 	public void update(){
