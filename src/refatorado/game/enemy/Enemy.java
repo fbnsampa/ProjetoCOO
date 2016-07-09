@@ -22,15 +22,6 @@ public abstract class Enemy implements Observer, Character, Comparable<Enemy>{
 	protected ShotBehavior sb;
 	protected MoveBehavior mb;
 	
-	Enemy(){
-		life = new LifeBarEnemy(1, "ENEMY");
-		projectiles = new ArrayList <Eprojectile>();
-		position = new Cordinate();
-		speed = new Cordinate();
-		exploding = false;
-		update = false;
-	}
-	
 	Enemy(double x, double y, long spawn){
 		life = new LifeBarEnemy(1, "ENEMY");
 		projectiles = new ArrayList <Eprojectile>();

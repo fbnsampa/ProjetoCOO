@@ -8,11 +8,6 @@ abstract class Projectile {
 	protected Cordinate position;
 	private Cordinate speed;
 
-	Projectile(){
-		position = new Cordinate();
-		speed = new Cordinate();
-	}
-	
 	Projectile(double x, double y, double vx, double vy){
 		position = new Cordinate(x, y);
 		speed = new Cordinate(vx, vy);

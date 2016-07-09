@@ -7,23 +7,7 @@ import refatorado.game.projectile.Eprojectile;
 import refatorado.gamelib.GameLib;
 
 public class Ship extends Enemy implements EnemyInterface  {
-	private static long next;		//não será necessario na versao final
 	private long nextShot;			// instantes do próximo tiro
-	
-	public Ship (){
-		super();
-		position.x = Math.random() * (GameLib.WIDTH - 20.0) + 10.0;
-		position.y = -10.0;
-		position.angle = 4.7123889803847;  //3 * Math.PI
-		speed.x = 0.0;
-		speed.y = 0.20 + Math.random() * 0.15;
-		RV = 0.0;
-		nextShot = Level.getCurrentTime() + 500;
-		radius = 9.0;
-		next = Level.getCurrentTime() + 500;
-		sb = new StraightShot();
-		mb = new StraightMove();
-	}
 	
 	public Ship (double x, double y, long spawn){
 		super(x, y, spawn);
@@ -33,17 +17,8 @@ public class Ship extends Enemy implements EnemyInterface  {
 		RV = 0.0;
 		nextShot = Level.getCurrentTime() + 500;
 		radius = 9.0;
-		next = Level.getCurrentTime() + 500;
 		sb = new StraightShot();
 		mb = new StraightMove();
-	}
-	
-	public static long getNext() {
-		return next;
-	}
-
-	public static void setNext(long next) {
-		Ship.next = next;
 	}
 
 	public boolean isOutOfScreen(){
@@ -87,7 +62,6 @@ public class Ship extends Enemy implements EnemyInterface  {
 	public void draw(){
 		for (Eprojectile projectile : projectiles)
 			projectile.draw();
-		
 		if(!exploding){
 			GameLib.setColor(Color.CYAN);
 			GameLib.drawCircle(position.x, position.y, radius);

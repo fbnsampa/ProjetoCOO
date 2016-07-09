@@ -16,7 +16,7 @@ public class LifeBarEnemy extends LifeBar {
 		GameLib.setColor(Color.RED);
 		GameLib.fillRect(380, 50, 150.0, 15.0);//ENEMY
 		
-		int aux = 150;
+		double aux = 150;
 		
 		if((hp) > 0){
 			aux = (hp)*(150/maxhp);

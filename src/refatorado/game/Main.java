@@ -8,14 +8,10 @@ import refatorado.gamelib.GameLib;
 
 public class Main{
 	
-	/* Constantes relacionadas aos estados que os elementos   */
-	/* do jogo (player, projeteis ou inimigos) podem assumir. */
 	public static Player player;
 	public static boolean EndLevel;
 	public static long EndLevelTime;
-	/* Indica que o jogo está em execução */
-	private static boolean running;
-
+	private static boolean running; /* Indica que o jogo está em execução */
 	
 	protected static void setRunning(boolean running) {
 		Main.running = running;
@@ -23,15 +19,12 @@ public class Main{
 
 	/* Espera, sem fazer nada, até que o instante de tempo atual seja */
 	/* maior ou igual ao instante especificado no parâmetro "time.    */
-	//teste
 	private static void busyWait(long time){
-		
 		while(System.currentTimeMillis() < time) Thread.yield();
 	}
 	
 	/* Método principal */
 	public static void main(String [] args){
-		
 		//leitura de arquivo
 		int maxHP = 0;
 		int numLevel = 0;
@@ -81,7 +74,6 @@ public class Main{
 		/*************************************************************************************************/
 		
 		for (int i = 0; i < numLevel; i++){
-			System.out.println("Level " + i);
 			Level level = new Level();
 			level.load(fileNames[i]);
 			EndLevel = false;
@@ -97,10 +89,7 @@ public class Main{
 				GameLib.display();
 				
 				/* faz uma pausa de modo que cada execução do laço do main loop demore aproximadamente 5 ms. */
-				
 				busyWait(Level.getCurrentTime() + 5);
-				
-				//if (EndLevel && Level.getCurrentTime() > EndLevelTime) break;
 			}
 			player.life.restoreHp();
 			if (!running) break;

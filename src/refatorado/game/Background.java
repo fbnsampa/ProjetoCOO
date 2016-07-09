@@ -34,13 +34,10 @@ class Background {
 			Cordinate novo = new Cordinate(Math.random() * GameLib.WIDTH, Math.random() * GameLib.HEIGHT);
 			background2.add(novo);
 		}
-		
-
 	}
 	
 	void desenha(){
 		/* desenhando plano fundo distante */
-		
 		GameLib.setColor(Color.DARK_GRAY);
 		background2_count += background2_speed * Level.getDelta();
 		
@@ -48,16 +45,12 @@ class Background {
 			GameLib.fillRect(aux.x, (aux.y + background2_count) % GameLib.HEIGHT, 2, 2);
 		}
 		
-		
 		/* desenhando plano de fundo próximo */
-		
 		GameLib.setColor(Color.GRAY);
 		background1_count += background1_speed * Level.getDelta();
 		
 		for(Cordinate aux : background1){
 			GameLib.fillRect(aux.x, (aux.y + background1_count) % GameLib.HEIGHT, 3, 3);
 		}
-		
 	}
-
 }
