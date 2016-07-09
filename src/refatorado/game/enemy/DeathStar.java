@@ -51,7 +51,7 @@ public class DeathStar extends Enemy implements EnemyInterface {
 		nextShot = Level.getCurrentTime();
 		nextCharge = nextShot + 4000;
 		chargingEnd = nextShot;
-		radius = 35.0;
+		radius = 60.0;
 		if (x < radius) position.x = radius;
 		else if (x > GameLib.WIDTH - radius) position.x = GameLib.WIDTH - radius;
 		if (y < radius) position.y = radius;

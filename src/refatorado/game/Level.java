@@ -5,6 +5,7 @@ import java.util.*;
 import refatorado.game.enemy.Enemy;
 import refatorado.game.enemy.Overlord;
 import refatorado.game.enemy.Ship;
+import refatorado.game.enemy.StarKiller;
 import refatorado.game.enemy.Worm;
 import refatorado.game.enemy.DeathStar;
 import refatorado.game.projectile.Eprojectile;
@@ -169,8 +170,8 @@ public class Level extends Subject<Enemy>{
 			}
 		}
 		
-//		launchEnemy();
-		if (observers.size() < 1) addObserver(new Overlord());
+		launchEnemy();
+//		if (observers.size() < 1) addObserver(new Overlord());
 	
 		player.update();
 		notifyObservers();
