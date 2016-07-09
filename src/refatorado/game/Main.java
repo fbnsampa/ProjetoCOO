@@ -1,16 +1,15 @@
 package refatorado.game;
 
+import java.awt.Font;
 import java.io.*;
 import java.util.Scanner;
 
 import refatorado.gamelib.GameLib;
 
-//main exdruxulo
 public class Main{
 	
 	/* Constantes relacionadas aos estados que os elementos   */
 	/* do jogo (player, projeteis ou inimigos) podem assumir. */
-
 	public static Player player;
 	public static boolean EndLevel;
 	public static long EndLevelTime;
@@ -60,7 +59,7 @@ public class Main{
 		/* iniciado interface gráfica */
 		
 		GameLib.initGraphics();
-		player = new Player();
+		player = new Player(maxHP);
 		
 		/*************************************************************************************************/
 		/*                                                                                               */
@@ -90,9 +89,11 @@ public class Main{
 				background.desenha();
 				level.run();
 					
-				/* desenhando plano fundo*/
-
+				/* desenhando numero da fase*/
+				Font font = new Font("Arial", Font.BOLD,13);
+				GameLib.writeName(font, "FASE " + Integer.toString(i+1), 220, 55);
 				
+				/* desenhando plano fundo*/
 				GameLib.display();
 				
 				/* faz uma pausa de modo que cada execução do laço do main loop demore aproximadamente 5 ms. */

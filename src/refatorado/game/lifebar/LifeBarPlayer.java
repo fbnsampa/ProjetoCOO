@@ -6,7 +6,7 @@ import java.awt.Font;
 public class LifeBarPlayer extends LifeBar {
 
 	public LifeBarPlayer(int hp) {
-		super(hp);
+		super(hp, "PLAYER");
 		this.invulnerableDuration = 1000;
 	}
 	
@@ -20,12 +20,12 @@ public class LifeBarPlayer extends LifeBar {
 		
 		if((hp) > 0){
 			aux = (hp)*(150/maxhp);
-			GameLib.setColor(Color.GREEN);
+			GameLib.setColor(new Color (0,180,0));
 			GameLib.fillRect((100-(150-aux)/2), 50, aux, 15.0);
 		}
 		 
 		Font playerfont = new Font("Arial", Font.BOLD,11);
-		GameLib.writeName(playerfont, "PLAYER", 83, 55);
+		GameLib.writeName(playerfont, name, 83, 55);
 		 
 	}
 	

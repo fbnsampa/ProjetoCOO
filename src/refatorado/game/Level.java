@@ -5,6 +5,7 @@ import java.util.*;
 import refatorado.game.enemy.Enemy;
 import refatorado.game.enemy.Overlord;
 import refatorado.game.enemy.Ship;
+import refatorado.game.enemy.StarKiller;
 import refatorado.game.enemy.Worm;
 import refatorado.game.enemy.DeathStar;
 import refatorado.game.projectile.Eprojectile;
@@ -53,7 +54,9 @@ public class Level extends Subject<Enemy>{
 					double y = Double.parseDouble(line[4]);
 					long spawn = Long.parseLong(line[2]);
 					if (type == 1) nextEnemys.add(new Ship(x, y, spawn));
-					else nextEnemys.add(new Worm(x, y, spawn));
+					else 
+						for(int i = 1; i <= 10; i++ )
+							nextEnemys.add(new Worm(x, y, spawn + i * 120 ));
 				} else { //eh um boss
 					int type = Integer.parseInt(line[1]);
 					int maxHP = Integer.parseInt(line[2]);
@@ -84,7 +87,6 @@ public class Level extends Subject<Enemy>{
 			dist = Math.sqrt(dx * dx + dy * dy);
 
 			if (dist < (player.getRadius() + enemy.getRadius()) * 0.8){
-//				System.out.println(count);
 				if (player.life.takeHit()) player.setExploding();
 				return;
 			}
@@ -142,7 +144,6 @@ public class Level extends Subject<Enemy>{
 			if (currentTime - startTime > nextEnemys.get(0).getSpawn()){
 				addObserver(nextEnemys.get(0));
 				nextEnemys.remove(0);
-				//count++;
 			} else return;
 		}
 	}
@@ -153,8 +154,6 @@ public class Level extends Subject<Enemy>{
 		
 		//A variável "currentTime" nos dá o timestamp atual.
 		currentTime = System.currentTimeMillis();
-		
-		//System.out.println("X: " + meuBoss.getPositionX() + "   Y: " + meuBoss.getPositionY());
 		
 		//Verificação de colisões
 		if (!player.isExploding() || player.isVulnerable()) verifyPlayerColision();
@@ -172,8 +171,7 @@ public class Level extends Subject<Enemy>{
 		}
 		
 		launchEnemy();
-//		if (observers.size() < 1) addObserver(new DeathStar());
-//		launchEnemyOld();
+//		if (observers.size() < 1) addObserver(new Overlord());
 	
 		player.update();
 		notifyObservers();

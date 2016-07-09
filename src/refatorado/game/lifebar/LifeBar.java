@@ -9,10 +9,12 @@ abstract class LifeBar {
 	protected boolean vulnerable;
 	protected long invulnerableEnd; 	
 	protected long invulnerableDuration;
+	protected String name;
 	
-	LifeBar(int hp){
+	LifeBar(int hp, String name){
 		maxhp = hp;
 		this.hp = hp;
+		this.name = name;
 		vulnerable = true;
 		invulnerableEnd = System.currentTimeMillis();
 		draw();
@@ -22,7 +24,6 @@ abstract class LifeBar {
 	public boolean takeHit(){
 		
 		if (!vulnerable && (Level.getCurrentTime() > invulnerableEnd)) vulnerable = true;
-//		else System.out.println("CurrentTime = " + Level.getCurrentTime() + "   invulnerableEnd = " + invulnerableEnd);
 		
 		if (vulnerable){
 			this.hp--;
